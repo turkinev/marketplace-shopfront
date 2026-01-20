@@ -88,14 +88,16 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 bg-card shadow-sm">
-        <div className="container flex items-center justify-between h-14 px-4">
-          <Button variant="ghost" size="icon" className="text-foreground">
+        <div className="container flex items-center gap-2 h-14 px-4">
+          <Button variant="ghost" size="icon" className="text-foreground flex-shrink-0">
             <ArrowLeft className="h-5 w-5" />
           </Button>
           
-          <span className="font-semibold text-foreground">Магазин</span>
+          <div className="flex-1">
+            <SearchBar />
+          </div>
           
-          <div className="flex items-center gap-1">
+          <div className="flex items-center flex-shrink-0">
             <Button variant="ghost" size="icon" className="text-foreground">
               <Share2 className="h-5 w-5" />
             </Button>
@@ -122,8 +124,6 @@ const Index = () => {
           smallBanners={smallBanners}
         />
 
-        {/* Search */}
-        <SearchBar />
 
         {/* Categories */}
         <CategoryTabs categories={categories} />
