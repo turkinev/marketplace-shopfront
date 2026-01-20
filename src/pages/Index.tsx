@@ -3,6 +3,7 @@ import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
+import { StoreTabs } from "@/components/StoreTabs";
 import { ArrowLeft, Share2, MoreVertical, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
@@ -83,6 +84,9 @@ const Index = () => {
 
         {/* Promo Banners */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
+
+        {/* Store Tabs */}
+        <StoreTabs />
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 gap-3">
