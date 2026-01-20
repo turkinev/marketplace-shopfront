@@ -1,9 +1,11 @@
+import { useEffect, useRef, useCallback } from "react";
 import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
-import { ArrowLeft, Share2, MoreVertical } from "lucide-react";
+import { ArrowLeft, Share2, MoreVertical, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 
 const mainBanner = {
   id: "promo-1",
@@ -18,63 +20,39 @@ const smallBanners = [
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
 ];
 
-const products = [
-  {
-    id: "1",
-    name: "Зубная паста GRASS Crispi для чувствительных зубов с дозатором 250мл",
-    imageUrl: "https://i256.63pokupki.ru/item/x256/136055624f3ebdb2e80c5817d0321ecd18bq4fzqfmbuj2nqc.jpg",
-    price: 184,
-    oldPrice: 263,
-    rating: 4.8,
-    reviewsCount: 2453,
-  },
-  {
-    id: "2",
-    name: "Мыло жидкое хозяйственное с маслом кедра (1000 мл)",
-    imageUrl: "https://i256.63pokupki.ru/item/x256/033ac89c7084a4add05ab228d1749711imwhzzwlr6fpj91.jpg",
-    price: 110,
-    oldPrice: 177,
-    rating: 4.6,
-    reviewsCount: 891,
-  },
-  {
-    id: "3",
-    name: "Портативная колонка водонепроницаемая",
-    imageUrl: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop",
-    price: 3490,
-    rating: 4.7,
-    reviewsCount: 1256,
-  },
-  {
-    id: "4",
-    name: "Рюкзак для ноутбука 15.6 дюймов",
-    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
-    price: 2990,
-    oldPrice: 4490,
-    rating: 4.5,
-    reviewsCount: 678,
-    isLiked: true,
-  },
-  {
-    id: "5",
-    name: "Механическая клавиатура с RGB подсветкой",
-    imageUrl: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=400&h=400&fit=crop",
-    price: 5990,
-    oldPrice: 8990,
-    rating: 4.9,
-    reviewsCount: 432,
-  },
-  {
-    id: "6",
-    name: "Беспроводная мышь эргономичная",
-    imageUrl: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
-    price: 1990,
-    rating: 4.4,
-    reviewsCount: 567,
-  },
-];
-
 const Index = () => {
+  const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasMore && !isLoading) {
+        loadMore();
+      }
+    },
+    [hasMore, isLoading, loadMore]
+  );
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: null,
+      rootMargin: "100px",
+      threshold: 0,
+    });
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [handleObserver]);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
@@ -112,6 +90,16 @@ const Index = () => {
           {products.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
+        </div>
+
+        {/* Load More Trigger */}
+        <div ref={loadMoreRef} className="flex justify-center py-4">
+          {isLoading && (
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          )}
+          {!hasMore && products.length > 0 && (
+            <p className="text-sm text-muted-foreground">Все товары загружены</p>
+          )}
         </div>
       </main>
     </div>
