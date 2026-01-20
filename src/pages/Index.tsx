@@ -15,10 +15,7 @@ const mainBanner = {
 };
 
 const smallBanners = [
-  {
-    id: "collection-1",
-    imageUrl: "https://drive.google.com/file/d/1HncX6CBMpbzLYuQqCPMvbJShzuh8W6fY/view?usp=sharing",
-  },
+  { id: "collection-1", title: "Хиты продаж", bgColor: "hsl(280, 65%, 50%)" },
   { id: "collection-2", title: "Новинки", bgColor: "hsl(160, 65%, 40%)" },
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
 ];
