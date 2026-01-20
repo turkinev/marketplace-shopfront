@@ -1,6 +1,5 @@
 import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
-import { CategoryTabs } from "@/components/CategoryTabs";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { ArrowLeft, Share2, MoreVertical } from "lucide-react";
@@ -19,13 +18,6 @@ const smallBanners = [
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
 ];
 
-const categories = [
-  { id: "all", name: "Все товары", count: 1250 },
-  { id: "new", name: "Новинки", count: 48 },
-  { id: "sale", name: "Скидки", count: 156 },
-  { id: "popular", name: "Популярное", count: 320 },
-  { id: "electronics", name: "Электроника", count: 89 },
-];
 
 const products = [
   {
@@ -123,10 +115,6 @@ const Index = () => {
           mainBanner={mainBanner}
           smallBanners={smallBanners}
         />
-
-
-        {/* Categories */}
-        <CategoryTabs categories={categories} />
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 gap-3">
