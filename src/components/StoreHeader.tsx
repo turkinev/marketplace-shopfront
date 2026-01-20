@@ -41,13 +41,13 @@ export const StoreHeader = ({
             {name.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        
+
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <h1 className="text-lg font-bold text-foreground truncate">{name}</h1>
             <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
           </div>
-          <p className="text-sm text-muted-foreground">Официальный магазин</p>
+          <p className="text-sm text-muted-foreground">Поставщик</p>
         </div>
       </div>
 
@@ -87,18 +87,10 @@ export const StoreHeader = ({
 
       {/* Action Buttons */}
       <div className="flex gap-3 mt-4">
-        <Button 
-          className="flex-1" 
-          variant="default"
-          onClick={onCatalogClick}
-        >
+        <Button className="flex-1" variant="default" onClick={onCatalogClick}>
           Каталог
         </Button>
-        <Button 
-          variant="outline"
-          size="icon"
-          onClick={onContactClick}
-        >
+        <Button variant="outline" size="icon" onClick={onContactClick}>
           <MessageCircle className="h-5 w-5" />
         </Button>
       </div>
