@@ -21,10 +21,10 @@ const smallBanners = [
 const products = [
   {
     id: "1",
-    name: "Беспроводные наушники с шумоподавлением Premium",
-    imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
-    price: 4990,
-    oldPrice: 7990,
+    name: "Зубная паста GRASS Crispi для чувствительных зубов с дозатором 250мл",
+    imageUrl: "https://i512.63pokupki.ru/item/x512/136055624f3ebdb2e80c5817d0321ecd18bq4fzqfmbuj2nqc.jpg",
+    price: 184,
+    oldPrice: 263,
     rating: 4.8,
     reviewsCount: 2453,
   },
