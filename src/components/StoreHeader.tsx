@@ -1,4 +1,4 @@
-import { Star, Package, Heart, ChevronRight } from "lucide-react";
+import { Star, Package, Heart, ChevronRight, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +8,8 @@ interface StoreHeaderProps {
   rating: number;
   ordersCount: number;
   likesCount: number;
-  isSubscribed?: boolean;
+  onCatalogClick?: () => void;
+  onContactClick?: () => void;
 }
 
 export const StoreHeader = ({
@@ -17,7 +18,8 @@ export const StoreHeader = ({
   rating,
   ordersCount,
   likesCount,
-  isSubscribed = false,
+  onCatalogClick,
+  onContactClick,
 }: StoreHeaderProps) => {
   const formatNumber = (num: number): string => {
     if (num >= 1000000) {
@@ -83,13 +85,23 @@ export const StoreHeader = ({
         </div>
       </div>
 
-      {/* Subscribe Button */}
-      <Button 
-        className="w-full mt-4" 
-        variant={isSubscribed ? "secondary" : "default"}
-      >
-        {isSubscribed ? "Вы подписаны" : "Подписаться"}
-      </Button>
+      {/* Action Buttons */}
+      <div className="flex gap-3 mt-4">
+        <Button 
+          className="flex-1" 
+          variant="default"
+          onClick={onCatalogClick}
+        >
+          Каталог
+        </Button>
+        <Button 
+          variant="outline"
+          size="icon"
+          onClick={onContactClick}
+        >
+          <MessageCircle className="h-5 w-5" />
+        </Button>
+      </div>
     </div>
   );
 };
