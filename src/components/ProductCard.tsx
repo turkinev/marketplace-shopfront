@@ -1,4 +1,5 @@
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, ShoppingCart } from "lucide-react";
+import { Button } from "./ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -84,7 +85,7 @@ export const ProductCard = ({
 
         {/* Rating */}
         {rating && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 mb-2">
             <Star className="h-3.5 w-3.5 fill-rating text-rating" />
             <span className="text-xs font-medium text-foreground">{rating}</span>
             {reviewsCount && (
@@ -94,6 +95,18 @@ export const ProductCard = ({
             )}
           </div>
         )}
+
+        {/* Add to Cart Button */}
+        <Button 
+          size="sm" 
+          className="w-full gap-2"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <ShoppingCart className="h-4 w-4" />
+          В корзину
+        </Button>
       </div>
     </div>
   );
