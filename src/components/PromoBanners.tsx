@@ -34,14 +34,16 @@ export const PromoBanners = ({
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent p-4 flex flex-col justify-center">
-          <h3 className="text-white font-bold text-lg">{mainBanner.title}</h3>
-          {mainBanner.subtitle && (
-            <p className="text-white/80 text-sm mt-1">{mainBanner.subtitle}</p>
-          )}
-        </div>
+        {(mainBanner.title || mainBanner.subtitle) && (
+          <div className="absolute inset-0 p-4 flex flex-col justify-center">
+            {mainBanner.title && <h3 className="text-white font-bold text-lg drop-shadow-md">{mainBanner.title}</h3>}
+            {mainBanner.subtitle && (
+              <p className="text-white/80 text-sm mt-1 drop-shadow-md">{mainBanner.subtitle}</p>
+            )}
+          </div>
+        )}
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
-          <ChevronRight className="h-6 w-6 text-white/60" />
+          <ChevronRight className="h-6 w-6 text-white/80 drop-shadow-md" />
         </div>
       </div>
 
@@ -61,11 +63,13 @@ export const PromoBanners = ({
                 className="absolute inset-0 w-full h-full object-cover"
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-2 flex flex-col justify-end">
-              <h4 className="text-white font-semibold text-xs leading-tight">
-                {banner.title}
-              </h4>
-            </div>
+            {banner.title && (
+              <div className="absolute inset-0 p-2 flex flex-col justify-end">
+                <h4 className="text-white font-semibold text-xs leading-tight drop-shadow-md">
+                  {banner.title}
+                </h4>
+              </div>
+            )}
           </div>
         ))}
       </div>
