@@ -2,8 +2,22 @@ import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { CategoryTabs } from "@/components/CategoryTabs";
 import { SearchBar } from "@/components/SearchBar";
+import { PromoBanners } from "@/components/PromoBanners";
 import { ArrowLeft, Share2, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const mainBanner = {
+  id: "promo-1",
+  title: "Скидки до 50%",
+  subtitle: "На всю электронику до конца недели",
+  bgColor: "hsl(217, 91%, 50%)",
+};
+
+const smallBanners = [
+  { id: "collection-1", title: "Хиты продаж", bgColor: "hsl(280, 65%, 50%)" },
+  { id: "collection-2", title: "Новинки", bgColor: "hsl(160, 65%, 40%)" },
+  { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
+];
 
 const categories = [
   { id: "all", name: "Все товары", count: 1250 },
@@ -100,6 +114,12 @@ const Index = () => {
           rating={4.8}
           ordersCount={125400}
           likesCount={45200}
+        />
+
+        {/* Promo Banners */}
+        <PromoBanners
+          mainBanner={mainBanner}
+          smallBanners={smallBanners}
         />
 
         {/* Search */}
