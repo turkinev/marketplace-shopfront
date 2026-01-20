@@ -31,7 +31,7 @@ const products = [
   {
     id: "2",
     name: "Мыло жидкое хозяйственное с маслом кедра (1000 мл)",
-    imageUrl: "https://i256.63pokupki.ru/item/x512/033ac89c7084a4add05ab228d1749711imwhzzwlr6fpj91.jpg",
+    imageUrl: "https://i256.63pokupki.ru/item/x256/033ac89c7084a4add05ab228d1749711imwhzzwlr6fpj91.jpg",
     price: 110,
     oldPrice: 177,
     rating: 4.6,
