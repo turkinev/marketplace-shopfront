@@ -22,7 +22,7 @@ const products = [
   {
     id: "1",
     name: "Зубная паста GRASS Crispi для чувствительных зубов с дозатором 250мл",
-    imageUrl: "https://i512.63pokupki.ru/item/x512/136055624f3ebdb2e80c5817d0321ecd18bq4fzqfmbuj2nqc.jpg",
+    imageUrl: "https://i256.63pokupki.ru/item/x256/136055624f3ebdb2e80c5817d0321ecd18bq4fzqfmbuj2nqc.jpg",
     price: 184,
     oldPrice: 263,
     rating: 4.8,
