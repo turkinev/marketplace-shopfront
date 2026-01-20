@@ -37,7 +37,7 @@ export const ProductCard = ({
         <img
           src={imageUrl}
           alt={name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
         
         {/* Like Button */}
