@@ -9,6 +9,7 @@ import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 
 const mainBanner = {
   id: "promo-1",
+  title: "",
   imageUrl: "https://f63.63pokupki.ru/purchase-baner/x900/42face24b6e9de28615896071317791d6ce3h2t2mkgeking.webp",
 };
 
