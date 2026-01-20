@@ -1,20 +1,11 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const tabsData = [
   {
     value: "description",
     label: "Описание",
     content: "Добро пожаловать в наш магазин! Мы предлагаем широкий ассортимент качественных товаров по доступным ценам. Все товары проходят тщательную проверку качества перед отправкой.",
-  },
-  {
-    value: "conditions",
-    label: "Условия",
-    content: "Доставка осуществляется по всей России. Бесплатная доставка при заказе от 3000₽. Возврат товара возможен в течение 14 дней с момента получения. Оплата при получении или онлайн.",
-  },
-  {
-    value: "certificates",
-    label: "Сертификаты",
-    content: "Все товары сертифицированы и соответствуют стандартам качества ГОСТ. Имеются сертификаты соответствия и декларации на всю продукцию. Документы предоставляются по запросу.",
   },
   {
     value: "sizing",
@@ -24,28 +15,39 @@ const tabsData = [
 ];
 
 export const StoreTabs = () => {
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+
+  const handleTabClick = (value: string) => {
+    setActiveTab(activeTab === value ? null : value);
+  };
+
+  const activeContent = tabsData.find((tab) => tab.value === activeTab);
+
   return (
-    <Tabs defaultValue="description" className="w-full">
-      <TabsList className="w-full h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
+    <div className="w-full space-y-3">
+      <div className="flex flex-wrap gap-1">
         {tabsData.map((tab) => (
-          <TabsTrigger
+          <button
             key={tab.value}
-            value={tab.value}
-            className="px-3 py-2 text-sm rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-muted text-muted-foreground"
+            onClick={() => handleTabClick(tab.value)}
+            className={cn(
+              "px-3 py-2 text-sm rounded-lg transition-colors",
+              activeTab === tab.value
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80"
+            )}
           >
             {tab.label}
-          </TabsTrigger>
+          </button>
         ))}
-      </TabsList>
-      {tabsData.map((tab) => (
-        <TabsContent
-          key={tab.value}
-          value={tab.value}
-          className="mt-3 p-4 bg-card rounded-lg border border-border"
-        >
-          <p className="text-sm text-foreground leading-relaxed">{tab.content}</p>
-        </TabsContent>
-      ))}
-    </Tabs>
+      </div>
+      {activeContent && (
+        <div className="p-4 bg-card rounded-lg border border-border animate-fade-in">
+          <p className="text-sm text-foreground leading-relaxed">
+            {activeContent.content}
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
