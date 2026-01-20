@@ -17,7 +17,7 @@ const mainBanner = {
 const smallBanners = [
   {
     id: "collection-1",
-    imageUrl: "file:///C:/Users/user/Downloads/ChatGPT%20Image%2020%20янв.%202026%20г.,%2015_07_53.png",
+    imageUrl: "https://disk.yandex.ru/i/aLuzGUmcjDe0_w",
   },
   { id: "collection-2", title: "Новинки", bgColor: "hsl(160, 65%, 40%)" },
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
