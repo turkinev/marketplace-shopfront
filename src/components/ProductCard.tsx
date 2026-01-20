@@ -29,9 +29,6 @@ export const ProductCard = ({
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
   };
 
-  const discountPercent = oldPrice
-    ? Math.round(((oldPrice - price) / oldPrice) * 100)
-    : null;
 
   return (
     <div className="bg-card rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200">
@@ -56,12 +53,6 @@ export const ProductCard = ({
           />
         </button>
 
-        {/* Discount Badge */}
-        {discountPercent && (
-          <div className="absolute top-2 left-2 px-2 py-1 rounded-md bg-discount text-discount-foreground text-xs font-semibold">
-            -{discountPercent}%
-          </div>
-        )}
       </div>
 
       {/* Content */}
