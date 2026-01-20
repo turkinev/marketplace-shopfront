@@ -81,7 +81,7 @@ export const StoreHeader = ({
             <Heart className="h-4 w-4 fill-like text-like" />
             <span className="font-semibold text-foreground">{formatNumber(likesCount)}</span>
           </div>
-          <span className="text-xs text-muted-foreground">Лайков</span>
+          <span className="text-xs text-muted-foreground">Нравится</span>
         </div>
       </div>
 
