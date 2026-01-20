@@ -25,7 +25,7 @@ export const StoreTabs = () => {
 
   return (
     <div className="w-full space-y-3">
-      <div className="flex flex-wrap gap-1">
+      <div className="grid grid-cols-2 gap-2">
         {tabsData.map((tab) => (
           <button
             key={tab.value}
