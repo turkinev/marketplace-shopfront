@@ -70,7 +70,7 @@ export const ProductCard = ({
         </div>
 
         {/* Name */}
-        <h3 className="text-sm text-foreground line-clamp-2 mb-2 leading-snug">
+        <h3 className="text-sm text-foreground line-clamp-2 mb-2 leading-snug min-h-[2.5rem]">
           {name}
         </h3>
 
