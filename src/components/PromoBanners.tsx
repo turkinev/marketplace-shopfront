@@ -4,7 +4,7 @@ interface Banner {
   id: string;
   title: string;
   subtitle?: string;
-  bgColor: string;
+  bgColor?: string;
   imageUrl?: string;
 }
 
@@ -24,10 +24,17 @@ export const PromoBanners = ({
       {/* Main Banner */}
       <div
         className="relative w-full h-32 rounded-xl overflow-hidden cursor-pointer hover-scale"
-        style={{ backgroundColor: mainBanner.bgColor }}
+        style={{ backgroundColor: mainBanner.bgColor || '#374151' }}
         onClick={() => onBannerClick?.(mainBanner.id)}
       >
-        <div className="absolute inset-0 p-4 flex flex-col justify-center">
+        {mainBanner.imageUrl && (
+          <img
+            src={mainBanner.imageUrl}
+            alt={mainBanner.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent p-4 flex flex-col justify-center">
           <h3 className="text-white font-bold text-lg">{mainBanner.title}</h3>
           {mainBanner.subtitle && (
             <p className="text-white/80 text-sm mt-1">{mainBanner.subtitle}</p>
@@ -44,10 +51,17 @@ export const PromoBanners = ({
           <div
             key={banner.id}
             className="relative h-24 rounded-lg overflow-hidden cursor-pointer hover-scale"
-            style={{ backgroundColor: banner.bgColor }}
+            style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
-            <div className="absolute inset-0 p-2 flex flex-col justify-end">
+            {banner.imageUrl && (
+              <img
+                src={banner.imageUrl}
+                alt={banner.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-2 flex flex-col justify-end">
               <h4 className="text-white font-semibold text-xs leading-tight">
                 {banner.title}
               </h4>
