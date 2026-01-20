@@ -17,7 +17,7 @@ const mainBanner = {
 const smallBanners = [
   {
     id: "collection-1",
-    imageUrl: "https://disk.yandex.ru/i/aLuzGUmcjDe0_w",
+    imageUrl: "https://drive.google.com/file/d/1HncX6CBMpbzLYuQqCPMvbJShzuh8W6fY/view?usp=sharing",
   },
   { id: "collection-2", title: "Новинки", bgColor: "hsl(160, 65%, 40%)" },
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
