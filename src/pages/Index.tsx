@@ -18,7 +18,6 @@ const smallBanners = [
   { id: "collection-3", title: "До 1000₽", bgColor: "hsl(25, 85%, 55%)" },
 ];
 
-
 const products = [
   {
     id: "1",
@@ -84,11 +83,11 @@ const Index = () => {
           <Button variant="ghost" size="icon" className="text-foreground flex-shrink-0">
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          
+
           <div className="flex-1">
             <SearchBar />
           </div>
-          
+
           <div className="flex items-center flex-shrink-0">
             <Button variant="ghost" size="icon" className="text-foreground">
               <Share2 className="h-5 w-5" />
@@ -103,18 +102,10 @@ const Index = () => {
       {/* Main Content */}
       <main className="container px-4 py-4 space-y-4">
         {/* Store Header */}
-        <StoreHeader
-          name="TechGadgets Pro"
-          rating={4.8}
-          ordersCount={125400}
-          likesCount={45200}
-        />
+        <StoreHeader name="Grass - быстрая доставка" rating={4.8} ordersCount={125400} likesCount={45200} />
 
         {/* Promo Banners */}
-        <PromoBanners
-          mainBanner={mainBanner}
-          smallBanners={smallBanners}
-        />
+        <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 gap-3">
