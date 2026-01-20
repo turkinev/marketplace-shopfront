@@ -11,7 +11,7 @@ const mainBanner = {
   id: "promo-1",
   title: "Скидки до 50%",
   subtitle: "На всю электронику до конца недели",
-  bgColor: "hsl(217, 91%, 50%)",
+  imageUrl: "https://f63.63pokupki.ru/purchase-baner/x900/42face24b6e9de28615896071317791d6ce3h2t2mkgeking.webp",
 };
 
 const smallBanners = [
@@ -32,7 +32,7 @@ const Index = () => {
         loadMore();
       }
     },
-    [hasMore, isLoading, loadMore]
+    [hasMore, isLoading, loadMore],
   );
 
   useEffect(() => {
@@ -94,12 +94,8 @@ const Index = () => {
 
         {/* Load More Trigger */}
         <div ref={loadMoreRef} className="flex justify-center py-4">
-          {isLoading && (
-            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-          )}
-          {!hasMore && products.length > 0 && (
-            <p className="text-sm text-muted-foreground">Все товары загружены</p>
-          )}
+          {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
+          {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
         </div>
       </main>
     </div>
