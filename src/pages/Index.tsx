@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
@@ -7,7 +8,6 @@ import { StoreTabs } from "@/components/StoreTabs";
 import { ArrowLeft, Share2, MoreVertical, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
-
 const mainBanner = {
   id: "promo-1",
   title: "",
@@ -21,6 +21,7 @@ const smallBanners = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -80,7 +81,13 @@ const Index = () => {
       {/* Main Content */}
       <main className="container px-4 py-4 space-y-4">
         {/* Store Header */}
-        <StoreHeader name="Grass - быстрая доставка" rating={4.8} ordersCount={125400} likesCount={45200} />
+        <StoreHeader 
+          name="Grass - быстрая доставка" 
+          rating={4.8} 
+          ordersCount={125400} 
+          likesCount={45200}
+          onCatalogClick={() => navigate("/catalog")}
+        />
 
         {/* Promo Banners */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
