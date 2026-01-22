@@ -20,10 +20,10 @@ export const PromoBanners = ({
   onBannerClick,
 }: PromoBannersProps) => {
   return (
-    <div className="space-y-3 animate-fade-in">
-      {/* Main Banner */}
+    <div className="space-y-3 lg:space-y-4 animate-fade-in">
+      {/* Main Banner - Larger on desktop Ozon style */}
       <div
-        className="relative w-full h-32 md:h-48 lg:h-56 rounded-xl overflow-hidden cursor-pointer hover-scale"
+        className="relative w-full h-32 md:h-48 lg:h-64 xl:h-72 rounded-xl lg:rounded-2xl overflow-hidden cursor-pointer hover-scale"
         style={{ backgroundColor: mainBanner.bgColor || '#374151' }}
         onClick={() => onBannerClick?.(mainBanner.id)}
       >
@@ -35,24 +35,24 @@ export const PromoBanners = ({
           />
         )}
         {(mainBanner.title || mainBanner.subtitle) && (
-          <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-center">
-            {mainBanner.title && <h3 className="text-white font-bold text-lg md:text-xl lg:text-2xl drop-shadow-md">{mainBanner.title}</h3>}
+          <div className="absolute inset-0 p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+            {mainBanner.title && <h3 className="text-white font-bold text-lg md:text-xl lg:text-3xl drop-shadow-md">{mainBanner.title}</h3>}
             {mainBanner.subtitle && (
-              <p className="text-white/80 text-sm md:text-base mt-1 drop-shadow-md">{mainBanner.subtitle}</p>
+              <p className="text-white/80 text-sm md:text-base lg:text-lg mt-1 lg:mt-2 drop-shadow-md">{mainBanner.subtitle}</p>
             )}
           </div>
         )}
-        <div className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2">
-          <ChevronRight className="h-6 w-6 md:h-8 md:w-8 text-white/80 drop-shadow-md" />
+        <div className="absolute right-3 md:right-6 lg:right-8 top-1/2 -translate-y-1/2">
+          <ChevronRight className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 text-white/80 drop-shadow-md" />
         </div>
       </div>
 
-      {/* Small Banners Grid */}
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
+      {/* Small Banners Grid - 6 columns on desktop */}
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4">
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
-            className="relative h-24 md:h-28 lg:h-32 rounded-lg overflow-hidden cursor-pointer hover-scale"
+            className="relative h-24 md:h-28 lg:h-36 xl:h-40 rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
             style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
@@ -64,8 +64,8 @@ export const PromoBanners = ({
               />
             )}
             {banner.title && (
-              <div className="absolute inset-0 p-2 flex flex-col justify-end">
-                <h4 className="text-white font-semibold text-xs md:text-sm leading-tight drop-shadow-md">
+              <div className="absolute inset-0 p-2 lg:p-3 flex flex-col justify-end">
+                <h4 className="text-white font-semibold text-xs md:text-sm lg:text-base leading-tight drop-shadow-md">
                   {banner.title}
                 </h4>
               </div>
