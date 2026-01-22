@@ -32,10 +32,10 @@ export const StoreHeader = ({
   };
 
   return (
-    <div className="bg-card rounded-lg p-4 shadow-sm animate-fade-in">
+    <div className="bg-card rounded-lg p-4 lg:p-5 shadow-sm animate-fade-in">
       {/* Store Info Row */}
       <div className="flex items-center gap-3 mb-4">
-        <Avatar className="h-14 w-14 ring-2 ring-primary/20">
+        <Avatar className="h-14 w-14 lg:h-16 lg:w-16 ring-2 ring-primary/20">
           <AvatarImage src={avatarUrl} alt={name} />
           <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
             {name.slice(0, 2).toUpperCase()}
@@ -44,7 +44,7 @@ export const StoreHeader = ({
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h1 className="text-lg font-bold text-foreground truncate">{name}</h1>
+            <h1 className="text-lg lg:text-xl font-bold text-foreground truncate">{name}</h1>
             <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
           </div>
           <p className="text-sm text-muted-foreground">Поставщик</p>
