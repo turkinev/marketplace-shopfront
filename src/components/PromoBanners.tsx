@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 
 interface Banner {
   id: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   bgColor?: string;
   imageUrl?: string;
