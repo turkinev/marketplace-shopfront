@@ -70,12 +70,12 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 bg-card shadow-sm">
-        <div className="container flex items-center gap-2 h-14 px-4">
+        <div className="container flex items-center gap-2 h-14 px-4 max-w-7xl mx-auto">
           <Button variant="ghost" size="icon" className="text-foreground flex-shrink-0">
             <ArrowLeft className="h-5 w-5" />
           </Button>
 
-          <div className="flex-1">
+          <div className="flex-1 max-w-xl">
             <SearchBar />
           </div>
 
@@ -91,33 +91,49 @@ const Index = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container px-4 py-4 space-y-4">
-        {/* Store Header */}
-        <StoreHeader
-          name="Grass - быстрая доставка"
-          rating={4.8}
-          ordersCount={125400}
-          likesCount={45200}
-          onCatalogClick={() => navigate("/catalog")}
-        />
+      <main className="container px-4 py-4 md:py-6 lg:py-8 max-w-7xl mx-auto">
+        {/* Desktop: Two-column layout */}
+        <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-8">
+          {/* Left Sidebar - Store Info (sticky on desktop) */}
+          <aside className="space-y-4 lg:sticky lg:top-20 lg:self-start">
+            {/* Store Header */}
+            <StoreHeader
+              name="Grass - быстрая доставка"
+              rating={4.8}
+              ordersCount={125400}
+              likesCount={45200}
+              onCatalogClick={() => navigate("/catalog")}
+            />
 
-        {/* Promo Banners */}
-        <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
+            {/* Store Tabs - visible on desktop sidebar */}
+            <div className="hidden lg:block">
+              <StoreTabs />
+            </div>
+          </aside>
 
-        {/* Store Tabs */}
-        <StoreTabs />
+          {/* Right Content - Banners and Products */}
+          <div className="space-y-4 mt-4 lg:mt-0">
+            {/* Promo Banners */}
+            <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 gap-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
+            {/* Store Tabs - visible only on mobile */}
+            <div className="lg:hidden">
+              <StoreTabs />
+            </div>
 
-        {/* Load More Trigger */}
-        <div ref={loadMoreRef} className="flex justify-center py-4">
-          {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
-          {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
+            {/* Products Grid - responsive columns */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </div>
+
+            {/* Load More Trigger */}
+            <div ref={loadMoreRef} className="flex justify-center py-4">
+              {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
+              {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
+            </div>
+          </div>
         </div>
       </main>
     </div>
