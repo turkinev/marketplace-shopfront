@@ -5,8 +5,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { StoreTabs } from "@/components/StoreTabs";
-import { ArrowLeft, Share2, MoreVertical, Loader2 } from "lucide-react";
+import { ArrowLeft, Share2, MoreVertical, Loader2, Star, Package, Heart, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 const mainBanner = {
   id: "promo-1",
@@ -68,71 +69,137 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 bg-card shadow-sm">
-        <div className="container flex items-center gap-2 h-14 px-4 max-w-7xl mx-auto">
-          <Button variant="ghost" size="icon" className="text-foreground flex-shrink-0">
+      {/* Top Navigation - Ozon style */}
+      <header className="sticky top-0 z-50 bg-primary shadow-sm">
+        <div className="container flex items-center gap-3 h-14 px-4 max-w-7xl mx-auto">
+          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0 lg:hidden">
             <ArrowLeft className="h-5 w-5" />
           </Button>
 
-          <div className="flex-1 max-w-xl">
+          {/* Logo for desktop */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <div className="w-10 h-10 bg-primary-foreground rounded-lg flex items-center justify-center">
+              <span className="text-primary font-bold text-xl">O</span>
+            </div>
+          </div>
+
+          <div className="flex-1 max-w-2xl">
             <SearchBar />
           </div>
 
-          <div className="flex items-center flex-shrink-0">
-            <Button variant="ghost" size="icon" className="text-foreground">
+          <div className="flex items-center flex-shrink-0 gap-1">
+            <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
               <Share2 className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground">
+            <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
               <MoreVertical className="h-5 w-5" />
             </Button>
           </div>
         </div>
       </header>
 
+      {/* Desktop Category Navigation - Ozon style horizontal menu */}
+      <nav className="hidden lg:block bg-card border-b border-border">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-1 h-12 overflow-x-auto scrollbar-hide">
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2 text-foreground hover:bg-secondary px-4 h-9"
+              onClick={() => navigate("/catalog")}
+            >
+              <span className="text-sm font-medium">Каталог</span>
+            </Button>
+            <div className="w-px h-6 bg-border" />
+            {["Электроника", "Одежда", "Дом и сад", "Красота", "Спорт", "Детские товары", "Авто", "Книги"].map((cat) => (
+              <Button 
+                key={cat}
+                variant="ghost" 
+                className="text-foreground hover:bg-secondary px-3 h-9 text-sm whitespace-nowrap"
+              >
+                {cat}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Main Content */}
-      <main className="container px-4 py-4 md:py-6 lg:py-8 max-w-7xl mx-auto">
-        {/* Desktop: Two-column layout */}
-        <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-8">
-          {/* Left Sidebar - Store Info (sticky on desktop) */}
-          <aside className="space-y-4 lg:sticky lg:top-20 lg:self-start">
-            {/* Store Header */}
-            <StoreHeader
-              name="Grass - быстрая доставка"
-              rating={4.8}
-              ordersCount={125400}
-              likesCount={45200}
-              onCatalogClick={() => navigate("/catalog")}
-            />
+      <main className="container px-4 py-4 md:py-6 max-w-7xl mx-auto">
+        {/* Mobile: Store Header */}
+        <div className="lg:hidden mb-4">
+          <StoreHeader
+            name="Grass - быстрая доставка"
+            rating={4.8}
+            ordersCount={125400}
+            likesCount={45200}
+            onCatalogClick={() => navigate("/catalog")}
+          />
+        </div>
 
-            {/* Store Tabs - visible on desktop sidebar */}
-            <div className="hidden lg:block">
-              <StoreTabs />
+        {/* Desktop: Store info bar */}
+        <div className="hidden lg:flex items-center justify-between bg-card rounded-lg p-4 mb-6 shadow-sm">
+          <div className="flex items-center gap-4">
+            <Avatar className="h-12 w-12 ring-2 ring-primary/20">
+              <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                GR
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <h1 className="text-lg font-bold text-foreground">Grass - быстрая доставка</h1>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Star className="h-4 w-4 fill-rating text-rating" />
+                  4.8
+                </span>
+                <span className="flex items-center gap-1">
+                  <Package className="h-4 w-4 text-primary" />
+                  125.4K заказов
+                </span>
+                <span className="flex items-center gap-1">
+                  <Heart className="h-4 w-4 fill-like text-like" />
+                  45.2K
+                </span>
+              </div>
             </div>
-          </aside>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button variant="outline" onClick={() => navigate("/catalog")}>
+              Каталог
+            </Button>
+            <Button variant="ghost" size="icon">
+              <MessageCircle className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
 
-          {/* Right Content - Banners and Products */}
-          <div className="space-y-4 mt-4 lg:mt-0">
-            {/* Promo Banners */}
-            <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
+        {/* Promo Banners - Full width on desktop */}
+        <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
-            {/* Store Tabs - visible only on mobile */}
-            <div className="lg:hidden">
-              <StoreTabs />
-            </div>
+        {/* Store Tabs - visible only on mobile */}
+        <div className="lg:hidden mt-4">
+          <StoreTabs />
+        </div>
 
-            {/* Products Grid - responsive columns */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-              {products.map((product) => (
-                <ProductCard key={product.id} {...product} />
-              ))}
-            </div>
+        {/* Products Section */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg lg:text-xl font-bold text-foreground">Все товары</h2>
+            <Button variant="ghost" className="text-primary text-sm">
+              Смотреть все
+            </Button>
+          </div>
 
-            {/* Load More Trigger */}
-            <div ref={loadMoreRef} className="flex justify-center py-4">
-              {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
-              {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
-            </div>
+          {/* Products Grid - More columns on desktop Ozon style */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+            {products.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </div>
+
+          {/* Load More Trigger */}
+          <div ref={loadMoreRef} className="flex justify-center py-4">
+            {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
+            {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
           </div>
         </div>
       </main>
