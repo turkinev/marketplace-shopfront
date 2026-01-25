@@ -29,7 +29,7 @@ export const StoreInfo = () => {
     <div className="w-full">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-1 text-sm text-primary font-medium"
+        className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors"
       >
         Информация
         {isExpanded ? (
@@ -41,13 +41,13 @@ export const StoreInfo = () => {
 
       {isExpanded && (
         <div className="mt-3 space-y-3 animate-fade-in">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex justify-center gap-2">
             {tabsData.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => handleTabClick(tab.value)}
                 className={cn(
-                  "px-3 py-2 text-sm rounded-lg transition-colors",
+                  "px-4 py-1.5 text-sm rounded-lg transition-colors whitespace-nowrap",
                   activeTab === tab.value
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
