@@ -35,15 +35,8 @@ export const StoreHeader = ({
   return (
     <div className="bg-card rounded-lg p-4 lg:p-5 shadow-sm animate-fade-in">
       {/* Store Info Row */}
-      <div className="flex items-start gap-3 mb-2">
-        <Avatar className="h-14 w-14 lg:h-16 lg:w-16 ring-2 ring-primary/20 flex-shrink-0">
-          <AvatarImage src={avatarUrl} alt={name} />
-          <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
-            {name.slice(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-
-        <div className="flex-1 min-w-0">
+      <div className="mb-2">
+        <div className="min-w-0">
           <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">{name}</h1>
           <div className="mt-1">
             <StoreInfo />
