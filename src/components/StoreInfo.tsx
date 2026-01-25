@@ -41,13 +41,13 @@ export const StoreInfo = () => {
 
       {isExpanded && (
         <div className="mt-3 space-y-3 animate-fade-in">
-          <div className="flex justify-center gap-2">
+          <div className="flex gap-2">
             {tabsData.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => handleTabClick(tab.value)}
                 className={cn(
-                  "px-4 py-1.5 text-sm rounded-lg transition-colors whitespace-nowrap",
+                  "flex-1 px-4 py-1.5 text-sm rounded-lg transition-colors whitespace-nowrap text-center",
                   activeTab === tab.value
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
