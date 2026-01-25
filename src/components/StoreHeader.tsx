@@ -1,6 +1,7 @@
-import { Star, Package, Heart, ChevronRight, MessageCircle } from "lucide-react";
+import { Star, Package, Heart, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { StoreInfo } from "@/components/StoreInfo";
 
 interface StoreHeaderProps {
   name: string;
@@ -34,8 +35,8 @@ export const StoreHeader = ({
   return (
     <div className="bg-card rounded-lg p-4 lg:p-5 shadow-sm animate-fade-in">
       {/* Store Info Row */}
-      <div className="flex items-center gap-3 mb-4">
-        <Avatar className="h-14 w-14 lg:h-16 lg:w-16 ring-2 ring-primary/20">
+      <div className="flex items-start gap-3 mb-2">
+        <Avatar className="h-14 w-14 lg:h-16 lg:w-16 ring-2 ring-primary/20 flex-shrink-0">
           <AvatarImage src={avatarUrl} alt={name} />
           <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
             {name.slice(0, 2).toUpperCase()}
@@ -43,11 +44,10 @@ export const StoreHeader = ({
         </Avatar>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h1 className="text-lg lg:text-xl font-bold text-foreground truncate">{name}</h1>
-            <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+          <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">{name}</h1>
+          <div className="mt-1">
+            <StoreInfo />
           </div>
-          <p className="text-sm text-muted-foreground">Поставщик</p>
         </div>
       </div>
 
