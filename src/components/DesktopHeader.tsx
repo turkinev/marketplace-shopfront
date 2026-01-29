@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight, ChevronDown, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut, Package } from "lucide-react";
+import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight, ChevronDown, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut, Package, TrendingUp, Sparkles, Baby, Home, Palette, Apple, Watch, Tag, Award, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -380,6 +380,56 @@ export const DesktopHeader = () => {
             </div>
           </div>
         </div>
+
+        {/* Second Row - Navigation Links */}
+        <div className="container max-w-7xl mx-auto px-4 border-t border-primary-foreground/10">
+          <nav className="flex items-center gap-1 h-10 overflow-x-auto scrollbar-hide">
+            <a href="/top" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <TrendingUp className="h-4 w-4" />
+              <span>Топ-закупки</span>
+            </a>
+            <a href="/women" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Sparkles className="h-4 w-4" />
+              <span>Женщинам</span>
+            </a>
+            <a href="/men" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <User className="h-4 w-4" />
+              <span>Мужчинам</span>
+            </a>
+            <a href="/kids" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Baby className="h-4 w-4" />
+              <span>Детям</span>
+            </a>
+            <a href="/home" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Home className="h-4 w-4" />
+              <span>Дом</span>
+            </a>
+            <a href="/cosmetics" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Palette className="h-4 w-4" />
+              <span>Косметика</span>
+            </a>
+            <a href="/food" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Apple className="h-4 w-4" />
+              <span>Продукты</span>
+            </a>
+            <a href="/accessories" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Watch className="h-4 w-4" />
+              <span>Аксессуары</span>
+            </a>
+            <a href="/in-stock" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Tag className="h-4 w-4" />
+              <span>Товары в наличии</span>
+            </a>
+            <a href="/brands" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Award className="h-4 w-4" />
+              <span>Бренды</span>
+            </a>
+            <a href="/deal" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
+              <Zap className="h-4 w-4" />
+              <span>Товар дня</span>
+            </a>
+          </nav>
+        </div>
       </header>
 
       {/* Catalog Mega Menu */}
@@ -392,9 +442,9 @@ export const DesktopHeader = () => {
           />
           
           {/* Menu */}
-          <div className="hidden lg:block fixed top-16 left-0 right-0 z-50">
+          <div className="hidden lg:block fixed top-[104px] left-0 right-0 z-50">
             <div className="container max-w-7xl mx-auto px-4">
-              <div className="bg-card rounded-b-lg shadow-xl border border-border flex min-h-[400px] max-h-[calc(100vh-100px)] overflow-hidden">
+              <div className="bg-card rounded-b-lg shadow-xl border border-border flex min-h-[400px] max-h-[calc(100vh-120px)] overflow-hidden">
                 {/* Left Column - Categories or Purchases */}
                 <div className="w-64 border-r border-border flex flex-col">
                   {/* Tabs Switch */}
