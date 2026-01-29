@@ -206,7 +206,7 @@ export const StoreHeader = ({
 
         {/* Action Buttons */}
         <div className="flex gap-3 mt-4">
-          {isMobile ? (
+        {isMobile ? (
             <>
               <Button className="flex-1" variant="default" onClick={onCatalogClick}>
                 Каталог
@@ -214,6 +214,31 @@ export const StoreHeader = ({
               <Button variant="outline" size="icon" onClick={onContactClick}>
                 <MessageCircle className="h-5 w-5" />
               </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <Share2 className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleCopyLink}>
+                    <Link className="h-4 w-4 mr-2" />
+                    Скопировать ссылку
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleShare("vk")}>
+                    <span className="w-4 h-4 mr-2 flex items-center justify-center font-bold text-xs">VK</span>
+                    ВКонтакте
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleShare("tg")}>
+                    <Send className="h-4 w-4 mr-2" />
+                    Telegram
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleShare("wa")}>
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    WhatsApp
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
             <>

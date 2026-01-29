@@ -275,11 +275,6 @@ const Index = () => {
             <SearchBar />
           </div>
 
-          <div className="flex items-center flex-shrink-0 gap-1">
-            <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
-              <Share2 className="h-5 w-5" />
-            </Button>
-          </div>
         </div>
       </header>
 
