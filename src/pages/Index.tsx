@@ -266,7 +266,8 @@ const Index = () => {
 
       {/* Mobile Top Navigation */}
       <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
-        <div className="container flex items-center justify-between h-14 px-4 max-w-7xl mx-auto">
+        {/* First row: Logo and Icons */}
+        <div className="container flex items-center justify-between h-12 px-4 max-w-7xl mx-auto">
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="w-24 h-8 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
@@ -302,6 +303,11 @@ const Index = () => {
               </span>
             </Button>
           </div>
+        </div>
+        
+        {/* Second row: Search */}
+        <div className="container px-4 pb-3 max-w-7xl mx-auto">
+          <SearchBar placeholder="Искать в магазине" />
         </div>
       </header>
 
