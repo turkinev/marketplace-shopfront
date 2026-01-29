@@ -23,6 +23,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { toast } from "sonner";
 
 // Desktop Store Bar Component
@@ -222,7 +228,7 @@ const smallBanners = [
 const Index = () => {
   const navigate = useNavigate();
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -286,73 +292,14 @@ const Index = () => {
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
-                >
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64 bg-popover z-50">
-                {/* User nickname */}
-                <div className="px-3 py-2 border-b border-border">
-                  <p className="font-medium text-foreground">Иван Иванов</p>
-                  <p className="text-xs text-muted-foreground">ivan@example.com</p>
-                </div>
-                
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <Mail className="h-4 w-4" />
-                  Личные сообщения
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <Package className="h-4 w-4" />
-                  Избранные закупки
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <Gift className="h-4 w-4" />
-                  Список желаний
-                </DropdownMenuItem>
-                
-                <DropdownMenuSeparator />
-                
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <ListChecks className="h-4 w-4" />
-                  Личный кабинет
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <UserCircle className="h-4 w-4" />
-                  Профиль
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <Package className="h-4 w-4" />
-                  Все заказы
-                </DropdownMenuItem>
-                
-                <DropdownMenuSeparator />
-                
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <QrCode className="h-4 w-4" />
-                  QR-код для получения заказа
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer gap-2">
-                  <MapPin className="h-4 w-4" />
-                  <div className="flex flex-col">
-                    <span>Пункт выдачи</span>
-                    <span className="text-xs text-muted-foreground">ул. Примерная, д. 1</span>
-                  </div>
-                </DropdownMenuItem>
-                
-                <DropdownMenuSeparator />
-                
-                <DropdownMenuItem className="cursor-pointer gap-2 text-destructive focus:text-destructive">
-                  <LogOut className="h-4 w-4" />
-                  Выход
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
+              onClick={() => setIsProfileMenuOpen(true)}
+            >
+              <User className="h-5 w-5" />
+            </Button>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -371,6 +318,114 @@ const Index = () => {
           <SearchBar placeholder="Искать в магазине" />
         </div>
       </header>
+
+      {/* Mobile Profile Menu - Full Screen */}
+      <Sheet open={isProfileMenuOpen} onOpenChange={setIsProfileMenuOpen}>
+        <SheetContent side="right" className="w-full sm:max-w-full p-0">
+          <SheetHeader className="p-4 border-b border-border bg-primary text-primary-foreground">
+            <SheetTitle className="text-primary-foreground text-left">Профиль</SheetTitle>
+          </SheetHeader>
+          
+          <div className="flex flex-col h-[calc(100%-60px)] overflow-y-auto bg-background">
+            {/* User Info */}
+            <div className="p-4 border-b border-border bg-card">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                  <UserCircle className="h-8 w-8 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold text-lg text-foreground">Иван Иванов</p>
+                  <p className="text-sm text-muted-foreground">ivan@example.com</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex-1">
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <Mail className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Личные сообщения</span>
+              </button>
+              
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <Package className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Избранные закупки</span>
+              </button>
+              
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <Gift className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Список желаний</span>
+              </button>
+
+              <div className="h-2 bg-secondary" />
+
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <ListChecks className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Личный кабинет</span>
+              </button>
+              
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <UserCircle className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Профиль</span>
+              </button>
+              
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <Package className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">Все заказы</span>
+              </button>
+
+              <div className="h-2 bg-secondary" />
+
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <QrCode className="h-5 w-5 text-muted-foreground" />
+                <span className="text-foreground">QR-код для получения заказа</span>
+              </button>
+              
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors border-b border-border"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <MapPin className="h-5 w-5 text-muted-foreground" />
+                <div className="flex flex-col items-start">
+                  <span className="text-foreground">Пункт выдачи</span>
+                  <span className="text-sm text-muted-foreground">ул. Примерная, д. 1</span>
+                </div>
+              </button>
+
+              <div className="h-2 bg-secondary" />
+
+              <button 
+                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-secondary transition-colors text-destructive"
+                onClick={() => setIsProfileMenuOpen(false)}
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Выход</span>
+              </button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {/* Main Content */}
       <main className="container px-4 py-4 md:py-6 max-w-7xl mx-auto">
