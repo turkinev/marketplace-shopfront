@@ -14,6 +14,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 
@@ -74,16 +80,74 @@ export const StoreHeader = ({
     window.open(links[platform], "_blank");
   };
 
+  const StoreInfoContent = () => (
+    <div className="space-y-6">
+      {/* Статистика */}
+      <div className="flex items-center justify-between py-3 px-4 bg-secondary/50 rounded-lg">
+        <div className="flex items-center gap-2">
+          <Star className="h-5 w-5 fill-rating text-rating" />
+          <span className="font-semibold">{rating.toFixed(1)}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Package className="h-5 w-5 text-primary" />
+          <span className="font-semibold">{formatNumber(ordersCount)}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Heart className="h-5 w-5 fill-like text-like" />
+          <span className="font-semibold">{formatNumber(likesCount)}</span>
+        </div>
+      </div>
+
+      {/* Описание */}
+      <div className="space-y-2">
+        <h3 className="font-semibold text-foreground">Описание</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Добро пожаловать в наш магазин! Мы предлагаем широкий ассортимент качественных товаров по доступным ценам. Все товары проходят тщательную проверку качества перед отправкой.
+        </p>
+      </div>
+
+      {/* Условия */}
+      <div className="space-y-2">
+        <h3 className="font-semibold text-foreground">Условия</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Доставка осуществляется в течение 3-7 рабочих дней. Возврат товара возможен в течение 14 дней с момента получения. Оплата при получении или онлайн.
+        </p>
+      </div>
+
+      {/* Размерная сетка */}
+      <div className="space-y-2">
+        <h3 className="font-semibold text-foreground">Размерная сетка</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Размеры указаны в соответствии с международной системой. Рекомендуем сверяться с таблицей размеров в карточке товара. При возникновении вопросов обращайтесь в поддержку.
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="bg-card rounded-lg p-4 lg:p-5 shadow-sm animate-fade-in">
         {/* Store Info Row */}
         <div className="mb-2">
           <div className="min-w-0">
-            <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">{name}</h1>
-            <div className="mt-1">
-              <StoreInfo />
+            {/* Store name with info icon for mobile */}
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">{name}</h1>
+              {isMobile && (
+                <button 
+                  onClick={() => setIsInfoOpen(true)}
+                  className="p-1 rounded-full hover:bg-secondary transition-colors"
+                >
+                  <Info className="h-5 w-5 text-primary" />
+                </button>
+              )}
             </div>
+            {/* Show tabs only on desktop */}
+            {!isMobile && (
+              <div className="mt-1">
+                <StoreInfo />
+              </div>
+            )}
           </div>
         </div>
 
@@ -177,55 +241,29 @@ export const StoreHeader = ({
         </div>
       </div>
 
-      {/* Store Info Dialog */}
-      <Dialog open={isInfoOpen} onOpenChange={setIsInfoOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>{name}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            {/* Статистика */}
-            <div className="flex items-center justify-between py-3 px-4 bg-secondary/50 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 fill-rating text-rating" />
-                <span className="font-semibold">{rating.toFixed(1)}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Package className="h-5 w-5 text-primary" />
-                <span className="font-semibold">{formatNumber(ordersCount)}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Heart className="h-5 w-5 fill-like text-like" />
-                <span className="font-semibold">{formatNumber(likesCount)}</span>
-              </div>
+      {/* Mobile: Full-screen Sheet */}
+      {isMobile ? (
+        <Sheet open={isInfoOpen} onOpenChange={setIsInfoOpen}>
+          <SheetContent side="bottom" className="h-full max-h-[100dvh] rounded-t-xl">
+            <SheetHeader className="pb-4 border-b border-border">
+              <SheetTitle className="text-left">{name}</SheetTitle>
+            </SheetHeader>
+            <div className="overflow-y-auto py-4">
+              <StoreInfoContent />
             </div>
-
-            {/* Описание */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-foreground">Описание</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Добро пожаловать в наш магазин! Мы предлагаем широкий ассортимент качественных товаров по доступным ценам. Все товары проходят тщательную проверку качества перед отправкой.
-              </p>
-            </div>
-
-            {/* Условия */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-foreground">Условия</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Доставка осуществляется в течение 3-7 рабочих дней. Возврат товара возможен в течение 14 дней с момента получения. Оплата при получении или онлайн.
-              </p>
-            </div>
-
-            {/* Размерная сетка */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-foreground">Размерная сетка</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Размеры указаны в соответствии с международной системой. Рекомендуем сверяться с таблицей размеров в карточке товара. При возникновении вопросов обращайтесь в поддержку.
-              </p>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </SheetContent>
+        </Sheet>
+      ) : (
+        /* Desktop: Regular Dialog */
+        <Dialog open={isInfoOpen} onOpenChange={setIsInfoOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>{name}</DialogTitle>
+            </DialogHeader>
+            <StoreInfoContent />
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 };
