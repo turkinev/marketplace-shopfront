@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 interface Subcategory {
   id: string;
   name: string;
@@ -190,7 +191,7 @@ export const DesktopHeader = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<Category | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [isByPurchases, setIsByPurchases] = useState(false);
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -308,61 +309,112 @@ export const DesktopHeader = () => {
           <div className="hidden lg:block fixed top-16 left-0 right-0 z-50">
             <div className="container max-w-7xl mx-auto px-4">
               <div className="bg-card rounded-b-lg shadow-xl border border-border flex min-h-[400px] max-h-[calc(100vh-100px)] overflow-hidden">
-                {/* Left Column - Categories */}
-                <div className="w-64 border-r border-border overflow-y-auto">
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-secondary transition-colors ${
-                        hoveredCategory?.id === category.id ? "bg-secondary" : ""
-                      }`}
-                      onMouseEnter={() => setHoveredCategory(category)}
-                      onClick={() => handleCategoryClick(category.id)}
-                    >
-                      <span className="text-sm font-medium text-foreground">{category.name}</span>
-                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                    </button>
-                  ))}
+                {/* Left Column - Categories or Purchases */}
+                <div className="w-64 border-r border-border flex flex-col">
+                  {/* Toggle Switch */}
+                  <div className="p-4 border-b border-border">
+                    <div className="flex items-center gap-3">
+                      <Label 
+                        htmlFor="catalog-mode" 
+                        className={`text-sm cursor-pointer transition-colors ${!isByPurchases ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+                      >
+                        По товарам
+                      </Label>
+                      <Switch
+                        id="catalog-mode"
+                        checked={isByPurchases}
+                        onCheckedChange={setIsByPurchases}
+                      />
+                      <Label 
+                        htmlFor="catalog-mode" 
+                        className={`text-sm cursor-pointer transition-colors ${isByPurchases ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+                      >
+                        По закупкам
+                      </Label>
+                    </div>
+                  </div>
+
+                  {/* Categories or Subcategories List */}
+                  <div className="flex-1 overflow-y-auto">
+                    {!isByPurchases ? (
+                      // By Products - Show categories
+                      categories.map((category) => (
+                        <button
+                          key={category.id}
+                          className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-secondary transition-colors ${
+                            hoveredCategory?.id === category.id ? "bg-secondary" : ""
+                          }`}
+                          onMouseEnter={() => setHoveredCategory(category)}
+                          onClick={() => handleCategoryClick(category.id)}
+                        >
+                          <span className="text-sm font-medium text-foreground">{category.name}</span>
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                      ))
+                    ) : (
+                      // By Purchases - Show all subcategories as a flat list with images
+                      <div className="grid grid-cols-2 gap-3 p-4">
+                        {categories.flatMap((category) =>
+                          category.subcategories.map((subcategory) => (
+                            <button
+                              key={subcategory.id}
+                              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-secondary transition-colors text-center"
+                              onClick={() => handleSubcategoryClick(subcategory.id)}
+                            >
+                              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                                <span className="text-lg">📦</span>
+                              </div>
+                              <span className="text-xs font-medium text-foreground line-clamp-2">
+                                {subcategory.name}
+                              </span>
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Right Column - Subcategories */}
-                <div className="flex-1 p-6 overflow-y-auto bg-background">
-                  {hoveredCategory ? (
-                    <div className="grid grid-cols-3 gap-8">
-                      {hoveredCategory.subcategories.map((subcategory) => (
-                        <div key={subcategory.id}>
-                          <button
-                            className="text-sm font-semibold text-foreground hover:text-primary mb-3 text-left"
-                            onClick={() => handleSubcategoryClick(subcategory.id)}
-                          >
-                            {subcategory.name}
-                          </button>
-                          {subcategory.items && (
-                            <ul className="space-y-2">
-                              {subcategory.items.map((item) => (
-                                <li key={item.id}>
-                                  <button
-                                    className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
-                                    onClick={() => {
-                                      setIsCatalogOpen(false);
-                                      navigate(`/products?item=${item.id}`);
-                                    }}
-                                  >
-                                    {item.name}
-                                  </button>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-muted-foreground">
-                      Наведите на категорию для просмотра подкатегорий
-                    </div>
-                  )}
-                </div>
+                {/* Right Column - Subcategories (only in "By Products" mode) */}
+                {!isByPurchases && (
+                  <div className="flex-1 p-6 overflow-y-auto bg-background">
+                    {hoveredCategory ? (
+                      <div className="grid grid-cols-3 gap-8">
+                        {hoveredCategory.subcategories.map((subcategory) => (
+                          <div key={subcategory.id}>
+                            <button
+                              className="text-sm font-semibold text-foreground hover:text-primary mb-3 text-left"
+                              onClick={() => handleSubcategoryClick(subcategory.id)}
+                            >
+                              {subcategory.name}
+                            </button>
+                            {subcategory.items && (
+                              <ul className="space-y-2">
+                                {subcategory.items.map((item) => (
+                                  <li key={item.id}>
+                                    <button
+                                      className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                                      onClick={() => {
+                                        setIsCatalogOpen(false);
+                                        navigate(`/products?item=${item.id}`);
+                                      }}
+                                    >
+                                      {item.name}
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-muted-foreground">
+                        Наведите на категорию для просмотра подкатегорий
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
