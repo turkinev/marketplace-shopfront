@@ -8,7 +8,7 @@ import { StoreReviews } from "@/components/StoreReviews";
 import { StoreQA } from "@/components/StoreQA";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
-import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle } from "lucide-react";
+import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle, ChevronDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
@@ -265,12 +265,23 @@ const smallBanners = [
   },
 ];
 
+const sortOptions = [
+  { id: "popular", label: "По популярности" },
+  { id: "price_asc", label: "Сначала дешевле" },
+  { id: "price_desc", label: "Сначала дороже" },
+  { id: "rating", label: "По рейтингу" },
+  { id: "new", label: "Новинки" },
+];
+
 const Index = () => {
   const navigate = useNavigate();
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+  const [selectedSort, setSelectedSort] = useState("popular");
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const currentSortLabel = sortOptions.find(s => s.id === selectedSort)?.label || "По популярности";
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -343,7 +354,34 @@ const Index = () => {
           {/* Products Area */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg lg:text-xl font-bold text-foreground">Все товары</h2>
+              {/* Mobile: Title */}
+              <h2 className="lg:hidden text-lg font-bold text-foreground">Все товары</h2>
+              
+              {/* Desktop: Sort Dropdown */}
+              <div className="hidden lg:block">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="gap-2 text-base font-semibold hover:bg-transparent px-0">
+                      {currentSortLabel}
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-48 bg-popover">
+                    {sortOptions.map((option) => (
+                      <DropdownMenuItem
+                        key={option.id}
+                        onClick={() => setSelectedSort(option.id)}
+                        className="flex items-center justify-between"
+                      >
+                        <span>{option.label}</span>
+                        {selectedSort === option.id && (
+                          <Check className="h-4 w-4 text-primary" />
+                        )}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
 
             {/* Products Grid - Adjusted columns for sidebar */}
