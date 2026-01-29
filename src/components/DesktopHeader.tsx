@@ -383,49 +383,49 @@ export const DesktopHeader = () => {
 
         {/* Second Row - Navigation Links */}
         <div className="container max-w-7xl mx-auto px-4 border-t border-primary-foreground/10">
-          <nav className="flex items-center gap-1 h-10 overflow-x-auto scrollbar-hide">
-            <a href="/top" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <TrendingUp className="h-4 w-4" />
+          <nav className="flex items-center justify-between h-10">
+            <a href="/top" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <TrendingUp className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Топ-закупки</span>
             </a>
-            <a href="/women" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Sparkles className="h-4 w-4" />
+            <a href="/women" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Sparkles className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Женщинам</span>
             </a>
-            <a href="/men" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <User className="h-4 w-4" />
+            <a href="/men" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <User className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Мужчинам</span>
             </a>
-            <a href="/kids" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Baby className="h-4 w-4" />
+            <a href="/kids" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Baby className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Детям</span>
             </a>
-            <a href="/home" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Home className="h-4 w-4" />
+            <a href="/home" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Home className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Дом</span>
             </a>
-            <a href="/cosmetics" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Palette className="h-4 w-4" />
+            <a href="/cosmetics" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Palette className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Косметика</span>
             </a>
-            <a href="/food" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Apple className="h-4 w-4" />
+            <a href="/food" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Apple className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Продукты</span>
             </a>
-            <a href="/accessories" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Watch className="h-4 w-4" />
+            <a href="/accessories" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Watch className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Аксессуары</span>
             </a>
-            <a href="/in-stock" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Tag className="h-4 w-4" />
-              <span>Товары в наличии</span>
+            <a href="/in-stock" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Tag className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
+              <span>В наличии</span>
             </a>
-            <a href="/brands" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Award className="h-4 w-4" />
+            <a href="/brands" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Award className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Бренды</span>
             </a>
-            <a href="/deal" className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors whitespace-nowrap">
-              <Zap className="h-4 w-4" />
+            <a href="/deal" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
+              <Zap className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
               <span>Товар дня</span>
             </a>
           </nav>
