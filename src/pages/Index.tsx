@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
+import { MobileBurgerMenu } from "@/components/MobileBurgerMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
 import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, Bell, User, ShoppingCart, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -313,9 +314,12 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Second row: Search */}
-        <div className="container px-4 pb-3 max-w-7xl mx-auto">
-          <SearchBar placeholder="Искать в магазине" />
+        {/* Second row: Burger Menu + Search */}
+        <div className="container px-4 pb-3 max-w-7xl mx-auto flex items-center gap-2">
+          <MobileBurgerMenu />
+          <div className="flex-1">
+            <SearchBar placeholder="Искать в магазине" />
+          </div>
         </div>
       </header>
 
