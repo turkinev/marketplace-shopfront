@@ -7,6 +7,7 @@ import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { MobileBurgerMenu } from "@/components/MobileBurgerMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
+import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
 import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, Bell, User, ShoppingCart, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -85,7 +86,10 @@ const DesktopStoreBar = ({
             </AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-lg font-bold text-foreground">{name}</h1>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-lg font-bold text-foreground">{name}</h1>
+              <DeliveryStatusBadge status="collecting" dateInfo="до 15 февраля" />
+            </div>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-rating text-rating" />
@@ -482,6 +486,8 @@ const Index = () => {
             rating={4.8}
             ordersCount={125400}
             likesCount={45200}
+            deliveryStatus="collecting"
+            deliveryStatusDate="до 15 февраля"
             onCatalogClick={() => setIsCatalogOpen(true)}
           />
         </div>
