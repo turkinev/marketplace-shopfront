@@ -98,6 +98,34 @@ export const StoreHeader = ({
         </div>
       </div>
 
+      {/* Информация о доставке и условиях */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between py-2 border-b border-border">
+          <span className="text-sm text-muted-foreground">Комиссия</span>
+          <span className="text-sm font-medium text-foreground">5%</span>
+        </div>
+        <div className="flex items-center justify-between py-2 border-b border-border">
+          <span className="text-sm text-muted-foreground">Страна производитель</span>
+          <span className="text-sm font-medium text-foreground">Китай</span>
+        </div>
+        <div className="flex items-center justify-between py-2 border-b border-border">
+          <span className="text-sm text-muted-foreground">Ориентировочная дата доставки</span>
+          <span className="text-sm font-medium text-foreground">15–20 февраля</span>
+        </div>
+        <div className="flex items-center justify-between py-2 border-b border-border">
+          <span className="text-sm text-muted-foreground">Средний срок доставки</span>
+          <span className="text-sm font-medium text-foreground">12–18 дней</span>
+        </div>
+        <div className="flex items-center justify-between py-2 border-b border-border">
+          <span className="text-sm text-muted-foreground">Средний % отказов</span>
+          <span className="text-sm font-medium text-foreground">2.3%</span>
+        </div>
+        <div className="flex items-center justify-between py-2">
+          <span className="text-sm text-muted-foreground">Откуда поедет груз</span>
+          <span className="text-sm font-medium text-foreground">Гуанчжоу, Китай</span>
+        </div>
+      </div>
+
       {/* Описание */}
       <div className="space-y-2">
         <h3 className="font-semibold text-foreground">Описание</h3>
