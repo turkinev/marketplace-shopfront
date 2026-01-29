@@ -6,7 +6,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
-import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, Bell, User, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, Bell, User, ShoppingCart, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
@@ -15,6 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   Dialog,
@@ -285,13 +286,73 @@ const Index = () => {
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
-            >
-              <User className="h-5 w-5" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
+                >
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64 bg-popover z-50">
+                {/* User nickname */}
+                <div className="px-3 py-2 border-b border-border">
+                  <p className="font-medium text-foreground">Иван Иванов</p>
+                  <p className="text-xs text-muted-foreground">ivan@example.com</p>
+                </div>
+                
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <Mail className="h-4 w-4" />
+                  Личные сообщения
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <Package className="h-4 w-4" />
+                  Избранные закупки
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <Gift className="h-4 w-4" />
+                  Список желаний
+                </DropdownMenuItem>
+                
+                <DropdownMenuSeparator />
+                
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <ListChecks className="h-4 w-4" />
+                  Личный кабинет
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <UserCircle className="h-4 w-4" />
+                  Профиль
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <Package className="h-4 w-4" />
+                  Все заказы
+                </DropdownMenuItem>
+                
+                <DropdownMenuSeparator />
+                
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <QrCode className="h-4 w-4" />
+                  QR-код для получения заказа
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-2">
+                  <MapPin className="h-4 w-4" />
+                  <div className="flex flex-col">
+                    <span>Пункт выдачи</span>
+                    <span className="text-xs text-muted-foreground">ул. Примерная, д. 1</span>
+                  </div>
+                </DropdownMenuItem>
+                
+                <DropdownMenuSeparator />
+                
+                <DropdownMenuItem className="cursor-pointer gap-2 text-destructive focus:text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  Выход
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button 
               variant="ghost" 
               size="icon" 
