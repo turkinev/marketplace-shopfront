@@ -4,6 +4,7 @@ import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
+import { ProductsSidebar } from "@/components/ProductsSidebar";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { MobileBurgerMenu } from "@/components/MobileBurgerMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
@@ -503,23 +504,31 @@ const Index = () => {
         {/* Promo Banners - Full width on desktop */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
-        {/* Products Section */}
-        <div className="mt-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg lg:text-xl font-bold text-foreground">Все товары</h2>
+        {/* Products Section with Sidebar on Desktop */}
+        <div className="mt-6 flex gap-6">
+          {/* Sidebar - Desktop Only */}
+          <div className="hidden lg:block">
+            <ProductsSidebar />
           </div>
 
-          {/* Products Grid - More columns on desktop Ozon style */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
+          {/* Products Area */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg lg:text-xl font-bold text-foreground">Все товары</h2>
+            </div>
 
-          {/* Load More Trigger */}
-          <div ref={loadMoreRef} className="flex justify-center py-4">
-            {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
-            {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
+            {/* Products Grid - Adjusted columns for sidebar */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </div>
+
+            {/* Load More Trigger */}
+            <div ref={loadMoreRef} className="flex justify-center py-4">
+              {isLoading && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
+              {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
+            </div>
           </div>
         </div>
       </main>
