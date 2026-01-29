@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 interface Subcategory {
   id: string;
   name: string;
@@ -311,27 +310,18 @@ export const DesktopHeader = () => {
               <div className="bg-card rounded-b-lg shadow-xl border border-border flex min-h-[400px] max-h-[calc(100vh-100px)] overflow-hidden">
                 {/* Left Column - Categories or Purchases */}
                 <div className="w-64 border-r border-border flex flex-col">
-                  {/* Toggle Switch */}
-                  <div className="p-4 border-b border-border">
-                    <div className="flex items-center gap-3">
-                      <Label 
-                        htmlFor="catalog-mode" 
-                        className={`text-sm cursor-pointer transition-colors ${!isByPurchases ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
-                      >
-                        По товарам
-                      </Label>
-                      <Switch
-                        id="catalog-mode"
-                        checked={isByPurchases}
-                        onCheckedChange={setIsByPurchases}
-                      />
-                      <Label 
-                        htmlFor="catalog-mode" 
-                        className={`text-sm cursor-pointer transition-colors ${isByPurchases ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
-                      >
-                        По закупкам
-                      </Label>
-                    </div>
+                  {/* Tabs Switch */}
+                  <div className="p-3 border-b border-border">
+                    <Tabs value={isByPurchases ? "purchases" : "products"} onValueChange={(v) => setIsByPurchases(v === "purchases")}>
+                      <TabsList className="w-full">
+                        <TabsTrigger value="products" className="flex-1 text-xs">
+                          По товарам
+                        </TabsTrigger>
+                        <TabsTrigger value="purchases" className="flex-1 text-xs">
+                          По закупкам
+                        </TabsTrigger>
+                      </TabsList>
+                    </Tabs>
                   </div>
 
                   {/* Categories List - Same for both modes */}
