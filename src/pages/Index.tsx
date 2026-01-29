@@ -146,30 +146,48 @@ const DesktopStoreBar = ({
 
       {/* Store Info Dialog */}
       <Dialog open={isInfoOpen} onOpenChange={setIsInfoOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>{name}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div className="flex items-center gap-2 py-2">
-              <Star className="h-5 w-5 fill-rating text-rating" />
-              <span className="font-semibold">{rating.toFixed(1)}</span>
-              <span className="text-muted-foreground">Рейтинг</span>
+            {/* Статистика */}
+            <div className="flex items-center justify-between py-3 px-4 bg-secondary/50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Star className="h-5 w-5 fill-rating text-rating" />
+                <span className="font-semibold">{rating.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Package className="h-5 w-5 text-primary" />
+                <span className="font-semibold">{formatNumber(ordersCount)}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Heart className="h-5 w-5 fill-like text-like" />
+                <span className="font-semibold">{formatNumber(likesCount)}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 py-2">
-              <Package className="h-5 w-5 text-primary" />
-              <span className="font-semibold">{formatNumber(ordersCount)}</span>
-              <span className="text-muted-foreground">Заказов</span>
+
+            {/* Описание */}
+            <div className="space-y-2">
+              <h3 className="font-semibold text-foreground">Описание</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Добро пожаловать в наш магазин! Мы предлагаем широкий ассортимент качественных товаров по доступным ценам. Все товары проходят тщательную проверку качества перед отправкой.
+              </p>
             </div>
-            <div className="flex items-center gap-2 py-2">
-              <Heart className="h-5 w-5 fill-like text-like" />
-              <span className="font-semibold">{formatNumber(likesCount)}</span>
-              <span className="text-muted-foreground">Нравится</span>
+
+            {/* Условия */}
+            <div className="space-y-2">
+              <h3 className="font-semibold text-foreground">Условия</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Доставка осуществляется в течение 3-7 рабочих дней. Возврат товара возможен в течение 14 дней с момента получения. Оплата при получении или онлайн.
+              </p>
             </div>
-            <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground">
-                Магазин предлагает широкий ассортимент качественных товаров. 
-                Быстрая доставка и отличный сервис.
+
+            {/* Размерная сетка */}
+            <div className="space-y-2">
+              <h3 className="font-semibold text-foreground">Размерная сетка</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Размеры указаны в соответствии с международной системой. Рекомендуем сверяться с таблицей размеров в карточке товара. При возникновении вопросов обращайтесь в поддержку.
               </p>
             </div>
           </div>
