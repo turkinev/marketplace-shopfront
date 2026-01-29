@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Package, Heart, MessageCircle, Share2, Info, Link, Send } from "lucide-react";
+import { Star, Package, Heart, MessageCircle, Share2, Info, Link, Send, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StoreInfo } from "@/components/StoreInfo";
 import {
@@ -82,6 +82,20 @@ export const StoreHeader = ({
 
   const StoreInfoContent = () => (
     <div className="space-y-6">
+      {/* Профиль продавца */}
+      <div className="flex items-center gap-3 p-3 bg-secondary/30 rounded-lg">
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <UserCircle className="h-7 w-7 text-primary" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-foreground truncate">Организатор Мария</p>
+          <p className="text-xs text-muted-foreground">Продавец с 2020 года</p>
+        </div>
+        <Button variant="outline" size="icon" className="flex-shrink-0">
+          <MessageCircle className="h-4 w-4" />
+        </Button>
+      </div>
+
       {/* Статистика */}
       <div className="flex items-center justify-between py-3 px-4 bg-secondary/50 rounded-lg">
         <div className="flex items-center gap-2">
