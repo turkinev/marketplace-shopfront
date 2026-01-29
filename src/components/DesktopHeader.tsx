@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight } from "lucide-react";
+import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -191,6 +191,20 @@ export const DesktopHeader = () => {
   const [hoveredCategory, setHoveredCategory] = useState<Category | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isByPurchases, setIsByPurchases] = useState(false);
+  const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set());
+
+  const toggleSubcategory = (subcategoryId: string) => {
+    setExpandedSubcategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(subcategoryId)) {
+        newSet.delete(subcategoryId);
+      } else {
+        newSet.add(subcategoryId);
+      }
+      return newSet;
+    });
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -347,34 +361,42 @@ export const DesktopHeader = () => {
                   {hoveredCategory ? (
                     !isByPurchases ? (
                       // By Products - Hierarchical list with items
-                      <div className="grid grid-cols-3 gap-8">
-                        {hoveredCategory.subcategories.map((subcategory) => (
-                          <div key={subcategory.id}>
-                            <button
-                              className="text-sm font-semibold text-foreground hover:text-primary mb-3 text-left"
-                              onClick={() => handleSubcategoryClick(subcategory.id)}
-                            >
-                              {subcategory.name}
-                            </button>
-                            {subcategory.items && (
-                              <ul className="space-y-2">
-                                {subcategory.items.map((item) => (
-                                  <li key={item.id}>
-                                    <button
-                                      className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
-                                      onClick={() => {
-                                        setIsCatalogOpen(false);
-                                        navigate(`/products?item=${item.id}`);
-                                      }}
-                                    >
-                                      {item.name}
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                        ))}
+                      <div className="grid grid-cols-3 gap-6">
+                        {hoveredCategory.subcategories.map((subcategory) => {
+                          const isExpanded = expandedSubcategories.has(subcategory.id);
+                          return (
+                            <div key={subcategory.id}>
+                              <button
+                                className="flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary mb-2 text-left"
+                                onClick={() => toggleSubcategory(subcategory.id)}
+                              >
+                                {subcategory.items && subcategory.items.length > 0 && (
+                                  <ChevronDown 
+                                    className={`h-4 w-4 transition-transform ${isExpanded ? '' : '-rotate-90'}`} 
+                                  />
+                                )}
+                                {subcategory.name}
+                              </button>
+                              {subcategory.items && isExpanded && (
+                                <ul className="space-y-2 pl-5">
+                                  {subcategory.items.map((item) => (
+                                    <li key={item.id}>
+                                      <button
+                                        className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                                        onClick={() => {
+                                          setIsCatalogOpen(false);
+                                          navigate(`/products?item=${item.id}`);
+                                        }}
+                                      >
+                                        {item.name}
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
                     ) : (
                       // By Purchases - Subcategories as image + name cards
