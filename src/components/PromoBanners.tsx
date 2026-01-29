@@ -47,12 +47,12 @@ export const PromoBanners = ({
         </div>
       </div>
 
-      {/* Small Banners - evenly distributed across full width */}
-      <div className="flex gap-2 md:gap-3 lg:gap-4">
+      {/* Small Banners - 3 per row, evenly distributed */}
+      <div className="grid grid-cols-3 gap-2 md:gap-3 lg:gap-4">
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
-            className="relative flex-1 aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
+            className="relative aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
             style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
