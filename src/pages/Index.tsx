@@ -6,7 +6,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
-import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link } from "lucide-react";
+import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, Bell, User, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
@@ -266,15 +266,42 @@ const Index = () => {
 
       {/* Mobile Top Navigation */}
       <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
-        <div className="container flex items-center gap-3 h-14 px-4 max-w-7xl mx-auto">
-          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-
-          <div className="flex-1 max-w-2xl">
-            <SearchBar />
+        <div className="container flex items-center justify-between h-14 px-4 max-w-7xl mx-auto">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <div className="w-24 h-8 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm">LOGO</span>
+            </div>
           </div>
 
+          {/* Action Icons */}
+          <div className="flex items-center gap-1">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9 relative"
+            >
+              <Bell className="h-5 w-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
+            >
+              <User className="h-5 w-5" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9 relative"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] bg-destructive text-destructive-foreground text-[10px] font-medium rounded-full flex items-center justify-center px-0.5">
+                3
+              </span>
+            </Button>
+          </div>
         </div>
       </header>
 
