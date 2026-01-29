@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight, ChevronDown } from "lucide-react";
+import { Search, User, Heart, Bell, ShoppingCart, Menu, ChevronRight, ChevronDown, Mail, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 interface Subcategory {
   id: string;
   name: string;
@@ -269,14 +276,80 @@ export const DesktopHeader = () => {
 
             {/* Action Icons */}
             <div className="flex items-center gap-1">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="text-primary-foreground hover:bg-primary-foreground/10 h-10 w-10"
-                onClick={() => navigate("/profile")}
-              >
-                <User className="h-5 w-5" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-primary-foreground hover:bg-primary-foreground/10 h-10 w-10"
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-72 bg-popover z-50">
+                  {/* User Info */}
+                  <div className="p-3 border-b border-border">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <UserCircle className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Иван Иванов</p>
+                        <p className="text-xs text-muted-foreground">ivan@example.com</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    Личные сообщения
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <Package className="h-4 w-4 text-muted-foreground" />
+                    Избранные закупки
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <Gift className="h-4 w-4 text-muted-foreground" />
+                    Список желаний
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <ListChecks className="h-4 w-4 text-muted-foreground" />
+                    Личный кабинет
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <UserCircle className="h-4 w-4 text-muted-foreground" />
+                    Профиль
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <Package className="h-4 w-4 text-muted-foreground" />
+                    Все заказы
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <QrCode className="h-4 w-4 text-muted-foreground" />
+                    QR-код для получения заказа
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex flex-col">
+                      <span>Пункт выдачи</span>
+                      <span className="text-xs text-muted-foreground">ул. Примерная, д. 1</span>
+                    </div>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem className="cursor-pointer gap-3 py-3 text-destructive focus:text-destructive">
+                    <LogOut className="h-4 w-4" />
+                    Выход
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button 
                 variant="ghost" 
                 size="icon" 
