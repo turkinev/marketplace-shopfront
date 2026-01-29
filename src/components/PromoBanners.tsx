@@ -52,7 +52,7 @@ export const PromoBanners = ({
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
-            className="relative flex-1 aspect-square rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
+            className="relative flex-1 aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
             style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
