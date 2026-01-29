@@ -5,10 +5,179 @@ import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
-import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle } from "lucide-react";
+import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
+
+// Desktop Store Bar Component
+const DesktopStoreBar = ({ 
+  name, 
+  rating, 
+  ordersCount, 
+  likesCount 
+}: { 
+  name: string; 
+  rating: number; 
+  ordersCount: number; 
+  likesCount: number; 
+}) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(likesCount);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+  const formatNumber = (num: number): string => {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
+    if (num >= 1000) return (num / 1000).toFixed(1) + "K";
+    return num.toString();
+  };
+
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+    setFavoriteCount(prev => isFavorite ? prev - 1 : prev + 1);
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("Ссылка скопирована");
+  };
+
+  const handleShare = (platform: string) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`Магазин ${name}`);
+    const links: Record<string, string> = {
+      vk: `https://vk.com/share.php?url=${url}`,
+      tg: `https://t.me/share/url?url=${url}&text=${text}`,
+      wa: `https://wa.me/?text=${text}%20${url}`,
+    };
+    window.open(links[platform], "_blank");
+  };
+
+  return (
+    <>
+      <div className="hidden lg:flex items-center justify-between bg-card rounded-lg p-4 mb-6 shadow-sm">
+        <div className="flex items-center gap-4">
+          <Avatar className="h-12 w-12 ring-2 ring-primary/20">
+            <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+              GR
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-lg font-bold text-foreground">{name}</h1>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Star className="h-4 w-4 fill-rating text-rating" />
+                {rating.toFixed(1)}
+              </span>
+              <span className="flex items-center gap-1">
+                <Package className="h-4 w-4 text-primary" />
+                {formatNumber(ordersCount)} заказов
+              </span>
+              <span className="flex items-center gap-1">
+                <Heart className="h-4 w-4 fill-like text-like" />
+                {formatNumber(likesCount)}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {/* Написать */}
+          <Button className="gap-2">
+            <Send className="h-4 w-4" />
+            Написать
+          </Button>
+
+          {/* Избранное */}
+          <Button 
+            variant="outline" 
+            className="gap-2"
+            onClick={handleFavoriteClick}
+          >
+            <Heart className={`h-4 w-4 ${isFavorite ? "fill-like text-like" : ""}`} />
+            {formatNumber(favoriteCount)}
+          </Button>
+
+          {/* Поделиться */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={handleCopyLink}>
+                <Link className="h-4 w-4 mr-2" />
+                Скопировать ссылку
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("vk")}>
+                <span className="w-4 h-4 mr-2 flex items-center justify-center font-bold text-xs">VK</span>
+                ВКонтакте
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("tg")}>
+                <Send className="h-4 w-4 mr-2" />
+                Telegram
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleShare("wa")}>
+                <MessageCircle className="h-4 w-4 mr-2" />
+                WhatsApp
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Информация */}
+          <Button variant="outline" size="icon" onClick={() => setIsInfoOpen(true)}>
+            <Info className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Store Info Dialog */}
+      <Dialog open={isInfoOpen} onOpenChange={setIsInfoOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{name}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 py-2">
+              <Star className="h-5 w-5 fill-rating text-rating" />
+              <span className="font-semibold">{rating.toFixed(1)}</span>
+              <span className="text-muted-foreground">Рейтинг</span>
+            </div>
+            <div className="flex items-center gap-2 py-2">
+              <Package className="h-5 w-5 text-primary" />
+              <span className="font-semibold">{formatNumber(ordersCount)}</span>
+              <span className="text-muted-foreground">Заказов</span>
+            </div>
+            <div className="flex items-center gap-2 py-2">
+              <Heart className="h-5 w-5 fill-like text-like" />
+              <span className="font-semibold">{formatNumber(likesCount)}</span>
+              <span className="text-muted-foreground">Нравится</span>
+            </div>
+            <div className="pt-4 border-t">
+              <p className="text-sm text-muted-foreground">
+                Магазин предлагает широкий ассортимент качественных товаров. 
+                Быстрая доставка и отличный сервис.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const mainBanner = {
   id: "promo-1",
@@ -137,40 +306,12 @@ const Index = () => {
         </div>
 
         {/* Desktop: Store info bar */}
-        <div className="hidden lg:flex items-center justify-between bg-card rounded-lg p-4 mb-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-12 w-12 ring-2 ring-primary/20">
-              <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                GR
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="text-lg font-bold text-foreground">Grass - быстрая доставка</h1>
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-rating text-rating" />
-                  4.8
-                </span>
-                <span className="flex items-center gap-1">
-                  <Package className="h-4 w-4 text-primary" />
-                  125.4K заказов
-                </span>
-                <span className="flex items-center gap-1">
-                  <Heart className="h-4 w-4 fill-like text-like" />
-                  45.2K
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="outline" onClick={() => navigate("/catalog")} className="hover:bg-primary/10 hover:text-primary hover:border-primary">
-              Каталог
-            </Button>
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary">
-              <MessageCircle className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
+        <DesktopStoreBar 
+          name="Grass - быстрая доставка"
+          rating={4.8}
+          ordersCount={125400}
+          likesCount={45200}
+        />
 
         {/* Promo Banners - Full width on desktop */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
