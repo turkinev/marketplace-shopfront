@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
+import { DesktopHeader } from "@/components/DesktopHeader";
 import { ArrowLeft, Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -260,19 +261,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Navigation - Ozon style */}
-      <header className="sticky top-0 z-50 bg-primary shadow-sm">
+      {/* Desktop Header */}
+      <DesktopHeader />
+
+      {/* Mobile Top Navigation */}
+      <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
         <div className="container flex items-center gap-3 h-14 px-4 max-w-7xl mx-auto">
-          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0 lg:hidden">
+          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0">
             <ArrowLeft className="h-5 w-5" />
           </Button>
-
-          {/* Logo for desktop */}
-          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-            <div className="w-10 h-10 bg-primary-foreground rounded-lg flex items-center justify-center">
-              <span className="text-primary font-bold text-xl">O</span>
-            </div>
-          </div>
 
           <div className="flex-1 max-w-2xl">
             <SearchBar />
@@ -285,31 +282,6 @@ const Index = () => {
           </div>
         </div>
       </header>
-
-      {/* Desktop Category Navigation - Ozon style horizontal menu */}
-      <nav className="hidden lg:block bg-card border-b border-border">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-1 h-12 overflow-x-auto scrollbar-hide">
-            <Button 
-              variant="ghost" 
-              className="flex items-center gap-2 text-foreground hover:bg-primary/10 hover:text-primary px-4 h-9"
-              onClick={() => navigate("/catalog")}
-            >
-              <span className="text-sm font-medium">Каталог</span>
-            </Button>
-            <div className="w-px h-6 bg-border" />
-            {["Электроника", "Одежда", "Дом и сад", "Красота", "Спорт", "Детские товары", "Авто", "Книги"].map((cat) => (
-              <Button 
-                key={cat}
-                variant="ghost" 
-                className="text-foreground hover:bg-primary/10 hover:text-primary px-3 h-9 text-sm whitespace-nowrap"
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </nav>
 
       {/* Main Content */}
       <main className="container px-4 py-4 md:py-6 max-w-7xl mx-auto">
