@@ -5,6 +5,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { SearchBar } from "@/components/SearchBar";
 import { PromoBanners } from "@/components/PromoBanners";
 import { ProductsSidebar } from "@/components/ProductsSidebar";
+import { StoreReviews } from "@/components/StoreReviews";
+import { StoreQA } from "@/components/StoreQA";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { MobileBurgerMenu } from "@/components/MobileBurgerMenu";
 import { DesktopHeader } from "@/components/DesktopHeader";
@@ -530,6 +532,16 @@ const Index = () => {
               {!hasMore && products.length > 0 && <p className="text-sm text-muted-foreground">Все товары загружены</p>}
             </div>
           </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mt-8">
+          <StoreReviews />
+        </div>
+
+        {/* Q&A Section */}
+        <div className="mt-8">
+          <StoreQA />
         </div>
       </main>
 
