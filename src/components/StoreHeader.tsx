@@ -320,11 +320,11 @@ export const StoreHeader = ({
       {/* Mobile: Full-screen Sheet */}
       {isMobile ? (
         <Sheet open={isInfoOpen} onOpenChange={setIsInfoOpen}>
-          <SheetContent side="bottom" className="h-full max-h-[100dvh] rounded-t-xl">
-            <SheetHeader className="pb-4 border-b border-border">
+          <SheetContent side="bottom" className="h-full max-h-[100dvh] rounded-t-xl flex flex-col">
+            <SheetHeader className="pb-4 border-b border-border flex-shrink-0">
               <SheetTitle className="text-left">{name}</SheetTitle>
             </SheetHeader>
-            <div className="overflow-y-auto py-4">
+            <div className="overflow-y-auto py-4 flex-1 min-h-0">
               <StoreInfoContent />
             </div>
           </SheetContent>
@@ -332,11 +332,13 @@ export const StoreHeader = ({
       ) : (
         /* Desktop: Regular Dialog */
         <Dialog open={isInfoOpen} onOpenChange={setIsInfoOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
+          <DialogContent className="max-w-md max-h-[85vh] flex flex-col">
+            <DialogHeader className="flex-shrink-0">
               <DialogTitle>{name}</DialogTitle>
             </DialogHeader>
-            <StoreInfoContent />
+            <div className="overflow-y-auto flex-1 min-h-0 pr-2">
+              <StoreInfoContent />
+            </div>
           </DialogContent>
         </Dialog>
       )}
