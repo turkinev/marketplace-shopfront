@@ -20,7 +20,7 @@ export const PromoBanners = ({
   onBannerClick,
 }: PromoBannersProps) => {
   return (
-    <div className="space-y-3 lg:space-y-4 animate-fade-in">
+    <div className="w-full space-y-3 lg:space-y-4 animate-fade-in">
       {/* Main Banner - Larger on desktop Ozon style */}
       <div
         className="relative w-full h-32 md:h-48 lg:h-64 xl:h-72 rounded-xl lg:rounded-2xl overflow-hidden cursor-pointer hover-scale"
@@ -47,12 +47,12 @@ export const PromoBanners = ({
         </div>
       </div>
 
-      {/* Small Banners Grid - 6 columns on desktop, evenly distributed */}
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4">
+      {/* Small Banners - evenly distributed across full width */}
+      <div className="flex gap-2 md:gap-3 lg:gap-4">
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
-            className="relative aspect-square rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
+            className="relative flex-1 aspect-square rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
             style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
