@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star, Package, Heart, MessageCircle, Share2, Info, Link, Send, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StoreInfo } from "@/components/StoreInfo";
+import { DeliveryStatusBadge, DeliveryStatus } from "@/components/DeliveryStatusBadge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +30,8 @@ interface StoreHeaderProps {
   rating: number;
   ordersCount: number;
   likesCount: number;
+  deliveryStatus?: DeliveryStatus;
+  deliveryStatusDate?: string;
   onCatalogClick?: () => void;
   onContactClick?: () => void;
 }
@@ -39,6 +42,8 @@ export const StoreHeader = ({
   rating,
   ordersCount,
   likesCount,
+  deliveryStatus = "collecting",
+  deliveryStatusDate,
   onCatalogClick,
   onContactClick,
 }: StoreHeaderProps) => {
@@ -172,9 +177,13 @@ export const StoreHeader = ({
         {/* Store Info Row */}
         <div className="mb-2">
           <div className="min-w-0">
-            {/* Store name with info icon for mobile */}
-            <div className="flex items-center gap-2">
+            {/* Store name with status badge and info icon */}
+            <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">{name}</h1>
+              <DeliveryStatusBadge 
+                status={deliveryStatus} 
+                dateInfo={deliveryStatusDate} 
+              />
               {isMobile && (
                 <button 
                   onClick={() => setIsInfoOpen(true)}
