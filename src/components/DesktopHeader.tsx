@@ -334,51 +334,29 @@ export const DesktopHeader = () => {
                     </div>
                   </div>
 
-                  {/* Categories or Subcategories List */}
+                  {/* Categories List - Same for both modes */}
                   <div className="flex-1 overflow-y-auto">
-                    {!isByPurchases ? (
-                      // By Products - Show categories
-                      categories.map((category) => (
-                        <button
-                          key={category.id}
-                          className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-secondary transition-colors ${
-                            hoveredCategory?.id === category.id ? "bg-secondary" : ""
-                          }`}
-                          onMouseEnter={() => setHoveredCategory(category)}
-                          onClick={() => handleCategoryClick(category.id)}
-                        >
-                          <span className="text-sm font-medium text-foreground">{category.name}</span>
-                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                        </button>
-                      ))
-                    ) : (
-                      // By Purchases - Show all subcategories as a flat list with images
-                      <div className="grid grid-cols-2 gap-3 p-4">
-                        {categories.flatMap((category) =>
-                          category.subcategories.map((subcategory) => (
-                            <button
-                              key={subcategory.id}
-                              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-secondary transition-colors text-center"
-                              onClick={() => handleSubcategoryClick(subcategory.id)}
-                            >
-                              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                                <span className="text-lg">📦</span>
-                              </div>
-                              <span className="text-xs font-medium text-foreground line-clamp-2">
-                                {subcategory.name}
-                              </span>
-                            </button>
-                          ))
-                        )}
-                      </div>
-                    )}
+                    {categories.map((category) => (
+                      <button
+                        key={category.id}
+                        className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-secondary transition-colors ${
+                          hoveredCategory?.id === category.id ? "bg-secondary" : ""
+                        }`}
+                        onMouseEnter={() => setHoveredCategory(category)}
+                        onClick={() => handleCategoryClick(category.id)}
+                      >
+                        <span className="text-sm font-medium text-foreground">{category.name}</span>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Right Column - Subcategories (only in "By Products" mode) */}
-                {!isByPurchases && (
-                  <div className="flex-1 p-6 overflow-y-auto bg-background">
-                    {hoveredCategory ? (
+                {/* Right Column - Subcategories */}
+                <div className="flex-1 p-6 overflow-y-auto bg-background">
+                  {hoveredCategory ? (
+                    !isByPurchases ? (
+                      // By Products - Hierarchical list with items
                       <div className="grid grid-cols-3 gap-8">
                         {hoveredCategory.subcategories.map((subcategory) => (
                           <div key={subcategory.id}>
@@ -409,12 +387,30 @@ export const DesktopHeader = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="flex items-center justify-center h-full text-muted-foreground">
-                        Наведите на категорию для просмотра подкатегорий
+                      // By Purchases - Subcategories as image + name cards
+                      <div className="grid grid-cols-4 gap-4">
+                        {hoveredCategory.subcategories.map((subcategory) => (
+                          <button
+                            key={subcategory.id}
+                            className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-secondary transition-colors text-center group"
+                            onClick={() => handleSubcategoryClick(subcategory.id)}
+                          >
+                            <div className="w-20 h-20 bg-muted rounded-xl flex items-center justify-center group-hover:bg-muted/80 transition-colors">
+                              <span className="text-3xl">📦</span>
+                            </div>
+                            <span className="text-sm font-medium text-foreground line-clamp-2">
+                              {subcategory.name}
+                            </span>
+                          </button>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                )}
+                    )
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-muted-foreground">
+                      Наведите на категорию для просмотра подкатегорий
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
