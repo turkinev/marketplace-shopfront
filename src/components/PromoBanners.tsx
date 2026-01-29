@@ -47,8 +47,8 @@ export const PromoBanners = ({
         </div>
       </div>
 
-      {/* Small Banners Grid - 6 columns on desktop */}
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4">
+      {/* Small Banners Grid - 6 columns on desktop, evenly distributed */}
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4 w-full [&>*]:flex-1">
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
