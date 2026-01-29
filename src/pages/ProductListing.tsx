@@ -1,9 +1,8 @@
 import { useEffect, useRef, useCallback, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Share2, Loader2, SlidersHorizontal, ArrowUpDown, X, Check } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
+import { Loader2, SlidersHorizontal, ArrowUpDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
-import { SearchBar } from "@/components/SearchBar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 import {
   Sheet,
@@ -33,7 +32,6 @@ const colors = [
 ];
 
 const ProductListing = () => {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const categoryName = searchParams.get("category") || "Все товары";
   const storeName = "Grass - быстрая доставка";
@@ -109,29 +107,7 @@ const ProductListing = () => {
   const currentSortLabel = sortOptions.find(s => s.id === selectedSort)?.label || "По популярности";
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-primary shadow-sm">
-        <div className="flex items-center gap-3 h-14 px-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-
-          <div className="flex-1">
-            <SearchBar />
-          </div>
-
-          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 flex-shrink-0">
-            <Share2 className="h-5 w-5" />
-          </Button>
-        </div>
-      </header>
-
+    <div>
       {/* Store Name */}
       <div className="bg-card border-b border-border px-4 py-3">
         <h1 className="text-base font-semibold text-foreground">{storeName}</h1>
@@ -141,7 +117,7 @@ const ProductListing = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="sticky top-14 z-40 bg-background border-b border-border px-4 py-2">
+      <div className="sticky top-0 z-40 bg-background border-b border-border px-4 py-2">
         <div className="flex items-center gap-2">
           {/* Sort Button */}
           <Button 
