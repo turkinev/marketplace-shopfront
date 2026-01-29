@@ -86,10 +86,6 @@ const DesktopStoreBar = ({
                 <Package className="h-4 w-4 text-primary" />
                 {formatNumber(ordersCount)} заказов
               </span>
-              <span className="flex items-center gap-1">
-                <Heart className="h-4 w-4 fill-like text-like" />
-                {formatNumber(likesCount)}
-              </span>
             </div>
           </div>
         </div>
