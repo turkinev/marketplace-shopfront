@@ -48,11 +48,11 @@ export const PromoBanners = ({
       </div>
 
       {/* Small Banners Grid - 6 columns on desktop, evenly distributed */}
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4 w-full [&>*]:flex-1">
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 lg:gap-4">
         {smallBanners.map((banner) => (
           <div
             key={banner.id}
-            className="relative h-24 md:h-28 lg:h-36 xl:h-40 rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
+            className="relative aspect-square rounded-lg lg:rounded-xl overflow-hidden cursor-pointer hover-scale"
             style={{ backgroundColor: banner.bgColor || '#374151' }}
             onClick={() => onBannerClick?.(banner.id)}
           >
