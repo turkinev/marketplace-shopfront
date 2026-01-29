@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronRight, LayoutGrid, Grid3X3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface SubCategory {
@@ -149,10 +149,13 @@ export const MobileCatalogMenu = ({
             {/* All products */}
             <button
               onClick={handleAllProducts}
-              className="w-full flex items-center justify-between p-3 bg-card rounded-lg border border-border hover:bg-primary/5 transition-colors"
+              className="w-full flex items-center gap-4 p-3 bg-card rounded-lg border border-border hover:bg-primary/5 transition-colors"
             >
-              <span className="text-sm font-medium text-foreground">Все товары</span>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <LayoutGrid className="h-6 w-6 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-foreground flex-1 text-left">Все товары</span>
+              <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
             </button>
             
             {/* Categories */}
@@ -178,10 +181,13 @@ export const MobileCatalogMenu = ({
             {/* All products in category */}
             <button
               onClick={handleCategoryAllProducts}
-              className="w-full flex items-center justify-between p-3 bg-card rounded-lg border border-border hover:bg-primary/5 transition-colors"
+              className="w-full flex items-center gap-4 p-3 bg-card rounded-lg border border-border hover:bg-primary/5 transition-colors"
             >
-              <span className="text-sm font-medium text-foreground">Все товары</span>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Grid3X3 className="h-6 w-6 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-foreground flex-1 text-left">Все товары</span>
+              <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
             </button>
             
             {/* Subcategories */}
