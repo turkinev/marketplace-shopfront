@@ -111,16 +111,6 @@ export const StoreHeader = ({
 
           <div className="w-px h-8 bg-border" />
 
-          {/* Likes */}
-          <div className="flex flex-col items-center gap-1 flex-1">
-            <div className="flex items-center gap-1">
-              <Heart className="h-4 w-4 fill-like text-like" />
-              <span className="font-semibold text-foreground">{formatNumber(likesCount)}</span>
-            </div>
-            <span className="text-xs text-muted-foreground">Нравится</span>
-          </div>
-        </div>
-
         {/* Action Buttons */}
         <div className="flex gap-3 mt-4">
           {isMobile ? (
