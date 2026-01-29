@@ -155,7 +155,21 @@ const DesktopStoreBar = ({
           <DialogHeader>
             <DialogTitle>{name}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-6">
+            {/* Профиль продавца */}
+            <div className="flex items-center gap-3 p-3 bg-secondary/30 rounded-lg">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <UserCircle className="h-7 w-7 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-foreground truncate">Организатор Мария</p>
+                <p className="text-xs text-muted-foreground">Продавец с 2020 года</p>
+              </div>
+              <Button variant="outline" size="icon" className="flex-shrink-0">
+                <MessageCircle className="h-4 w-4" />
+              </Button>
+            </div>
+
             {/* Статистика */}
             <div className="flex items-center justify-between py-3 px-4 bg-secondary/50 rounded-lg">
               <div className="flex items-center gap-2">
@@ -169,6 +183,34 @@ const DesktopStoreBar = ({
               <div className="flex items-center gap-2">
                 <Heart className="h-5 w-5 fill-like text-like" />
                 <span className="font-semibold">{formatNumber(likesCount)}</span>
+              </div>
+            </div>
+
+            {/* Информация о доставке и условиях */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-2 border-b border-border">
+                <span className="text-sm text-muted-foreground">Комиссия</span>
+                <span className="text-sm font-medium text-foreground">5%</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border">
+                <span className="text-sm text-muted-foreground">Страна производитель</span>
+                <span className="text-sm font-medium text-foreground">Китай</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border">
+                <span className="text-sm text-muted-foreground">Ориентировочная дата доставки</span>
+                <span className="text-sm font-medium text-foreground">15–20 февраля</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border">
+                <span className="text-sm text-muted-foreground">Средний срок доставки</span>
+                <span className="text-sm font-medium text-foreground">12–18 дней</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border">
+                <span className="text-sm text-muted-foreground">Средний % отказов</span>
+                <span className="text-sm font-medium text-foreground">2.3%</span>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span className="text-sm text-muted-foreground">Откуда поедет груз</span>
+                <span className="text-sm font-medium text-foreground">Гуанчжоу, Китай</span>
               </div>
             </div>
 
