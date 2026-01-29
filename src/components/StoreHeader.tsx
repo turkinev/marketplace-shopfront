@@ -110,6 +110,7 @@ export const StoreHeader = ({
           </div>
 
           <div className="w-px h-8 bg-border" />
+        </div>
 
         {/* Action Buttons */}
         <div className="flex gap-3 mt-4">
