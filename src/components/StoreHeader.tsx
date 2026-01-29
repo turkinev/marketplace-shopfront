@@ -187,7 +187,7 @@ export const StoreHeader = ({
               {isMobile && (
                 <button 
                   onClick={() => setIsInfoOpen(true)}
-                  className="p-1 rounded-full hover:bg-secondary transition-colors"
+                  className="p-1 rounded-full hover:bg-secondary transition-colors ml-auto"
                 >
                   <Info className="h-5 w-5 text-primary" />
                 </button>
