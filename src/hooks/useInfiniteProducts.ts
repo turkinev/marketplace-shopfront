@@ -65,6 +65,10 @@ const allProducts: Product[] = [
     oldPrice: 8990,
     rating: 4.9,
     reviewsCount: 432,
+    characteristics: [
+      { name: "Тип переключателей", options: ["Red", "Blue", "Brown"] },
+      { name: "Раскладка", options: ["RU", "EN", "RU+EN"] },
+    ],
   },
   {
     id: "6",
@@ -73,6 +77,9 @@ const allProducts: Product[] = [
     price: 1990,
     rating: 4.4,
     reviewsCount: 567,
+    characteristics: [
+      { name: "Цвет", options: ["Чёрный", "Белый", "Серый"] },
+    ],
   },
   {
     id: "7",
@@ -82,6 +89,10 @@ const allProducts: Product[] = [
     oldPrice: 6990,
     rating: 4.6,
     reviewsCount: 1234,
+    characteristics: [
+      { name: "Размер ремешка", options: ["S/M", "M/L"] },
+      { name: "Цвет корпуса", options: ["Чёрный", "Серебро", "Розовое золото"] },
+    ],
   },
   {
     id: "8",
@@ -90,6 +101,9 @@ const allProducts: Product[] = [
     price: 7990,
     rating: 4.8,
     reviewsCount: 2341,
+    characteristics: [
+      { name: "Цвет", options: ["Чёрный", "Белый", "Синий"] },
+    ],
   },
   {
     id: "9",
@@ -107,6 +121,9 @@ const allProducts: Product[] = [
     price: 2490,
     rating: 4.3,
     reviewsCount: 789,
+    characteristics: [
+      { name: "Размер", options: ["S", "M", "L"] },
+    ],
   },
   {
     id: "11",
@@ -124,6 +141,9 @@ const allProducts: Product[] = [
     price: 2290,
     rating: 4.4,
     reviewsCount: 321,
+    characteristics: [
+      { name: "Цвет", options: ["Серебро", "Чёрный", "Space Gray"] },
+    ],
   },
 ];
 
