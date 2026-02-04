@@ -65,29 +65,48 @@ export const ProductCharacteristicsModal = ({
 
       {/* Characteristics */}
       <div className="space-y-6">
-        {characteristics.map((characteristic) => (
-          <div key={characteristic.name} className="space-y-3">
-            <h4 className="text-sm font-medium text-foreground">
-              {characteristic.name}
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {characteristic.options.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => handleOptionSelect(characteristic.name, option)}
-                  className={cn(
-                    "px-4 py-2 rounded-lg border text-sm font-medium transition-colors",
-                    selectedOptions[characteristic.name] === option
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-background hover:border-primary hover:text-primary"
-                  )}
-                >
-                  {option}
-                </button>
-              ))}
+        {characteristics.map((characteristic) => {
+          const isSizeCharacteristic = characteristic.name.toLowerCase().includes("размер");
+          
+          return (
+            <div key={characteristic.name} className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-medium text-foreground">
+                  {characteristic.name}
+                </h4>
+                {isSizeCharacteristic && (
+                  <button
+                    type="button"
+                    className="text-sm text-primary hover:underline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // TODO: Open size chart
+                      console.log("Open size chart");
+                    }}
+                  >
+                    Таблица размеров
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {characteristic.options.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleOptionSelect(characteristic.name, option)}
+                    className={cn(
+                      "px-4 py-2 rounded-lg border text-sm font-medium transition-colors",
+                      selectedOptions[characteristic.name] === option
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-background hover:border-primary hover:text-primary"
+                    )}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </>
   );
