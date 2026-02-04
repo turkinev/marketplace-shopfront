@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { ProductCharacteristic } from "@/components/ProductCharacteristicsModal";
 
 export interface Product {
   id: string;
@@ -9,6 +10,7 @@ export interface Product {
   rating: number;
   reviewsCount: number;
   isLiked?: boolean;
+  characteristics?: ProductCharacteristic[];
 }
 
 const allProducts: Product[] = [
@@ -37,6 +39,10 @@ const allProducts: Product[] = [
     price: 3328,
     rating: 4.7,
     reviewsCount: 1256,
+    characteristics: [
+      { name: "Размер", options: ["XS", "S", "M", "L", "XL"] },
+      { name: "Цвет", options: ["Белый", "Чёрный", "Бежевый"] },
+    ],
   },
   {
     id: "4",
@@ -46,6 +52,10 @@ const allProducts: Product[] = [
     rating: 4.5,
     reviewsCount: 678,
     isLiked: true,
+    characteristics: [
+      { name: "Размер", options: ["S", "M", "L", "XL", "XXL"] },
+      { name: "Цвет", options: ["Розовый", "Серый", "Голубой"] },
+    ],
   },
   {
     id: "5",
