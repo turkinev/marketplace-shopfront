@@ -246,12 +246,14 @@ export const MobileCatalogMenu = ({
                             <RadioCircle selected={selectedId === l3.id} />
                           </button>
                         ))}
-                        {hasMore && !isExpanded && (
+                        {hasMore && (
                           <button
                             onClick={() => toggleExpandL3(l2.id)}
                             className="w-full text-left py-2 pl-12 pr-2"
                           >
-                            <span className="text-sm text-primary">Показать ещё</span>
+                            <span className="text-sm text-primary">
+                              {isExpanded ? "Скрыть" : "Показать ещё"}
+                            </span>
                           </button>
                         )}
                       </>
