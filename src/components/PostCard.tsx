@@ -135,14 +135,14 @@ function PostContent({ post, onToggleReaction }: { post: Post; onToggleReaction:
           </p>
         </div>
       </div>
-      <div className="px-4 pb-2 text-sm text-foreground whitespace-pre-line leading-relaxed">
-        {formatPostText(post.text)}
-      </div>
       {post.images && post.images.length > 0 && (
         <div className="px-4">
           <ImageGallery images={post.images} />
         </div>
       )}
+      <div className="px-4 pb-2 text-sm text-foreground whitespace-pre-line leading-relaxed">
+        {formatPostText(post.text)}
+      </div>
       <div className="flex items-center gap-1 px-4 pt-3 pb-2 flex-wrap">
         {post.reactions.map((r, i) => (
           <button
