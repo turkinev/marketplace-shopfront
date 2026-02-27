@@ -4,7 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Send, MessageCircle } from "lucide-react";
+import { Send } from "lucide-react";
+
+function pluralizeComments(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "комментарий";
+  if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return "комментария";
+  return "комментариев";
+}
 
 export interface PostAuthor {
   name: string;
@@ -177,14 +185,17 @@ export function PostCard({ post: initialPost }: { post: Post }) {
           </button>
         ))}
 
-        <button
-          onClick={() => setCommentsOpen((v) => !v)}
-          className="ml-auto inline-flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm transition-colors"
-        >
-          <MessageCircle className="h-4 w-4" />
-          <span>{post.comments.length}</span>
-        </button>
       </div>
+
+      {/* Comment button */}
+      <button
+        onClick={() => setCommentsOpen((v) => !v)}
+        className="w-full text-center py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors border-t border-border"
+      >
+        {post.comments.length === 0
+          ? "Прокомментировать"
+          : `${post.comments.length} ${pluralizeComments(post.comments.length)}`}
+      </button>
 
       {/* Comments */}
       {commentsOpen && (
