@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Send } from "lucide-react";
+import { Send, ChevronRight } from "lucide-react";
 
 function pluralizeComments(n: number): string {
   const mod10 = n % 10;
@@ -51,13 +52,7 @@ function formatPostText(text: string): React.ReactNode[] {
     }
     if (/^https?:\/\//.test(part)) {
       return (
-        <a
-          key={i}
-          href={part}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline hover:text-primary/80"
-        >
+        <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80">
           {part}
         </a>
       );
@@ -101,12 +96,52 @@ function ImageGallery({ images }: { images: string[] }) {
   );
 }
 
-const VISIBLE_COMMENTS = 2;
+function PostContent({ post, onToggleReaction }: { post: Post; onToggleReaction: (i: number) => void }) {
+  return (
+    <>
+      <div className="flex items-center gap-3 p-4 pb-2">
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={post.author.avatar} alt={post.author.name} />
+          <AvatarFallback>{post.author.name.slice(0, 2)}</AvatarFallback>
+        </Avatar>
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-sm text-foreground truncate">{post.author.name}</p>
+          <p className="text-xs text-muted-foreground">
+            {formatDistanceToNow(post.date, { addSuffix: true, locale: ru })}
+          </p>
+        </div>
+      </div>
+      <div className="px-4 pb-2 text-sm text-foreground whitespace-pre-line leading-relaxed">
+        {formatPostText(post.text)}
+      </div>
+      {post.images && post.images.length > 0 && (
+        <div className="px-4">
+          <ImageGallery images={post.images} />
+        </div>
+      )}
+      <div className="flex items-center gap-1 px-4 pt-3 pb-2 flex-wrap">
+        {post.reactions.map((r, i) => (
+          <button
+            key={r.label}
+            onClick={() => onToggleReaction(i)}
+            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm border transition-colors ${
+              r.isActive
+                ? "bg-primary/10 border-primary text-primary"
+                : "bg-muted/50 border-transparent text-muted-foreground hover:bg-muted"
+            }`}
+          >
+            <span>{r.emoji}</span>
+            {r.count > 0 && <span className="text-xs font-medium">{r.count}</span>}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
 
 export function PostCard({ post: initialPost }: { post: Post }) {
   const [post, setPost] = useState(initialPost);
-  const [showAllComments, setShowAllComments] = useState(false);
-  const [commentsOpen, setCommentsOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
 
   const toggleReaction = (index: number) => {
@@ -131,118 +166,68 @@ export function PostCard({ post: initialPost }: { post: Post }) {
     };
     setPost((prev) => ({ ...prev, comments: [...prev.comments, comment] }));
     setNewComment("");
-    setCommentsOpen(true);
-    setShowAllComments(true);
   };
 
-  const visibleComments = showAllComments
-    ? post.comments
-    : post.comments.slice(0, VISIBLE_COMMENTS);
-  const hasMoreComments = post.comments.length > VISIBLE_COMMENTS;
-
   return (
-    <article className="bg-card rounded-lg shadow-sm border border-border">
-      {/* Header */}
-      <div className="flex items-center gap-3 p-4 pb-2">
-        <Avatar className="h-10 w-10">
-          <AvatarImage src={post.author.avatar} alt={post.author.name} />
-          <AvatarFallback>{post.author.name.slice(0, 2)}</AvatarFallback>
-        </Avatar>
-        <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm text-foreground truncate">{post.author.name}</p>
-          <p className="text-xs text-muted-foreground">
-            {formatDistanceToNow(post.date, { addSuffix: true, locale: ru })}
-          </p>
-        </div>
-      </div>
+    <>
+      <article className="bg-card rounded-lg shadow-sm border border-border">
+        <PostContent post={post} onToggleReaction={toggleReaction} />
 
-      {/* Text */}
-      <div className="px-4 pb-2 text-sm text-foreground whitespace-pre-line leading-relaxed">
-        {formatPostText(post.text)}
-      </div>
+        <button
+          onClick={() => setDialogOpen(true)}
+          className="w-full flex items-center justify-center gap-1 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors border-t border-border"
+        >
+          <span>
+            {post.comments.length === 0
+              ? "Прокомментировать"
+              : `${post.comments.length} ${pluralizeComments(post.comments.length)}`}
+          </span>
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </article>
 
-      {/* Images */}
-      {post.images && post.images.length > 0 && (
-        <div className="px-4">
-          <ImageGallery images={post.images} />
-        </div>
-      )}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-full h-full sm:max-w-2xl sm:h-[90vh] flex flex-col p-0 gap-0 rounded-none sm:rounded-lg">
+          <DialogHeader className="p-4 border-b border-border shrink-0">
+            <DialogTitle className="text-base font-semibold">Комментарии</DialogTitle>
+          </DialogHeader>
 
-      {/* Reactions */}
-      <div className="flex items-center gap-1 px-4 pt-3 pb-2 flex-wrap">
-        {post.reactions.map((r, i) => (
-          <button
-            key={r.label}
-            onClick={() => toggleReaction(i)}
-            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm border transition-colors ${
-              r.isActive
-                ? "bg-primary/10 border-primary text-primary"
-                : "bg-muted/50 border-transparent text-muted-foreground hover:bg-muted"
-            }`}
-          >
-            <span>{r.emoji}</span>
-            {r.count > 0 && <span className="text-xs font-medium">{r.count}</span>}
-          </button>
-        ))}
+          <div className="overflow-y-auto flex-1">
+            <PostContent post={post} onToggleReaction={toggleReaction} />
 
-      </div>
-
-      {/* Comment button */}
-      <button
-        onClick={() => setCommentsOpen((v) => !v)}
-        className="w-full text-center py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors border-t border-border"
-      >
-        {post.comments.length === 0
-          ? "Прокомментировать"
-          : `${post.comments.length} ${pluralizeComments(post.comments.length)}`}
-      </button>
-
-      {/* Comments */}
-      {commentsOpen && (
-        <div className="border-t border-border px-4 pt-3 pb-4 space-y-3">
-          {post.comments.length > 0 && (
-            <p className="text-xs font-medium text-muted-foreground">
-              Комментарии ({post.comments.length})
-            </p>
-          )}
-
-          {visibleComments.map((c) => (
-            <div key={c.id} className="flex gap-2">
-              <Avatar className="h-7 w-7 mt-0.5">
-                <AvatarImage src={c.author.avatar} alt={c.author.name} />
-                <AvatarFallback className="text-[10px]">{c.author.name.slice(0, 2)}</AvatarFallback>
-              </Avatar>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-xs font-semibold text-foreground">{c.author.name}</span>
-                  <span className="text-[10px] text-muted-foreground">
-                    {formatDistanceToNow(c.date, { addSuffix: true, locale: ru })}
-                  </span>
-                </div>
-                <p className="text-sm text-foreground">{c.text}</p>
-              </div>
+            <div className="border-t border-border px-4 pt-3 pb-4">
+              {post.comments.length > 0 ? (
+                <>
+                  <p className="text-xs font-medium text-muted-foreground mb-3">
+                    Комментарии ({post.comments.length})
+                  </p>
+                  <div className="space-y-3">
+                    {post.comments.map((c) => (
+                      <div key={c.id} className="flex gap-2">
+                        <Avatar className="h-7 w-7 mt-0.5">
+                          <AvatarImage src={c.author.avatar} alt={c.author.name} />
+                          <AvatarFallback className="text-[10px]">{c.author.name.slice(0, 2)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-xs font-semibold text-foreground">{c.author.name}</span>
+                            <span className="text-[10px] text-muted-foreground">
+                              {formatDistanceToNow(c.date, { addSuffix: true, locale: ru })}
+                            </span>
+                          </div>
+                          <p className="text-sm text-foreground">{c.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-8">Комментариев пока нет...</p>
+              )}
             </div>
-          ))}
+          </div>
 
-          {hasMoreComments && !showAllComments && (
-            <button
-              onClick={() => setShowAllComments(true)}
-              className="text-sm text-primary hover:underline"
-            >
-              Показать ещё ({post.comments.length - VISIBLE_COMMENTS})
-            </button>
-          )}
-          {hasMoreComments && showAllComments && (
-            <button
-              onClick={() => setShowAllComments(false)}
-              className="text-sm text-primary hover:underline"
-            >
-              Скрыть
-            </button>
-          )}
-
-          {/* New comment form */}
-          <div className="flex gap-2 pt-1">
+          <div className="p-4 border-t border-border shrink-0 bg-background flex gap-2">
             <Input
               placeholder="Написать комментарий..."
               value={newComment}
@@ -254,8 +239,8 @@ export function PostCard({ post: initialPost }: { post: Post }) {
               <Send className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-      )}
-    </article>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
