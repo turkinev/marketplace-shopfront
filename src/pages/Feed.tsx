@@ -7,7 +7,7 @@ const now = new Date();
 const initialPosts: Post[] = [
   {
     id: "1",
-    author: { name: "ТехноНовости", avatar: "" },
+    author: { name: "Андрей Петров", avatar: "" },
     date: subHours(now, 2),
     text: "🚀 **Большое обновление!**\n\nМы рады сообщить о запуске новой версии платформы. Основные изменения:\n\n• Полностью переработанный интерфейс\n• Скорость загрузки увеличена в 3 раза\n• Новая система уведомлений\n\nПодробнее читайте в нашем блоге: https://example.com/blog/update",
     images: [
@@ -30,7 +30,7 @@ const initialPosts: Post[] = [
   },
   {
     id: "2",
-    author: { name: "Дизайн Дайджест", avatar: "" },
+    author: { name: "Светлана Козлова", avatar: "" },
     date: subHours(now, 5),
     text: "**Тренды UI/UX 2026** 🎨\n\nСобрали главные тренды этого года:\n\n1. Нейроморфизм 2.0\n2. Адаптивная типографика\n3. Микро-анимации с физикой\n4. AI-генерация интерфейсов\n\nЧто думаете, какой тренд самый перспективный?",
     images: [
@@ -49,7 +49,7 @@ const initialPosts: Post[] = [
   },
   {
     id: "3",
-    author: { name: "Кулинарный канал", avatar: "" },
+    author: { name: "Виктор Сидоров", avatar: "" },
     date: subDays(now, 1),
     text: "🍕 Рецепт идеальной пиццы дома!\n\nТесто:\n• 500г муки\n• 325мл воды\n• 10г дрожжей\n• Щепотка соли\n\nСекрет — дать тесту подойти **минимум 24 часа** в холодильнике. Результат вас удивит!",
     images: [
@@ -74,7 +74,7 @@ export default function Feed() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold text-foreground mb-6">Лента новостей</h1>
+      
       <div className="space-y-4">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
