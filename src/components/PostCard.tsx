@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Send, ChevronRight } from "lucide-react";
+import { Send, ChevronRight, Smile, Paperclip, X } from "lucide-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 function pluralizeComments(n: number): string {
   const mod10 = n % 10;
@@ -32,6 +33,30 @@ export interface PostComment {
   author: PostAuthor;
   date: Date;
   text: string;
+  attachment?: string;
+}
+
+const EMOJI_LIST = [
+  "😀","😂","🥹","😍","🤔","😎","😢","😮",
+  "👍","👎","👏","🙏","🤝","💪","✅","⭐",
+  "❤️","🔥","🎉","💯",
+];
+
+function EmojiPicker({ onSelect }: { onSelect: (emoji: string) => void }) {
+  return (
+    <div className="grid grid-cols-8 gap-1 p-2">
+      {EMOJI_LIST.map((emoji) => (
+        <button
+          key={emoji}
+          type="button"
+          onClick={() => onSelect(emoji)}
+          className="h-8 w-8 flex items-center justify-center rounded hover:bg-muted text-lg transition-colors"
+        >
+          {emoji}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export interface Post {
@@ -143,6 +168,9 @@ export function PostCard({ post: initialPost }: { post: Post }) {
   const [post, setPost] = useState(initialPost);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const [attachedFile, setAttachedFile] = useState<{ file: File; preview: string } | null>(null);
+  const [emojiOpen, setEmojiOpen] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const toggleReaction = (index: number) => {
     setPost((prev) => ({
@@ -155,17 +183,34 @@ export function PostCard({ post: initialPost }: { post: Post }) {
     }));
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const preview = URL.createObjectURL(file);
+    setAttachedFile({ file, preview });
+    e.target.value = "";
+  };
+
+  const removeFile = () => {
+    if (attachedFile) {
+      URL.revokeObjectURL(attachedFile.preview);
+      setAttachedFile(null);
+    }
+  };
+
   const addComment = () => {
     const text = newComment.trim();
-    if (!text) return;
+    if (!text && !attachedFile) return;
     const comment: PostComment = {
       id: crypto.randomUUID(),
       author: { name: "Вы", avatar: "" },
       date: new Date(),
       text,
+      attachment: attachedFile?.preview,
     };
     setPost((prev) => ({ ...prev, comments: [...prev.comments, comment] }));
     setNewComment("");
+    removeFile();
   };
 
   return (
@@ -216,6 +261,9 @@ export function PostCard({ post: initialPost }: { post: Post }) {
                             </span>
                           </div>
                           <p className="text-sm text-foreground">{c.text}</p>
+                          {c.attachment && (
+                            <img src={c.attachment} alt="" className="mt-1 h-24 w-auto rounded object-cover" />
+                          )}
                         </div>
                       </div>
                     ))}
@@ -227,7 +275,37 @@ export function PostCard({ post: initialPost }: { post: Post }) {
             </div>
           </div>
 
-          <div className="p-4 border-t border-border shrink-0 bg-background flex gap-2">
+          {attachedFile && (
+            <div className="px-4 pt-2 border-t border-border shrink-0 bg-background">
+              <div className="relative inline-block">
+                <img src={attachedFile.preview} alt="" className="h-12 w-12 rounded object-cover" />
+                <button
+                  onClick={removeFile}
+                  className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="p-4 border-t border-border shrink-0 bg-background flex items-center gap-1">
+            <Popover open={emojiOpen} onOpenChange={setEmojiOpen}>
+              <PopoverTrigger asChild>
+                <Button size="icon" variant="ghost" className="h-8 w-8 shrink-0">
+                  <Smile className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent side="top" align="start" className="w-auto p-0">
+                <EmojiPicker onSelect={(emoji) => { setNewComment((prev) => prev + emoji); setEmojiOpen(false); }} />
+              </PopoverContent>
+            </Popover>
+
+            <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+            <Button size="icon" variant="ghost" className="h-8 w-8 shrink-0" onClick={() => fileInputRef.current?.click()}>
+              <Paperclip className="h-4 w-4" />
+            </Button>
+
             <Input
               placeholder="Написать комментарий..."
               value={newComment}
@@ -235,7 +313,7 @@ export function PostCard({ post: initialPost }: { post: Post }) {
               onKeyDown={(e) => e.key === "Enter" && addComment()}
               className="flex-1 h-9 text-sm"
             />
-            <Button size="icon" variant="ghost" onClick={addComment} disabled={!newComment.trim()}>
+            <Button size="icon" variant="ghost" onClick={addComment} disabled={!newComment.trim() && !attachedFile}>
               <Send className="h-4 w-4" />
             </Button>
           </div>
