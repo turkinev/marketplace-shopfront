@@ -3,8 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { formatDistanceToNow } from "date-fns";
-import { ru } from "date-fns/locale";
+import { format } from "date-fns";
 import { Send, ChevronRight, Smile, Paperclip, X } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
@@ -132,7 +131,7 @@ function PostContent({ post, onToggleReaction }: { post: Post; onToggleReaction:
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-sm text-foreground truncate">{post.author.name}</p>
           <p className="text-xs text-muted-foreground">
-            {formatDistanceToNow(post.date, { addSuffix: true, locale: ru })}
+            {format(post.date, "HH:mm")}
           </p>
         </div>
       </div>
@@ -257,7 +256,7 @@ export function PostCard({ post: initialPost }: { post: Post }) {
                           <div className="flex items-baseline gap-2">
                             <span className="text-xs font-semibold text-foreground">{c.author.name}</span>
                             <span className="text-[10px] text-muted-foreground">
-                              {formatDistanceToNow(c.date, { addSuffix: true, locale: ru })}
+                              {format(c.date, "HH:mm")}
                             </span>
                           </div>
                           <p className="text-sm text-foreground">{c.text}</p>
