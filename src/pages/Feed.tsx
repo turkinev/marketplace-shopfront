@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PostCard, Post } from "@/components/PostCard";
-import { subHours, subMinutes, subDays } from "date-fns";
+import { subHours, subMinutes, subDays, format, isToday, isYesterday } from "date-fns";
+import { ru } from "date-fns/locale";
 
 const now = new Date();
 
@@ -69,15 +70,41 @@ const initialPosts: Post[] = [
   },
 ];
 
+function formatDateSeparator(date: Date): string {
+  if (isToday(date)) return "Сегодня";
+  if (isYesterday(date)) return "Вчера";
+  return format(date, "d MMMM yyyy", { locale: ru });
+}
+
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
 
+  // Group posts by date
+  const grouped: { label: string; posts: Post[] }[] = [];
+  posts.forEach((post) => {
+    const label = formatDateSeparator(post.date);
+    const last = grouped[grouped.length - 1];
+    if (last && last.label === label) {
+      last.posts.push(post);
+    } else {
+      grouped.push({ label, posts: [post] });
+    }
+  });
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      
       <div className="space-y-4">
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+        {grouped.map((group) => (
+          <div key={group.label} className="space-y-4">
+            <div className="flex justify-center">
+              <span className="text-xs text-muted-foreground bg-muted/60 px-3 py-1 rounded-full">
+                {group.label}
+              </span>
+            </div>
+            {group.posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
         ))}
       </div>
     </div>
