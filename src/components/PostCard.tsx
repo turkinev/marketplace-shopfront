@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Send, ChevronRight, Smile, Paperclip, X } from "lucide-react";
+import { Send, ChevronRight, ChevronLeft, Smile, Paperclip, X } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 function pluralizeComments(n: number): string {
@@ -86,37 +86,100 @@ function formatPostText(text: string): React.ReactNode[] {
 }
 
 function ImageGallery({ images }: { images: string[] }) {
-  if (images.length === 1) {
-    return (
-      <div className="mt-3 rounded-lg overflow-hidden">
-        <img src={images[0]} alt="" className="w-full max-h-96 object-cover" />
-      </div>
-    );
-  }
-  if (images.length === 2) {
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const openViewer = (index: number) => {
+    setActiveIndex(index);
+    setViewerOpen(true);
+  };
+
+  const imgClass = "w-full object-cover cursor-pointer hover:opacity-90 transition-opacity";
+
+  const grid = () => {
+    if (images.length === 1) {
+      return (
+        <div className="mt-3 rounded-lg overflow-hidden">
+          <img src={images[0]} alt="" className={`${imgClass} max-h-96`} onClick={() => openViewer(0)} />
+        </div>
+      );
+    }
+    if (images.length === 2) {
+      return (
+        <div className="mt-3 grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
+          {images.map((src, i) => (
+            <img key={i} src={src} alt="" className={`${imgClass} h-48`} onClick={() => openViewer(i)} />
+          ))}
+        </div>
+      );
+    }
+    if (images.length === 3) {
+      return (
+        <div className="mt-3 grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
+          <img src={images[0]} alt="" className={`${imgClass} h-48`} style={{ gridRow: "1 / 3" }} onClick={() => openViewer(0)} />
+          <img src={images[1]} alt="" className={`${imgClass} h-[calc(96px-2px)]`} onClick={() => openViewer(1)} />
+          <img src={images[2]} alt="" className={`${imgClass} h-[calc(96px-2px)]`} onClick={() => openViewer(2)} />
+        </div>
+      );
+    }
     return (
       <div className="mt-3 grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
-        {images.map((src, i) => (
-          <img key={i} src={src} alt="" className="w-full h-48 object-cover" />
+        {images.slice(0, 4).map((src, i) => (
+          <img key={i} src={src} alt="" className={`${imgClass} h-36`} onClick={() => openViewer(i)} />
         ))}
       </div>
     );
-  }
-  if (images.length === 3) {
-    return (
-      <div className="mt-3 grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
-        <img src={images[0]} alt="" className="w-full h-48 object-cover row-span-2" style={{ gridRow: "1 / 3" }} />
-        <img src={images[1]} alt="" className="w-full h-[calc(96px-2px)] object-cover" />
-        <img src={images[2]} alt="" className="w-full h-[calc(96px-2px)] object-cover" />
-      </div>
-    );
-  }
+  };
+
   return (
-    <div className="mt-3 grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
-      {images.slice(0, 4).map((src, i) => (
-        <img key={i} src={src} alt="" className="w-full h-36 object-cover" />
-      ))}
-    </div>
+    <>
+      {grid()}
+      <Dialog open={viewerOpen} onOpenChange={setViewerOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none flex items-center justify-center gap-0">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Просмотр изображения</DialogTitle>
+          </DialogHeader>
+          <button
+            onClick={() => setViewerOpen(false)}
+            className="absolute top-3 right-3 z-50 h-8 w-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)}
+                className="absolute left-3 z-50 h-10 w-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)}
+                className="absolute right-14 z-50 h-10 w-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </>
+          )}
+          <img
+            src={images[activeIndex]}
+            alt=""
+            className="max-w-full max-h-[90vh] object-contain"
+          />
+          {images.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`h-2 w-2 rounded-full transition-colors ${i === activeIndex ? "bg-white" : "bg-white/40"}`}
+                />
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
