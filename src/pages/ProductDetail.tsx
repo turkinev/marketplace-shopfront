@@ -232,6 +232,7 @@ const ProductDetail = () => {
                     )}
                   />
                 ))}
+              </div>
               {/* Like + Share */}
               <div className="absolute top-3 right-3 flex gap-2">
                 <button
