@@ -121,6 +121,7 @@ const ProductDetail = () => {
   const touchDeltaX = useRef<number>(0);
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
+  const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
 
   useEffect(() => {
     const el = priceRef.current;
