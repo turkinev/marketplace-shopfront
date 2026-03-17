@@ -609,21 +609,13 @@ const ProductDetail = () => {
         )}
       </div>
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe">
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-bold" style={{ color: 'rgb(0, 105, 51)' }}>{formatPrice(mockProduct.price)}</span>
-              {mockProduct.oldPrice && (
-                <span className="text-[11px] text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
-              )}
-            </div>
-            <span className="text-[11px] text-muted-foreground">{mockProduct.delivery.date}</span>
-          </div>
-          <Button className="flex-1 h-10 text-sm font-semibold gap-2">
+        <Button className="w-full h-12 text-sm font-semibold gap-2 flex flex-col items-center justify-center leading-tight">
+          <div className="flex items-center gap-2">
             <ShoppingCart className="h-4 w-4" />
-            В корзину
-          </Button>
-        </div>
+            <span>В корзину</span>
+          </div>
+          <span className="text-[11px] font-normal opacity-80">{mockProduct.delivery.date}</span>
+        </Button>
       </div>
       {/* Spacer for sticky button */}
       <div className="lg:hidden h-16" />
