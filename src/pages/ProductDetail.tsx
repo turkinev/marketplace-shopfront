@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import colorRedImg from "@/assets/color-red.jpg";
 import colorWhiteImg from "@/assets/color-white.jpg";
 import colorBlackImg from "@/assets/color-black.jpg";
@@ -8,6 +8,8 @@ import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateC
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { ProductCard } from "@/components/ProductCard";
+import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 
 // Mock product data
 const mockProduct = {
@@ -130,6 +132,20 @@ const ProductDetail = () => {
   const handleNextImage = () => {
     setSelectedImage((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
   };
+
+  const { products: relatedProducts, isLoading: relatedLoading, hasMore: relatedHasMore, loadMore: loadMoreRelated } = useInfiniteProducts();
+  
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useCallback((node: HTMLDivElement | null) => {
+    if (relatedLoading) return;
+    if (observerRef.current) observerRef.current.disconnect();
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && relatedHasMore) {
+        loadMoreRelated();
+      }
+    });
+    if (node) observerRef.current.observe(node);
+  }, [relatedLoading, relatedHasMore, loadMoreRelated]);
 
   return (
     <div className="container max-w-7xl mx-auto lg:px-4 py-0 lg:py-6">
@@ -467,7 +483,33 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Mobile: Sticky bottom cart button */}
+      {/* Related Products - Смотрите также */}
+      <div className="mt-6 lg:mt-10 px-2 lg:px-0">
+        <h2 className="text-lg font-bold text-foreground mb-4">Смотрите также</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4">
+          {relatedProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              imageUrl={product.imageUrl}
+              price={product.price}
+              oldPrice={product.oldPrice}
+              rating={product.rating}
+              reviewsCount={product.reviewsCount}
+              isLiked={product.isLiked}
+              characteristics={product.characteristics}
+            />
+          ))}
+        </div>
+        {relatedHasMore && (
+          <div ref={loadMoreRef} className="flex justify-center py-6">
+            {relatedLoading && (
+              <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            )}
+          </div>
+        )}
+      </div>
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe space-y-2">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline gap-2">
