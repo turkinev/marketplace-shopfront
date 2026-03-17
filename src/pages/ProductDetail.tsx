@@ -255,35 +255,19 @@ const ProductDetail = () => {
                 />
               ))}
             </div>
-            {/* Nav arrows */}
+            {/* Nav arrows - no background */}
             <button
               onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
             >
-              <ChevronLeft className="h-4 w-4 text-foreground" />
+              <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
             </button>
             <button
               onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
             >
-              <ChevronRight className="h-4 w-4 text-foreground" />
+              <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
             </button>
-          </div>
-
-          {/* Mobile thumbnails */}
-          <div className="lg:hidden flex gap-2 mt-3 overflow-x-auto pb-1">
-            {currentImages.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setMobileImageIndex(i)}
-                className={cn(
-                  "w-14 h-14 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-all",
-                  mobileImageIndex === i ? "border-primary" : "border-transparent"
-                )}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
           </div>
         </div>
 
