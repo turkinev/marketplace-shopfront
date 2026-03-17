@@ -29,7 +29,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </div>
 
       {/* Mobile Header */}
-      <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
+      <header className={cn("lg:hidden z-50 shadow-sm", isProductPage ? "absolute top-0 left-0 right-0 bg-transparent shadow-none" : "sticky top-0 bg-primary")}>
         {/* Top Row: Logo and Icons */}
         <div className="flex items-center justify-between h-12 px-4">
           {/* Logo */}
