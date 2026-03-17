@@ -262,7 +262,7 @@ const ProductDetail = () => {
               <ChevronLeft className="h-4 w-4 text-foreground" />
             </button>
             <button
-              onClick={() => setMobileImageIndex((p) => (p === mockProduct.images.length - 1 ? 0 : p + 1))}
+              onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
               className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
             >
               <ChevronRight className="h-4 w-4 text-foreground" />
