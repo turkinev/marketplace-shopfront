@@ -151,7 +151,7 @@ const ProductDetail = () => {
   return (
     <div className="container max-w-7xl mx-auto px-4 py-4 lg:py-6">
       {/* Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4 overflow-x-auto whitespace-nowrap">
+      <nav className="sr-only">
         <button onClick={() => navigate("/")} className="hover:text-primary transition-colors">Главная</button>
         <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
         <button onClick={() => navigate("/products")} className="hover:text-primary transition-colors">Обувь</button>
