@@ -18,6 +18,8 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isProductPage = location.pathname.startsWith("/product/");
 
   return (
     <div className="min-h-screen bg-background">
