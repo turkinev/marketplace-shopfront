@@ -687,6 +687,18 @@ const ProductDetail = () => {
           </div>
         </SheetContent>
       </Sheet>
+
+      {/* Reviews Fullscreen Popup */}
+      <Sheet open={isReviewsOpen} onOpenChange={setIsReviewsOpen}>
+        <SheetContent side="bottom" className="rounded-t-xl h-[calc(100dvh-3.5rem-4.5rem)] p-0 flex flex-col">
+          <SheetHeader className="px-4 py-3 border-b border-border flex-shrink-0">
+            <SheetTitle className="text-left">Отзывы</SheetTitle>
+          </SheetHeader>
+          <div className="flex-1 overflow-y-auto px-4 pb-4">
+            <StoreReviews />
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
