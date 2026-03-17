@@ -648,6 +648,25 @@ const ProductDetail = () => {
       </div>
       {/* Spacer for sticky button */}
       <div className="lg:hidden h-16" />
+
+      {/* Product Info Bottom Sheet */}
+      <Sheet open={isProductInfoOpen} onOpenChange={setIsProductInfoOpen}>
+        <SheetContent side="bottom" className="rounded-t-xl">
+          <SheetHeader className="pb-4 border-b border-border">
+            <SheetTitle className="text-left">Информация о товаре</SheetTitle>
+          </SheetHeader>
+          <div className="py-4 space-y-3">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-sm text-muted-foreground">Комиссия</span>
+              <span className="text-sm font-medium text-foreground">21% (не менее 20 р.)</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-muted-foreground">Страна производитель</span>
+              <span className="text-sm font-medium text-foreground">Россия</span>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
