@@ -133,6 +133,20 @@ const ProductDetail = () => {
     setSelectedImage((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
   };
 
+  const { products: relatedProducts, isLoading: relatedLoading, hasMore: relatedHasMore, loadMore: loadMoreRelated } = useInfiniteProducts();
+  
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useCallback((node: HTMLDivElement | null) => {
+    if (relatedLoading) return;
+    if (observerRef.current) observerRef.current.disconnect();
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && relatedHasMore) {
+        loadMoreRelated();
+      }
+    });
+    if (node) observerRef.current.observe(node);
+  }, [relatedLoading, relatedHasMore, loadMoreRelated]);
+
   return (
     <div className="container max-w-7xl mx-auto lg:px-4 py-0 lg:py-6">
       {/* Breadcrumbs */}
