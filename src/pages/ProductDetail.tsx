@@ -277,8 +277,11 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Title - desktop only above selectors, mobile below */}
+        {/* Middle: Product Info */}
+        <div className="lg:w-[35%] flex flex-col gap-2 lg:gap-5">
+          {/* Title - desktop only */}
           <div className="hidden lg:block">
             <span className="inline-block text-sm font-medium text-muted-foreground bg-secondary rounded-full px-3 py-1 mb-2">{mockProduct.brand}</span>
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">
@@ -286,7 +289,7 @@ const ProductDetail = () => {
             </h1>
           </div>
 
-          {/* Rating & stats - desktop only here */}
+          {/* Rating & stats - desktop only */}
           <div className="hidden lg:flex items-center gap-1.5 text-sm">
             <Star className="h-4 w-4 fill-rating text-rating" />
             <span className="font-semibold text-foreground">{mockProduct.rating}</span>
@@ -294,77 +297,81 @@ const ProductDetail = () => {
             <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
           </div>
 
-          {/* Color selector */}
-          <div>
-            <p className="text-sm font-medium text-foreground mb-2">
-              Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
-            </p>
-            <div className="flex gap-2">
-              {mockProduct.colors.map((color) => (
-                <button
-                  key={color.id}
-                  onClick={() => handleColorChange(color.id)}
-                  className={cn(
-                    "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
-                    selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
-                  )}
-                >
-                  <img
-                    src={color.image}
-                    alt={color.name}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Size selector */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-foreground">
-                Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+          {/* Mobile: Selectors card */}
+          <div className="lg:contents bg-card rounded-xl p-4 space-y-4 [&:not(.lg\:contents)]:bg-card max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4">
+            {/* Color selector */}
+            <div>
+              <p className="text-sm font-medium text-foreground mb-2">
+                Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
               </p>
-              <button className="text-xs text-muted-foreground">Таблица размеров</button>
+              <div className="flex gap-2">
+                {mockProduct.colors.map((color) => (
+                  <button
+                    key={color.id}
+                    onClick={() => handleColorChange(color.id)}
+                    className={cn(
+                      "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
+                      selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
+                    )}
+                  >
+                    <img
+                      src={color.image}
+                      alt={color.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {mockProduct.sizes.map((size) => (
-                <button
-                  key={size.id}
-                  disabled={!size.available}
-                  onClick={() => setSelectedSize(size.id)}
-                  className={cn(
-                    "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
-                    !size.available && "opacity-30 cursor-not-allowed",
-                    selectedSize === size.id
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-foreground hover:border-primary/50"
-                  )}
-                >
-                  <span className="text-sm font-bold leading-tight">{size.label}</span>
-                  <span className={cn(
-                    "text-[11px] leading-tight",
-                    selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
-                  )}>{size.supplierSize}</span>
-                </button>
-              ))}
+
+            {/* Size selector */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-foreground">
+                  Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+                </p>
+                <button className="text-xs text-muted-foreground">Таблица размеров</button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {mockProduct.sizes.map((size) => (
+                  <button
+                    key={size.id}
+                    disabled={!size.available}
+                    onClick={() => setSelectedSize(size.id)}
+                    className={cn(
+                      "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
+                      !size.available && "opacity-30 cursor-not-allowed",
+                      selectedSize === size.id
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-card text-foreground hover:border-primary/50"
+                    )}
+                  >
+                    <span className="text-sm font-bold leading-tight">{size.label}</span>
+                    <span className={cn(
+                      "text-[11px] leading-tight",
+                      selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
+                    )}>{size.supplierSize}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Mobile: Title + Rating after selectors */}
-          <div className="lg:hidden">
+          {/* Mobile: Title + Rating card */}
+          <div className="lg:hidden bg-card rounded-xl p-4 space-y-2">
             <h1 className="text-base font-bold text-foreground leading-tight">
               {mockProduct.name}
             </h1>
-          </div>
-          <div className="lg:hidden flex items-center gap-1.5 text-sm">
-            <Star className="h-4 w-4 fill-rating text-rating" />
-            <span className="font-semibold text-foreground">{mockProduct.rating}</span>
-            <span className="text-muted-foreground">·</span>
-            <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+            <div className="flex items-center gap-1.5 text-sm">
+              <Star className="h-4 w-4 fill-rating text-rating" />
+              <span className="font-semibold text-foreground">{mockProduct.rating}</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+            </div>
           </div>
 
-          <div>
+          {/* Mobile: Characteristics card */}
+          <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4">
             <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
             <div className="space-y-0">
               {mockProduct.characteristics.slice(0, 5).map((char, i) => (
