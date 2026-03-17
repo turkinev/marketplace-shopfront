@@ -483,7 +483,33 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Mobile: Sticky bottom cart button */}
+      {/* Related Products - Смотрите также */}
+      <div className="mt-6 lg:mt-10 px-2 lg:px-0">
+        <h2 className="text-lg font-bold text-foreground mb-4">Смотрите также</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4">
+          {relatedProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              imageUrl={product.imageUrl}
+              price={product.price}
+              oldPrice={product.oldPrice}
+              rating={product.rating}
+              reviewsCount={product.reviewsCount}
+              isLiked={product.isLiked}
+              characteristics={product.characteristics}
+            />
+          ))}
+        </div>
+        {relatedHasMore && (
+          <div ref={loadMoreRef} className="flex justify-center py-6">
+            {relatedLoading && (
+              <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            )}
+          </div>
+        )}
+      </div>
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe space-y-2">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline gap-2">
