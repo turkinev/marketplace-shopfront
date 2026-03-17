@@ -394,8 +394,8 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile: Title + Rating card */}
-          <div className="lg:hidden bg-card rounded-xl p-4 space-y-2">
+          {/* Mobile: Title + Rating + Reviews card */}
+          <div className="lg:hidden bg-card rounded-xl p-4 space-y-3">
             <h1 className="text-base font-bold text-foreground leading-tight">
               {mockProduct.name}
             </h1>
@@ -404,6 +404,39 @@ const ProductDetail = () => {
               <span className="font-semibold text-foreground">{mockProduct.rating}</span>
               <span className="text-muted-foreground">·</span>
               <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+            </div>
+
+            {/* Horizontal scrollable review cards */}
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide" style={{ scrollSnapType: 'x mandatory' }}>
+              {mockProduct.reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="flex-shrink-0 w-[75%] bg-secondary/50 rounded-lg p-3 space-y-2"
+                  style={{ scrollSnapAlign: 'start' }}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={cn(
+                            "h-3 w-3",
+                            i < review.rating ? "fill-rating text-rating" : "text-border"
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs text-muted-foreground">{review.author}</span>
+                  </div>
+                  <p className="text-xs text-foreground line-clamp-3 leading-relaxed">{review.text}</p>
+                  <button
+                    onClick={() => navigate("/store/1")}
+                    className="text-xs text-primary font-medium"
+                  >
+                    Перейти к отзывам →
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
