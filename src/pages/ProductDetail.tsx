@@ -289,7 +289,7 @@ const ProductDetail = () => {
 
           {/* Title */}
           <div>
-            <p className="text-sm text-primary font-medium mb-1">{mockProduct.brand}</p>
+            <span className="inline-block text-sm font-medium text-muted-foreground bg-secondary rounded-full px-3 py-1 mb-2">{mockProduct.brand}</span>
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">
               {mockProduct.name}
             </h1>
