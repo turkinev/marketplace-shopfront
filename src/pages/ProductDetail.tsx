@@ -226,7 +226,7 @@ const ProductDetail = () => {
           {/* Mobile Gallery - swipeable + price in same card */}
           <div className="lg:hidden bg-card overflow-hidden">
             <div className="relative overflow-hidden">
-              <div className="aspect-[3/4] relative bg-secondary/20">
+              <div key={selectedColor} className="aspect-[3/4] relative bg-secondary/20">
                 {currentImages.map((img, i) => (
                   <img
                     key={i}
