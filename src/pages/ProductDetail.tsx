@@ -388,32 +388,6 @@ const ProductDetail = () => {
           <div className="lg:hidden space-y-5">
 
 
-            {/* Delivery info */}
-            <div className="bg-card border border-border rounded-xl p-4 space-y-3">
-              <div className="flex items-start gap-3">
-                <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <RotateCcw className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm font-medium text-foreground">Возврат в течение 14 дней</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm font-medium text-foreground">Гарантия подлинности</p>
-              </div>
-            </div>
-
             {/* Seller */}
             <div className="bg-card border border-border rounded-xl p-4 flex items-center justify-between">
               <div>
