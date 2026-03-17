@@ -382,7 +382,7 @@ export const DesktopHeader = () => {
         </div>
 
         {/* Second Row - Navigation Links */}
-        <div className="container max-w-7xl mx-auto px-4 border-t border-primary-foreground/10">
+        <div className="container max-w-7xl mx-auto px-4 border-t border-border">
           <nav className="flex items-center justify-between h-10">
             <a href="/top" className="flex items-center gap-1 px-2 xl:px-3 py-1.5 text-xs xl:text-sm text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-md transition-colors">
               <TrendingUp className="h-3.5 w-3.5 xl:h-4 xl:w-4 flex-shrink-0" />
