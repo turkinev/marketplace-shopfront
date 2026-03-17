@@ -185,7 +185,7 @@ const ProductDetail = () => {
             <div className="flex-1 relative group">
               <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
                 <img
-                  src={mockProduct.images[selectedImage]}
+                  src={currentImages[selectedImage]}
                   alt={mockProduct.name}
                   className="w-full h-full object-contain"
                 />
