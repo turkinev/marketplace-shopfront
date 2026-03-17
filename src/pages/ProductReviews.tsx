@@ -19,6 +19,10 @@ const ProductReviews = () => {
   const { id } = useParams();
   const [isCharModalOpen, setIsCharModalOpen] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleAddToCart = (selectedOptions: Record<string, string>) => {
     toast({ title: "Товар добавлен в корзину", description: `${mockProduct.name} — ${Object.values(selectedOptions).join(", ")}` });
   };
