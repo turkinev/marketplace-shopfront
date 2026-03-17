@@ -287,16 +287,16 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Title */}
-          <div>
+          {/* Title - desktop only above selectors, mobile below */}
+          <div className="hidden lg:block">
             <span className="inline-block text-sm font-medium text-muted-foreground bg-secondary rounded-full px-3 py-1 mb-2">{mockProduct.brand}</span>
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">
               {mockProduct.name}
             </h1>
           </div>
 
-          {/* Rating & stats */}
-          <div className="flex items-center gap-1.5 text-sm">
+          {/* Rating & stats - desktop only here */}
+          <div className="hidden lg:flex items-center gap-1.5 text-sm">
             <Star className="h-4 w-4 fill-rating text-rating" />
             <span className="font-semibold text-foreground">{mockProduct.rating}</span>
             <span className="text-muted-foreground">·</span>
