@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductReviewsList } from "@/components/ProductReviewsList";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "@/components/ProductCharacteristicsModal";
 import { toast } from "@/hooks/use-toast";
+import { ArrowLeft } from "lucide-react";
 
 const mockProduct = {
   name: "Комплект белья Karolina",
@@ -17,6 +18,7 @@ const mockProduct = {
 
 const ProductReviews = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isCharModalOpen, setIsCharModalOpen] = useState(false);
 
   useEffect(() => {
@@ -29,6 +31,17 @@ const ProductReviews = () => {
 
   return (
     <div className="max-w-7xl mx-auto pb-20 lg:pb-0">
+      {/* Header with back arrow and product name */}
+      <div className="sticky top-0 z-40 bg-card border-b border-border flex items-center gap-3 px-4 h-12">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-foreground -ml-1 p-1"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <span className="text-sm font-medium text-foreground truncate">{mockProduct.name}</span>
+      </div>
+
       <div className="px-4 py-4 lg:py-6">
         <ProductReviewsList />
       </div>
