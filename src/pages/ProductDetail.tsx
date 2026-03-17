@@ -255,40 +255,43 @@ const ProductDetail = () => {
                 />
               ))}
             </div>
-            {/* Nav arrows */}
+            {/* Nav arrows - no background */}
             <button
               onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
             >
-              <ChevronLeft className="h-4 w-4 text-foreground" />
+              <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
             </button>
             <button
               onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
             >
-              <ChevronRight className="h-4 w-4 text-foreground" />
+              <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
             </button>
-          </div>
-
-          {/* Mobile thumbnails */}
-          <div className="lg:hidden flex gap-2 mt-3 overflow-x-auto pb-1">
-            {currentImages.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setMobileImageIndex(i)}
-                className={cn(
-                  "w-14 h-14 rounded-lg overflow-hidden border-2 flex-shrink-0 transition-all",
-                  mobileImageIndex === i ? "border-primary" : "border-transparent"
-                )}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
           </div>
         </div>
 
         {/* Middle: Product Info */}
         <div className="lg:w-[35%] flex flex-col gap-5">
+          {/* Mobile: Price right after image */}
+          <div className="lg:hidden">
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-[32px] font-extrabold text-primary tracking-tight">
+                {formatPrice(mockProduct.price)}
+              </span>
+              {discount > 0 && (
+                <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
+                  -{discount}%
+                </span>
+              )}
+            </div>
+            {mockProduct.oldPrice && (
+              <span className="text-base text-muted-foreground line-through mt-0.5 block">
+                {formatPrice(mockProduct.oldPrice)}
+              </span>
+            )}
+          </div>
+
           {/* Title */}
           <div>
             <p className="text-sm text-primary font-medium mb-1">{mockProduct.brand}</p>
@@ -381,26 +384,8 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile only: Price + Cart + Delivery + Seller */}
+          {/* Mobile only: Cart + Delivery + Seller */}
           <div className="lg:hidden space-y-5">
-            {/* Price */}
-            <div>
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-[32px] font-extrabold text-primary tracking-tight">
-                  {formatPrice(mockProduct.price)}
-                </span>
-                {discount > 0 && (
-                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
-                    -{discount}%
-                  </span>
-                )}
-              </div>
-              {mockProduct.oldPrice && (
-                <span className="text-base text-muted-foreground line-through mt-0.5 block">
-                  {formatPrice(mockProduct.oldPrice)}
-                </span>
-              )}
-            </div>
 
             <div className="flex gap-3">
               <Button className="flex-1 h-12 text-base font-semibold gap-2">
