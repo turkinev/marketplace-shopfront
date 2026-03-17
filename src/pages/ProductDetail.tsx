@@ -152,7 +152,7 @@ const ProductDetail = () => {
   }, [relatedLoading, relatedHasMore, loadMoreRelated]);
 
   return (
-    <div className="container max-w-7xl mx-auto lg:px-4 py-0 lg:py-6">
+    <div className="max-w-7xl mx-auto lg:container lg:px-4 py-0 lg:py-6">
       {/* Breadcrumbs */}
       <nav className="sr-only">
         <button onClick={() => navigate("/")} className="hover:text-primary transition-colors">Главная</button>
