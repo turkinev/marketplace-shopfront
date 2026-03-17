@@ -248,7 +248,7 @@ export const DesktopHeader = () => {
             {/* Catalog Button */}
             <Button
               variant="secondary"
-              className="flex items-center gap-2 h-10 px-4 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              className="flex items-center gap-2 h-10 px-4 bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setIsCatalogOpen(!isCatalogOpen)}
             >
               <Menu className="h-5 w-5" />
