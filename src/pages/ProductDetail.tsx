@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import colorRedImg from "@/assets/color-red.jpg";
+import colorRedImg2 from "@/assets/color-red-2.jpg";
 import colorWhiteImg from "@/assets/color-white.jpg";
+import colorWhiteImg2 from "@/assets/color-white-2.jpg";
 import colorBlackImg from "@/assets/color-black.jpg";
+import colorBlackImg2 from "@/assets/color-black-2.jpg";
 import colorBlueImg from "@/assets/color-blue.jpg";
+import colorBlueImg2 from "@/assets/color-blue-2.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
