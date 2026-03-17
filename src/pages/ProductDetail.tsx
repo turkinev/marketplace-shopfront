@@ -302,15 +302,20 @@ const ProductDetail = () => {
             </div>
             {/* Price inside same card */}
             <div className="px-4 py-3">
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
-                  {formatPrice(mockProduct.price)}
-                </span>
-                {mockProduct.oldPrice && (
-                  <span className="text-sm text-muted-foreground line-through">
-                    {formatPrice(mockProduct.oldPrice)}
+              <div className="flex items-center justify-between">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
+                    {formatPrice(mockProduct.price)}
                   </span>
-                )}
+                  {mockProduct.oldPrice && (
+                    <span className="text-sm text-muted-foreground line-through">
+                      {formatPrice(mockProduct.oldPrice)}
+                    </span>
+                  )}
+                </div>
+                <span className="text-xs font-medium text-primary-foreground bg-primary/80 rounded-full px-2.5 py-1">
+                  Купили {mockProduct.ordersCount.toLocaleString("ru-RU")} раз
+                </span>
               </div>
             </div>
           </div>
