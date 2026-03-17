@@ -184,7 +184,7 @@ const ProductDetail = () => {
 
             {/* Main Image */}
             <div className="flex-1 relative group">
-              <div className="aspect-[566/744] rounded-xl overflow-hidden bg-secondary/20">
+              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
                 <img
                   src={currentImages[selectedImage]}
                   alt={mockProduct.name}
@@ -216,7 +216,7 @@ const ProductDetail = () => {
 
           {/* Mobile Gallery - swipeable */}
           <div className="lg:hidden relative">
-            <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
+            <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
               <img
                 src={currentImages[mobileImageIndex]}
                 alt={mockProduct.name}
