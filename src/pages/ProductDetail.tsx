@@ -265,7 +265,7 @@ const ProductDetail = () => {
             {/* Price inside same card */}
             <div className="px-4 py-3">
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-foreground">
+                <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
                   {formatPrice(mockProduct.price)}
                 </span>
                 {mockProduct.oldPrice && (
@@ -513,12 +513,12 @@ const ProductDetail = () => {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe space-y-2">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="text-base font-bold text-foreground">{formatPrice(mockProduct.price)}</span>
+            <span className="text-base font-bold" style={{ color: 'rgb(0, 105, 51)' }}>{formatPrice(mockProduct.price)}</span>
             {mockProduct.oldPrice && (
               <span className="text-xs text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
             )}
           </div>
-          <span className="text-xs text-muted-foreground">{mockProduct.delivery.date}</span>
+          <span className="text-xs font-bold text-foreground">{mockProduct.delivery.date}</span>
         </div>
         <Button className="w-full h-12 text-base font-semibold gap-2">
           <ShoppingCart className="h-5 w-5" />
