@@ -361,7 +361,7 @@ export const DesktopHeader = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-primary-foreground hover:bg-primary-foreground/10 h-10 w-10 relative"
+                className="text-primary hover:bg-primary/10 h-10 w-10 relative"
               >
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
