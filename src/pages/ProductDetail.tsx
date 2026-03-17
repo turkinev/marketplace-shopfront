@@ -188,7 +188,7 @@ const ProductDetail = () => {
                 <img
                   src={currentImages[selectedImage]}
                   alt={mockProduct.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
               {/* Nav arrows */}
@@ -226,7 +226,7 @@ const ProductDetail = () => {
               <img
                 src={currentImages[mobileImageIndex]}
                 alt={mockProduct.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
             {/* Discount badge */}
