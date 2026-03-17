@@ -518,7 +518,7 @@ const ProductDetail = () => {
               <span className="text-xs text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
             )}
           </div>
-          <span className="text-xs text-muted-foreground">{mockProduct.delivery.date}</span>
+          <span className="text-xs font-bold text-foreground">{mockProduct.delivery.date}</span>
         </div>
         <Button className="w-full h-12 text-base font-semibold gap-2">
           <ShoppingCart className="h-5 w-5" />
