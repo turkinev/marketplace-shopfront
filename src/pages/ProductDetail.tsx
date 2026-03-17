@@ -298,16 +298,11 @@ const ProductDetail = () => {
           </div>
 
           {/* Rating & stats */}
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <div className="flex items-center gap-1">
-              <Star className="h-4 w-4 fill-rating text-rating" />
-              <span className="font-semibold text-foreground">{mockProduct.rating}</span>
-            </div>
-            <button className="text-primary hover:underline">{mockProduct.reviewsCount} отзывов</button>
-            <span className="text-muted-foreground">•</span>
-            <button className="text-primary hover:underline">{mockProduct.questionsCount} вопросов</button>
-            <span className="text-muted-foreground">•</span>
-            <span className="text-muted-foreground">{mockProduct.ordersCount.toLocaleString("ru-RU")} заказов</span>
+          <div className="flex items-center gap-1.5 text-sm">
+            <Star className="h-4 w-4 fill-rating text-rating" />
+            <span className="font-semibold text-foreground">{mockProduct.rating}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
           </div>
 
           {/* Color selector */}
@@ -431,7 +426,7 @@ const ProductDetail = () => {
                 <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
+                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -518,7 +513,7 @@ const ProductDetail = () => {
                 <Truck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
+                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
                 </div>
               </div>
             </div>
