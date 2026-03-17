@@ -322,7 +322,7 @@ const ProductDetail = () => {
               <p className="text-sm font-medium text-foreground">
                 Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
               </p>
-              <button className="text-xs text-primary hover:underline">Таблица размеров</button>
+              <button className="text-xs text-muted-foreground">Таблица размеров</button>
             </div>
             <div className="flex flex-wrap gap-2">
               {mockProduct.sizes.map((size) => (
