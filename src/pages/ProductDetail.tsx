@@ -484,7 +484,7 @@ const ProductDetail = () => {
         </Button>
       </div>
       {/* Spacer for sticky button */}
-      <div className="lg:hidden h-20" />
+      <div className="lg:hidden h-28" />
     </div>
   );
 };
