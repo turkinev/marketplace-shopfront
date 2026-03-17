@@ -68,7 +68,7 @@ export const ProductCard = ({
           
           {/* Like Button */}
           <button
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
             className="absolute top-2 right-2 p-2 rounded-full bg-card/80 backdrop-blur-sm shadow-sm hover:bg-card transition-colors"
           >
             <Heart
