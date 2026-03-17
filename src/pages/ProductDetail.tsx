@@ -371,15 +371,13 @@ const ProductDetail = () => {
 
           {/* Mobile: Description + Seller card */}
           <div className="lg:hidden bg-card rounded-xl p-4 space-y-4">
-            <div className="space-y-3">
-              <p className="text-sm font-semibold text-foreground">Собственное производство</p>
-              <p className="text-sm text-muted-foreground">Таблица размеров в карточке товара.</p>
-              <p className="text-sm text-foreground leading-relaxed">
-                Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.
-              </p>
-              <p className="text-sm text-foreground">Комплект идет размер в размер.</p>
-              <p className="text-sm text-muted-foreground">Параметры модели: 90-66-98, рост 174 см</p>
-              <p className="text-sm text-muted-foreground">Размер на модели: 80В</p>
+            <div className="space-y-3 text-sm text-foreground leading-relaxed">
+              <p>Собственное производство</p>
+              <p>Таблица размеров в карточке товара.</p>
+              <p>Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.</p>
+              <p>Комплект идет размер в размер.</p>
+              <p>Параметры модели: 90-66-98, рост 174 см</p>
+              <p>Размер на модели: 80В</p>
             </div>
             <div className="bg-secondary/50 rounded-lg p-3 flex items-center gap-3">
               <div>
