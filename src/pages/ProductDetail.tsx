@@ -15,6 +15,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { StoreReviews } from "@/components/StoreReviews";
 
 
 // Mock product data
@@ -122,6 +123,7 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -475,7 +477,7 @@ const ProductDetail = () => {
                   </div>
                   <p className="text-xs text-foreground line-clamp-3 leading-relaxed">{review.text}</p>
                   <button
-                    onClick={() => navigate("/store/1")}
+                    onClick={() => setIsReviewsOpen(true)}
                     className="text-xs text-primary font-medium"
                   >
                     Перейти к отзывам
@@ -683,6 +685,18 @@ const ProductDetail = () => {
               <span className="text-sm text-muted-foreground">Страна производитель</span>
               <span className="text-sm font-medium text-foreground">Россия</span>
             </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Reviews Fullscreen Popup */}
+      <Sheet open={isReviewsOpen} onOpenChange={setIsReviewsOpen}>
+        <SheetContent side="bottom" className="rounded-t-xl h-[calc(100dvh-3.5rem-4.5rem)] p-0 flex flex-col">
+          <SheetHeader className="px-4 py-3 border-b border-border flex-shrink-0">
+            <SheetTitle className="text-left">Отзывы</SheetTitle>
+          </SheetHeader>
+          <div className="flex-1 overflow-y-auto px-4 pb-4">
+            <StoreReviews />
           </div>
         </SheetContent>
       </Sheet>
