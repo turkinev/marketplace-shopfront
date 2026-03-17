@@ -387,19 +387,6 @@ const ProductDetail = () => {
           {/* Mobile only: Cart + Delivery + Seller */}
           <div className="lg:hidden space-y-5">
 
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-12 w-12 flex-shrink-0"
-                onClick={() => setIsLiked(!isLiked)}
-              >
-                <Heart className={cn("h-5 w-5", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-              </Button>
-              <Button variant="outline" size="icon" className="h-12 w-12 flex-shrink-0">
-                <Share2 className="h-5 w-5 text-muted-foreground" />
-              </Button>
-            </div>
 
             {/* Delivery info */}
             <div className="bg-card border border-border rounded-xl p-4 space-y-3">
