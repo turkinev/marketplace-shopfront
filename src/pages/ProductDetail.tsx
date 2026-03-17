@@ -298,16 +298,11 @@ const ProductDetail = () => {
           </div>
 
           {/* Rating & stats */}
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <div className="flex items-center gap-1">
-              <Star className="h-4 w-4 fill-rating text-rating" />
-              <span className="font-semibold text-foreground">{mockProduct.rating}</span>
-            </div>
-            <button className="text-primary hover:underline">{mockProduct.reviewsCount} отзывов</button>
-            <span className="text-muted-foreground">•</span>
-            <button className="text-primary hover:underline">{mockProduct.questionsCount} вопросов</button>
-            <span className="text-muted-foreground">•</span>
-            <span className="text-muted-foreground">{mockProduct.ordersCount.toLocaleString("ru-RU")} заказов</span>
+          <div className="flex items-center gap-1.5 text-sm">
+            <Star className="h-4 w-4 fill-rating text-rating" />
+            <span className="font-semibold text-foreground">{mockProduct.rating}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
           </div>
 
           {/* Color selector */}
