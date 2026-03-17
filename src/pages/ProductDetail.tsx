@@ -265,7 +265,7 @@ const ProductDetail = () => {
             {/* Price inside same card */}
             <div className="px-4 py-3">
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-foreground">
+                <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
                   {formatPrice(mockProduct.price)}
                 </span>
                 {mockProduct.oldPrice && (
