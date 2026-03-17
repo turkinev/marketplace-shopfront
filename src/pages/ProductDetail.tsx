@@ -103,7 +103,6 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(mockProduct.colors[0].id);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
-  const [quantity, setQuantity] = useState(1);
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
 
   const discount = mockProduct.oldPrice
