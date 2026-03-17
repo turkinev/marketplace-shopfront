@@ -223,13 +223,18 @@ const ProductDetail = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Like */}
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
-            >
-              <Heart className={cn("h-5 w-5", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-            </button>
+            {/* Like + Share */}
+            <div className="absolute top-3 right-3 flex gap-2">
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
+              >
+                <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+              </button>
+              <button className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center">
+                <Share2 className="h-4 w-4 text-muted-foreground" />
+              </button>
+            </div>
             {/* Dots */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
               {currentImages.map((_, i) => (
@@ -382,19 +387,6 @@ const ProductDetail = () => {
           {/* Mobile only: Cart + Delivery + Seller */}
           <div className="lg:hidden space-y-5">
 
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-12 w-12 flex-shrink-0"
-                onClick={() => setIsLiked(!isLiked)}
-              >
-                <Heart className={cn("h-5 w-5", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-              </Button>
-              <Button variant="outline" size="icon" className="h-12 w-12 flex-shrink-0">
-                <Share2 className="h-5 w-5 text-muted-foreground" />
-              </Button>
-            </div>
 
             {/* Delivery info */}
             <div className="bg-card border border-border rounded-xl p-4 space-y-3">
