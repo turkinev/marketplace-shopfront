@@ -9,6 +9,7 @@ import { ArrowLeft } from "lucide-react";
 const mockProduct = {
   name: "Комплект белья Karolina",
   price: 847,
+  oldPrice: 1412,
   delivery: { date: "20–22 марта" },
   characteristics: [
     { name: "Цвет", options: ["Красный", "Белый", "Чёрный", "Голубой"] },
