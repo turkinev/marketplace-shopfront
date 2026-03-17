@@ -16,18 +16,39 @@ const mockProduct = {
   reviewsCount: 1243,
   questionsCount: 89,
   ordersCount: 5600,
-  images: [
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
-  ],
   colors: [
-    { id: "black", name: "Чёрный", hex: "#1a1a1a", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop" },
-    { id: "white", name: "Белый", hex: "#f5f5f5", image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop" },
-    { id: "red", name: "Красный", hex: "#dc2626", image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&h=200&fit=crop" },
-    { id: "blue", name: "Синий", hex: "#2563eb", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop" },
+    {
+      id: "black", name: "Чёрный", hex: "#1a1a1a",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
+      ],
+    },
+    {
+      id: "white", name: "Белый", hex: "#f5f5f5",
+      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop",
+      ],
+    },
+    {
+      id: "red", name: "Красный", hex: "#dc2626",
+      image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&h=200&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=800&h=800&fit=crop",
+      ],
+    },
+    {
+      id: "blue", name: "Синий", hex: "#2563eb",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=800&h=800&fit=crop",
+      ],
+    },
   ],
   sizes: [
     { id: "39", label: "39", available: true },
@@ -105,16 +126,25 @@ const ProductDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
 
+  const currentColor = mockProduct.colors.find((c) => c.id === selectedColor) || mockProduct.colors[0];
+  const currentImages = currentColor.images;
+
   const discount = mockProduct.oldPrice
     ? Math.round((1 - mockProduct.price / mockProduct.oldPrice) * 100)
     : 0;
 
+  const handleColorChange = (colorId: string) => {
+    setSelectedColor(colorId);
+    setSelectedImage(0);
+    setMobileImageIndex(0);
+  };
+
   const handlePrevImage = () => {
-    setSelectedImage((prev) => (prev === 0 ? mockProduct.images.length - 1 : prev - 1));
+    setSelectedImage((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
   };
 
   const handleNextImage = () => {
-    setSelectedImage((prev) => (prev === mockProduct.images.length - 1 ? 0 : prev + 1));
+    setSelectedImage((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -136,7 +166,7 @@ const ProductDetail = () => {
           <div className="hidden lg:flex gap-3">
             {/* Thumbnails */}
             <div className="flex flex-col gap-2 w-16 flex-shrink-0">
-              {mockProduct.images.map((img, i) => (
+              {currentImages.map((img, i) => (
                 <button
                   key={i}
                   onMouseEnter={() => setSelectedImage(i)}
@@ -155,7 +185,7 @@ const ProductDetail = () => {
             <div className="flex-1 relative group">
               <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
                 <img
-                  src={mockProduct.images[selectedImage]}
+                  src={currentImages[selectedImage]}
                   alt={mockProduct.name}
                   className="w-full h-full object-contain"
                 />
@@ -193,7 +223,7 @@ const ProductDetail = () => {
           <div className="lg:hidden relative">
             <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
               <img
-                src={mockProduct.images[mobileImageIndex]}
+                src={currentImages[mobileImageIndex]}
                 alt={mockProduct.name}
                 className="w-full h-full object-contain"
               />
@@ -213,7 +243,7 @@ const ProductDetail = () => {
             </button>
             {/* Dots */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {mockProduct.images.map((_, i) => (
+              {currentImages.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setMobileImageIndex(i)}
@@ -226,13 +256,13 @@ const ProductDetail = () => {
             </div>
             {/* Nav arrows */}
             <button
-              onClick={() => setMobileImageIndex((p) => (p === 0 ? mockProduct.images.length - 1 : p - 1))}
+              onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
               className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
             >
               <ChevronLeft className="h-4 w-4 text-foreground" />
             </button>
             <button
-              onClick={() => setMobileImageIndex((p) => (p === mockProduct.images.length - 1 ? 0 : p + 1))}
+              onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
               className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
             >
               <ChevronRight className="h-4 w-4 text-foreground" />
@@ -241,7 +271,7 @@ const ProductDetail = () => {
 
           {/* Mobile thumbnails */}
           <div className="lg:hidden flex gap-2 mt-3 overflow-x-auto pb-1">
-            {mockProduct.images.map((img, i) => (
+            {currentImages.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setMobileImageIndex(i)}
@@ -288,7 +318,7 @@ const ProductDetail = () => {
               {mockProduct.colors.map((color) => (
                 <button
                   key={color.id}
-                  onClick={() => setSelectedColor(color.id)}
+                  onClick={() => handleColorChange(color.id)}
                   className={cn(
                     "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
                     selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
