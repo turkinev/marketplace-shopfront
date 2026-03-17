@@ -26,13 +26,13 @@ export const Layout = ({ children }: LayoutProps) => {
       </div>
 
       {/* Mobile Header */}
-      <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
+      <header className="lg:hidden sticky top-0 z-50 bg-card shadow-sm">
         {/* Top Row: Logo and Icons */}
         <div className="flex items-center justify-between h-12 px-4">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="w-24 h-8 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">LOGO</span>
+            <div className="w-24 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+              <span className="text-primary font-bold text-sm">LOGO</span>
             </div>
           </div>
           
@@ -41,7 +41,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9 relative"
+              className="text-primary hover:bg-primary/10 h-9 w-9 relative"
             >
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
@@ -49,7 +49,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9"
+              className="text-primary hover:bg-primary/10 h-9 w-9"
               onClick={() => setIsProfileMenuOpen(true)}
             >
               <User className="h-5 w-5" />
@@ -57,7 +57,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-primary-foreground hover:bg-primary-foreground/10 h-9 w-9 relative"
+              className="text-primary hover:bg-primary/10 h-9 w-9 relative"
             >
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] bg-destructive text-destructive-foreground text-[10px] font-medium rounded-full flex items-center justify-center px-0.5">
