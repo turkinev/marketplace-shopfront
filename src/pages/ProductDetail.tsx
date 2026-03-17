@@ -298,7 +298,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Mobile: Selectors card */}
-          <div className="lg:contents bg-card rounded-xl p-4 space-y-4 [&:not(.lg\:contents)]:bg-card max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4">
+          <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4 lg:contents">
             {/* Color selector */}
             <div>
               <p className="text-sm font-medium text-foreground mb-2">
