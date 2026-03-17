@@ -160,7 +160,7 @@ const ProductDetail = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
         {/* Left: Image Gallery */}
         <div className="lg:w-[40%] lg:sticky lg:top-20 lg:self-start">
           {/* Desktop Gallery */}
