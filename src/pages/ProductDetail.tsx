@@ -122,6 +122,27 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const reviewsScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = reviewsScrollRef.current;
+    if (!el) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const show = () => {
+      el.classList.remove('scrollbar-idle');
+      clearTimeout(timer);
+      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+    };
+    // Start idle
+    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+    el.addEventListener('scroll', show);
+    el.addEventListener('touchstart', show);
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener('scroll', show);
+      el.removeEventListener('touchstart', show);
+    };
+  }, []);
 
   useEffect(() => {
     const el = priceRef.current;
