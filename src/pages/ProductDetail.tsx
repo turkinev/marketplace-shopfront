@@ -624,7 +624,7 @@ const ProductDetail = () => {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe overflow-hidden">
         <div
           className={cn(
-            "flex items-baseline gap-2 justify-center transition-all duration-300 ease-out",
+            "flex items-baseline gap-2 transition-all duration-300 ease-out",
             isPriceVisible ? "max-h-0 opacity-0 translate-y-4" : "max-h-10 opacity-100 translate-y-0 mb-1"
           )}
         >
