@@ -394,27 +394,7 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile only: Cart + Delivery + Seller */}
-          <div className="lg:hidden space-y-5">
-
-
-            {/* Seller */}
-            <div className="bg-card border border-border rounded-xl p-4 flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3.5 w-3.5 fill-rating text-rating" />
-                    <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">
-                    {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
-                  </span>
-                </div>
-              </div>
-              <Button variant="outline" size="sm">Все товары</Button>
-            </div>
-          </div>
+          {/* End of mobile cards */}
         </div>
 
         {/* Right: Purchase sidebar (desktop only) */}
