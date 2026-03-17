@@ -651,7 +651,7 @@ const ProductDetail = () => {
       <Sheet open={isProductInfoOpen} onOpenChange={setIsProductInfoOpen}>
         <SheetContent side="bottom" className="rounded-t-xl">
           <SheetHeader className="pb-4 border-b border-border">
-            <SheetTitle className="text-left">Информация о товаре</SheetTitle>
+            <SheetTitle className="text-left">Информация</SheetTitle>
           </SheetHeader>
           <div className="py-4 space-y-3">
             <div className="flex items-center justify-between py-2 border-b border-border">
