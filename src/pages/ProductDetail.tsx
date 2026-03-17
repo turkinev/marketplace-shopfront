@@ -1,4 +1,5 @@
 import { useState } from "react";
+import productMainImg from "@/assets/product-main.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ const mockProduct = {
       id: "black", name: "Чёрный", hex: "#1a1a1a",
       image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop",
       images: [
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop",
+        productMainImg,
         "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
       ],
     },
