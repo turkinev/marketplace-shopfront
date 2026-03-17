@@ -452,7 +452,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Horizontal scrollable review cards */}
-            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+            <div ref={reviewsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
               {mockProduct.reviews.map((review) => (
                 <div
                   key={review.id}
