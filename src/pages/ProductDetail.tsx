@@ -355,22 +355,22 @@ const ProductDetail = () => {
 
           {/* Mobile: Description + Seller card */}
           <div className="lg:hidden bg-card rounded-xl p-4 space-y-4">
-            <div>
+            <div className="space-y-3">
+              <p className="text-sm font-semibold text-foreground">Собственное производство</p>
+              <p className="text-sm text-muted-foreground">Таблица размеров в карточке товара.</p>
               <p className="text-sm text-foreground leading-relaxed">
-                {mockProduct.description.split("\n").slice(0, 3).join(" ")}
+                Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.
               </p>
+              <p className="text-sm text-foreground">Комплект идет размер в размер.</p>
+              <p className="text-sm text-muted-foreground">Параметры модели: 90-66-98, рост 174 см</p>
+              <p className="text-sm text-muted-foreground">Размер на модели: 80В</p>
             </div>
-            <div className="border-t border-border pt-3 flex items-center justify-between">
+            <div className="bg-secondary/50 rounded-lg p-3 flex items-center gap-3">
               <div>
                 <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3.5 w-3.5 fill-rating text-rating" />
-                    <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">
-                    {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
-                  </span>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <Star className="h-3.5 w-3.5 fill-rating text-rating" />
+                  <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
                 </div>
               </div>
             </div>
@@ -467,124 +467,6 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Tabs: Description, Characteristics, Reviews */}
-      <div className="mt-8 lg:mt-12">
-        <Tabs defaultValue="description">
-          <TabsList className="w-full justify-start border-b border-border rounded-none bg-transparent h-auto p-0 gap-0">
-            <TabsTrigger
-              value="description"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 lg:px-6 py-3 text-sm lg:text-base"
-            >
-              Описание
-            </TabsTrigger>
-            <TabsTrigger
-              value="characteristics"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 lg:px-6 py-3 text-sm lg:text-base"
-            >
-              Характеристики
-            </TabsTrigger>
-            <TabsTrigger
-              value="reviews"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 lg:px-6 py-3 text-sm lg:text-base"
-            >
-              Отзывы ({mockProduct.reviewsCount})
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="description" className="mt-6">
-            <div className="max-w-3xl">
-              {mockProduct.description.split("\n").map((paragraph, i) => (
-                <p key={i} className={cn("text-sm lg:text-base text-foreground leading-relaxed", paragraph === "" ? "h-3" : "mb-3")}>
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="characteristics" className="mt-6">
-            <div className="max-w-2xl">
-              {mockProduct.characteristics.map((char, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "flex items-baseline py-3 text-sm lg:text-base",
-                    i !== mockProduct.characteristics.length - 1 && "border-b border-border"
-                  )}
-                >
-                  <span className="text-muted-foreground w-1/2 flex-shrink-0">{char.label}</span>
-                  <span className="text-foreground font-medium">{char.value}</span>
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="reviews" className="mt-6">
-            <div className="max-w-3xl space-y-6">
-              {/* Rating summary */}
-              <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-xl">
-                <div className="text-center">
-                  <p className="text-4xl font-bold text-foreground">{mockProduct.rating}</p>
-                  <div className="flex gap-0.5 mt-1">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star
-                        key={s}
-                        className={cn(
-                          "h-4 w-4",
-                          s <= Math.round(mockProduct.rating) ? "fill-rating text-rating" : "text-border"
-                        )}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">{mockProduct.reviewsCount} отзывов</p>
-                </div>
-              </div>
-
-              {/* Review list */}
-              {mockProduct.reviews.map((review) => (
-                <div key={review.id} className="border-b border-border pb-5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-                      <span className="text-sm font-semibold text-primary">{review.author[0]}</span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{review.author}</p>
-                      <p className="text-xs text-muted-foreground">{review.date}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-0.5 mb-2">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star
-                        key={s}
-                        className={cn(
-                          "h-3.5 w-3.5",
-                          s <= review.rating ? "fill-rating text-rating" : "text-border"
-                        )}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-sm text-foreground leading-relaxed">{review.text}</p>
-                  {review.images.length > 0 && (
-                    <div className="flex gap-2 mt-3">
-                      {review.images.map((img, i) => (
-                        <img key={i} src={img} alt="" className="w-16 h-16 rounded-lg object-cover" />
-                      ))}
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 mt-3">
-                    <Button variant="ghost" size="sm" className="text-xs text-muted-foreground h-7 gap-1">
-                      👍 {review.likes}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-
-              <Button variant="outline" className="w-full">
-                Показать все отзывы
-              </Button>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
       {/* Mobile: Sticky bottom cart button */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe space-y-2">
         <div className="flex items-baseline justify-between">
