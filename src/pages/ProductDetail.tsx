@@ -124,18 +124,7 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
-  const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
-
-  // Lock body scroll when reviews panel is open
-  useEffect(() => {
-    if (isReviewsOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [isReviewsOpen]);
 
   useEffect(() => {
     const el = reviewsScrollRef.current;
