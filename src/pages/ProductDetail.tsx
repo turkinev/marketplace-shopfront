@@ -407,16 +407,40 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile: Description + Seller card */}
+          {/* Mobile: Description + Characteristics tabs + Seller card */}
           <div className="lg:hidden bg-card rounded-xl p-4 space-y-4">
-            <div className="space-y-3 text-sm text-foreground leading-relaxed">
-              <p>Собственное производство</p>
-              <p>Таблица размеров в карточке товара.</p>
-              <p>Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.</p>
-              <p>Комплект идет размер в размер.</p>
-              <p>Параметры модели: 90-66-98, рост 174 см</p>
-              <p>Размер на модели: 80В</p>
-            </div>
+            <Tabs defaultValue="description" className="w-full">
+              <TabsList className="w-full grid grid-cols-2 h-9">
+                <TabsTrigger value="description" className="text-sm">Описание</TabsTrigger>
+                <TabsTrigger value="characteristics" className="text-sm">Характеристики</TabsTrigger>
+              </TabsList>
+              <TabsContent value="description" className="mt-3">
+                <div className="space-y-3 text-sm text-foreground leading-relaxed">
+                  <p>Собственное производство</p>
+                  <p>Таблица размеров в карточке товара.</p>
+                  <p>Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.</p>
+                  <p>Комплект идет размер в размер.</p>
+                  <p>Параметры модели: 90-66-98, рост 174 см</p>
+                  <p>Размер на модели: 80В</p>
+                </div>
+              </TabsContent>
+              <TabsContent value="characteristics" className="mt-3">
+                <div className="space-y-0">
+                  {mockProduct.characteristics.slice(0, 5).map((char, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "flex items-baseline py-2 text-sm",
+                        i !== mockProduct.characteristics.slice(0, 5).length - 1 && "border-b border-border"
+                      )}
+                    >
+                      <span className="text-muted-foreground w-1/2 flex-shrink-0">{char.label}</span>
+                      <span className="text-foreground">{char.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
             <div className="bg-secondary/50 rounded-lg p-3 flex items-center gap-3">
               <div>
                 <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
@@ -428,7 +452,7 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4">
+          <div className="hidden lg:block">
             <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
             <div className="space-y-0">
               {mockProduct.characteristics.slice(0, 5).map((char, i) => (
