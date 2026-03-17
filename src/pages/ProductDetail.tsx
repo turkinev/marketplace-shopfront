@@ -290,13 +290,14 @@ const ProductDetail = () => {
                   key={color.id}
                   onClick={() => setSelectedColor(color.id)}
                   className={cn(
-                    "w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center",
-                    selectedColor === color.id ? "border-primary scale-110" : "border-border hover:border-primary/50"
+                    "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
+                    selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
                   )}
                 >
-                  <span
-                    className="w-7 h-7 rounded-full"
-                    style={{ backgroundColor: color.hex }}
+                  <img
+                    src={color.image}
+                    alt={color.name}
+                    className="w-full h-full object-cover"
                   />
                 </button>
               ))}
