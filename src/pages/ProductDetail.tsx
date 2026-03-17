@@ -360,7 +360,19 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Brief characteristics */}
+          {/* Mobile: Title + Rating after selectors */}
+          <div className="lg:hidden">
+            <h1 className="text-base font-bold text-foreground leading-tight">
+              {mockProduct.name}
+            </h1>
+          </div>
+          <div className="lg:hidden flex items-center gap-1.5 text-sm">
+            <Star className="h-4 w-4 fill-rating text-rating" />
+            <span className="font-semibold text-foreground">{mockProduct.rating}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+          </div>
+
           <div>
             <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
             <div className="space-y-0">
