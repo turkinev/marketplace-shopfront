@@ -383,10 +383,6 @@ const ProductDetail = () => {
           <div className="lg:hidden space-y-5">
 
             <div className="flex gap-3">
-              <Button className="flex-1 h-12 text-base font-semibold gap-2">
-                <ShoppingCart className="h-5 w-5" />
-                Добавить в корзину
-              </Button>
               <Button
                 variant="outline"
                 size="icon"
