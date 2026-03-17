@@ -204,11 +204,77 @@ const ReviewCard = ({ review, onLike }: { review: Review; onLike: (id: string) =
   );
 };
 
+const names = ["Анна К.", "Виктор Л.", "Ирина М.", "Сергей Д.", "Наталья П.", "Олег Р.", "Татьяна Б.", "Павел Ж."];
+const texts = [
+  "Отличное качество, всё как на фото. Рекомендую!",
+  "Хороший товар за свои деньги, доставили быстро.",
+  "Немного не то, что ожидала, но в целом нормально.",
+  "Супер! Заказываю уже второй раз, всё нравится.",
+  "Размер подошёл идеально, ткань приятная.",
+  "Доставка задержалась, но товар хороший.",
+  "Качество на высоте, буду заказывать ещё.",
+  "Нормальный товар, без восторга, но и без нареканий.",
+];
+const sizes = ["75B", "75C", "80B", "80C", "85B", "85C"];
+const colors = ["Красный", "Белый", "Чёрный", "Голубой"];
+
+function generateReview(index: number): Review {
+  return {
+    id: `gen-${index}`,
+    userName: names[index % names.length],
+    rating: [5, 4, 5, 3, 5, 4, 5, 4][index % 8],
+    date: `${(index % 28) + 1} января 2026`,
+    text: texts[index % texts.length],
+    photos: index % 3 === 0 ? [{ id: `ph-${index}`, url: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=200&h=200&fit=crop" }] : undefined,
+    likes: Math.floor(Math.random() * 30),
+    isLiked: false,
+    size: sizes[index % sizes.length],
+    color: colors[index % colors.length],
+  };
+}
+
+const PAGE_SIZE = 10;
+
 export const ProductReviewsList = () => {
   const [reviews, setReviews] = useState<Review[]>(mockProductReviews);
   const [sortBy, setSortBy] = useState("date");
   const [filterRating, setFilterRating] = useState("all");
   const [showWithPhotos, setShowWithPhotos] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const loadMore = useCallback(() => {
+    if (isLoading || !hasMore) return;
+    setIsLoading(true);
+    // Simulate async load
+    setTimeout(() => {
+      setReviews((prev) => {
+        const startIdx = prev.length;
+        if (startIdx >= 50) {
+          setHasMore(false);
+          setIsLoading(false);
+          return prev;
+        }
+        const newReviews = Array.from({ length: PAGE_SIZE }, (_, i) => generateReview(startIdx + i));
+        return [...prev, ...newReviews];
+      });
+      setIsLoading(false);
+    }, 500);
+  }, [isLoading, hasMore]);
+
+  const setLoadMoreNode = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observerRef.current) observerRef.current.disconnect();
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) loadMore();
+      });
+      if (node) observerRef.current.observe(node);
+      loadMoreRef.current = node;
+    },
+    [loadMore]
+  );
 
   const handleLike = (reviewId: string) => {
     setReviews((prev) =>
@@ -288,12 +354,12 @@ export const ProductReviewsList = () => {
         )}
       </div>
 
-      {filteredReviews.length > 0 && (
-        <div className="flex justify-center">
-          <Button variant="outline" className="gap-2">
-            <ChevronDown className="h-4 w-4" />
-            Показать ещё отзывы
-          </Button>
+      {/* Infinite scroll trigger */}
+      {hasMore && (
+        <div ref={setLoadMoreNode} className="flex justify-center py-6">
+          {isLoading && (
+            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          )}
         </div>
       )}
     </div>
