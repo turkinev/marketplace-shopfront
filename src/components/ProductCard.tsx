@@ -18,6 +18,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({
+  id,
   name,
   imageUrl,
   price,
@@ -27,6 +28,7 @@ export const ProductCard = ({
   isLiked: initialLiked = false,
   characteristics,
 }: ProductCardProps) => {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
 
