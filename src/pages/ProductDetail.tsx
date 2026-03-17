@@ -22,7 +22,7 @@ const mockProduct = {
       id: "black", name: "Чёрный", hex: "#1a1a1a",
       image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop",
       images: [
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop",
+        productMainImg,
         "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
       ],
     },
