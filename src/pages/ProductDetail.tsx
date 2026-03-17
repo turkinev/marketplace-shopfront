@@ -30,22 +30,22 @@ const mockProduct = {
     {
       id: "red", name: "Красный", hex: "#dc2626",
       image: colorRedImg,
-      images: [colorRedImg],
+      images: [colorRedImg, colorRedImg2],
     },
     {
       id: "white", name: "Белый", hex: "#f5f5f5",
       image: colorWhiteImg,
-      images: [colorWhiteImg],
+      images: [colorWhiteImg, colorWhiteImg2],
     },
     {
       id: "black", name: "Чёрный", hex: "#1a1a1a",
       image: colorBlackImg,
-      images: [colorBlackImg],
+      images: [colorBlackImg, colorBlackImg2],
     },
     {
       id: "blue", name: "Голубой", hex: "#7dd3fc",
       image: colorBlueImg,
-      images: [colorBlueImg],
+      images: [colorBlueImg, colorBlueImg2],
     },
   ],
   sizes: [
