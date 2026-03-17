@@ -117,6 +117,19 @@ const ProductDetail = () => {
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchDeltaX = useRef<number>(0);
+  const priceRef = useRef<HTMLDivElement>(null);
+  const [isPriceVisible, setIsPriceVisible] = useState(true);
+
+  useEffect(() => {
+    const el = priceRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsPriceVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const currentColor = mockProduct.colors.find((c) => c.id === selectedColor) || mockProduct.colors[0];
   const currentImages = currentColor.images;
