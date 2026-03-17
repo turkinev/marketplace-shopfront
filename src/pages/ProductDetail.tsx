@@ -275,21 +275,16 @@ const ProductDetail = () => {
         <div className="lg:w-[35%] flex flex-col gap-5">
           {/* Mobile: Price right after image */}
           <div className="lg:hidden">
-            <div className="flex items-baseline gap-2.5">
-              <span className="text-[32px] font-extrabold text-primary tracking-tight">
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-bold text-foreground">
                 {formatPrice(mockProduct.price)}
               </span>
-              {discount > 0 && (
-                <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
-                  -{discount}%
+              {mockProduct.oldPrice && (
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatPrice(mockProduct.oldPrice)}
                 </span>
               )}
             </div>
-            {mockProduct.oldPrice && (
-              <span className="text-base text-muted-foreground line-through mt-0.5 block">
-                {formatPrice(mockProduct.oldPrice)}
-              </span>
-            )}
           </div>
 
           {/* Title */}
