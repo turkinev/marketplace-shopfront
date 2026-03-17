@@ -314,7 +314,7 @@ const ProductDetail = () => {
               </button>
             </div>
             {/* Price inside same card */}
-            <div className="px-4 py-3">
+            <div ref={priceRef} className="px-4 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
