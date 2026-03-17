@@ -4,6 +4,7 @@ import { DesktopHeader } from "./DesktopHeader";
 import { MobileBurgerMenu } from "./MobileBurgerMenu";
 import { SearchBar } from "./SearchBar";
 import { Bell, User, ShoppingCart, Mail, Package, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
