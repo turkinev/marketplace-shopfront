@@ -140,3 +140,35 @@
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted-foreground) / 0.25) transparent;
 }
+
+/* Scrollbar that fades out after 2s of inactivity */
+.scrollbar-fade {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+.scrollbar-fade::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollbar-fade::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-fade::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 9999px;
+  transition: opacity 0.4s ease;
+}
+
+.scrollbar-fade {
+  --scrollbar-opacity: 1;
+}
+
+.scrollbar-fade.scrollbar-idle::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollbar-fade.scrollbar-idle {
+  scrollbar-color: transparent transparent;
+}

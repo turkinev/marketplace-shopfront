@@ -122,6 +122,27 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const reviewsScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = reviewsScrollRef.current;
+    if (!el) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const show = () => {
+      el.classList.remove('scrollbar-idle');
+      clearTimeout(timer);
+      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+    };
+    // Start idle
+    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+    el.addEventListener('scroll', show);
+    el.addEventListener('touchstart', show);
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener('scroll', show);
+      el.removeEventListener('touchstart', show);
+    };
+  }, []);
 
   useEffect(() => {
     const el = priceRef.current;
@@ -431,7 +452,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Horizontal scrollable review cards */}
-            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide" style={{ scrollSnapType: 'x mandatory' }}>
+            <div ref={reviewsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
               {mockProduct.reviews.map((review) => (
                 <div
                   key={review.id}
@@ -651,7 +672,7 @@ const ProductDetail = () => {
       <Sheet open={isProductInfoOpen} onOpenChange={setIsProductInfoOpen}>
         <SheetContent side="bottom" className="rounded-t-xl">
           <SheetHeader className="pb-4 border-b border-border">
-            <SheetTitle className="text-left">Информация о товаре</SheetTitle>
+            <SheetTitle className="text-left">Информация</SheetTitle>
           </SheetHeader>
           <div className="py-4 space-y-3">
             <div className="flex items-center justify-between py-2 border-b border-border">
