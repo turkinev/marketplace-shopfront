@@ -271,7 +271,7 @@ const ProductDetail = () => {
 
           {/* Mobile thumbnails */}
           <div className="lg:hidden flex gap-2 mt-3 overflow-x-auto pb-1">
-            {mockProduct.images.map((img, i) => (
+            {currentImages.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setMobileImageIndex(i)}
