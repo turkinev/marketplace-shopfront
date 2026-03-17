@@ -131,6 +131,26 @@ const ProductDetail = () => {
     setMobileImageIndex(0);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    }
+  };
+  const handleTouchEnd = () => {
+    const threshold = 50;
+    if (touchDeltaX.current < -threshold) {
+      setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1));
+    } else if (touchDeltaX.current > threshold) {
+      setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1));
+    }
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
+  };
+
   const handlePrevImage = () => {
     setSelectedImage((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
   };
