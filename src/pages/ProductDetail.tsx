@@ -272,7 +272,7 @@ const ProductDetail = () => {
         </div>
 
         {/* Middle: Product Info */}
-        <div className="lg:w-[35%] flex flex-col gap-5">
+        <div className="lg:w-[35%] flex flex-col gap-3 lg:gap-5">
           {/* Mobile: Price right after image */}
           <div className="lg:hidden">
             <div className="flex items-baseline gap-2">
