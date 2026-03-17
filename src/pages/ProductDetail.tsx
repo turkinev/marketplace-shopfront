@@ -219,14 +219,19 @@ const ProductDetail = () => {
 
           {/* Mobile Gallery - swipeable + price in same card */}
           <div className="lg:hidden bg-card overflow-hidden">
-            <div className="relative">
-              <div className="aspect-[3/4] overflow-hidden bg-secondary/20">
-                <img
-                  src={currentImages[mobileImageIndex]}
-                  alt={mockProduct.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="relative overflow-hidden">
+              <div className="aspect-[3/4] relative bg-secondary/20">
+                {currentImages.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt={mockProduct.name}
+                    className={cn(
+                      "absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out",
+                      mobileImageIndex === i ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                ))}
               {/* Like + Share */}
               <div className="absolute top-3 right-3 flex gap-2">
                 <button
