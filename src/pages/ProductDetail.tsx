@@ -12,10 +12,11 @@ import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateC
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
-import { StoreReviews } from "@/components/StoreReviews";
+
 
 
 // Mock product data
@@ -123,18 +124,7 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
-  const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
-
-  // Lock body scroll when reviews panel is open
-  useEffect(() => {
-    if (isReviewsOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [isReviewsOpen]);
 
   useEffect(() => {
     const el = reviewsScrollRef.current;
@@ -487,7 +477,7 @@ const ProductDetail = () => {
                   </div>
                   <p className="text-xs text-foreground line-clamp-3 leading-relaxed">{review.text}</p>
                   <button
-                    onClick={() => setIsReviewsOpen(true)}
+                    onClick={() => navigate(`/product/${id}/reviews`)}
                     className="text-xs text-primary font-medium"
                   >
                     Перейти к отзывам
@@ -699,20 +689,6 @@ const ProductDetail = () => {
         </SheetContent>
       </Sheet>
 
-      {/* Reviews Fullscreen Panel - between header and cart footer */}
-      {isReviewsOpen && (
-        <div className="lg:hidden fixed inset-0 top-[6.5rem] bottom-[4.5rem] z-40 bg-background flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border flex-shrink-0">
-            <h2 className="text-base font-bold text-foreground">Отзывы</h2>
-            <button onClick={() => setIsReviewsOpen(false)} className="text-sm text-primary font-medium">
-              Закрыть
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <StoreReviews />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
