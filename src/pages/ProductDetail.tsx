@@ -1,5 +1,8 @@
 import { useState } from "react";
-import productMainImg from "@/assets/product-main.jpg";
+import colorRedImg from "@/assets/color-red.jpg";
+import colorWhiteImg from "@/assets/color-white.jpg";
+import colorBlackImg from "@/assets/color-black.jpg";
+import colorBlueImg from "@/assets/color-blue.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,72 +12,52 @@ import { cn } from "@/lib/utils";
 // Mock product data
 const mockProduct = {
   id: "1",
-  name: 'Кроссовки мужские Nike Air Max 270 React, цвет: черный/белый, размеры 40-46',
-  brand: "Nike",
-  price: 8990,
-  oldPrice: 14990,
+  name: 'Комплект белья Karolina',
+  brand: "Karolina",
+  price: 847,
+  oldPrice: 974,
   rating: 4.7,
   reviewsCount: 1243,
   questionsCount: 89,
   ordersCount: 5600,
   colors: [
     {
-      id: "black", name: "Чёрный", hex: "#1a1a1a",
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop",
-      images: [
-        productMainImg,
-        "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
-      ],
+      id: "red", name: "Красный", hex: "#dc2626",
+      image: colorRedImg,
+      images: [colorRedImg],
     },
     {
       id: "white", name: "Белый", hex: "#f5f5f5",
-      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop",
-      images: [
-        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop",
-      ],
+      image: colorWhiteImg,
+      images: [colorWhiteImg],
     },
     {
-      id: "red", name: "Красный", hex: "#dc2626",
-      image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&h=200&fit=crop",
-      images: [
-        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=800&h=800&fit=crop",
-      ],
+      id: "black", name: "Чёрный", hex: "#1a1a1a",
+      image: colorBlackImg,
+      images: [colorBlackImg],
     },
     {
-      id: "blue", name: "Синий", hex: "#2563eb",
-      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop",
-      images: [
-        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&h=800&fit=crop",
-        "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=800&h=800&fit=crop",
-      ],
+      id: "blue", name: "Голубой", hex: "#7dd3fc",
+      image: colorBlueImg,
+      images: [colorBlueImg],
     },
   ],
   sizes: [
-    { id: "39", label: "S", supplierSize: "39", available: true },
-    { id: "40", label: "M", supplierSize: "40", available: true },
-    { id: "41", label: "M", supplierSize: "41", available: true },
-    { id: "42", label: "L", supplierSize: "42", available: true },
-    { id: "43", label: "L", supplierSize: "43", available: false },
-    { id: "44", label: "XL", supplierSize: "44", available: true },
-    { id: "45", label: "XL", supplierSize: "45", available: true },
-    { id: "46", label: "XXL", supplierSize: "46", available: false },
+    { id: "75b", label: "75B", supplierSize: "75B", available: true },
+    { id: "75c", label: "75C", supplierSize: "75C", available: true },
+    { id: "80b", label: "80B", supplierSize: "80B", available: true },
+    { id: "80c", label: "80C", supplierSize: "80C", available: true },
+    { id: "85b", label: "85B", supplierSize: "85B", available: true },
+    { id: "85c", label: "85C", supplierSize: "85C", available: true },
   ],
-  description: `Кроссовки Nike Air Max 270 React сочетают в себе два революционных решения Nike — амортизацию Air Max и пену React — для невероятного комфорта на каждый день.\n\nВерх из сетчатого материала обеспечивает лёгкость и воздухопроницаемость. Подошва с технологией Air Max 270 создаёт мягкую амортизацию при каждом шаге.\n\nОсобенности:\n• Пена React для мягкости и отзывчивости\n• Элемент Air Max 270 в области пятки\n• Сетчатый верх для вентиляции\n• Резиновая подмётка для сцепления`,
+  description: `Собственное производство\nТаблица размеров в карточке товара.\n\nИдеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.\n\nКомплект идет размер в размер.\n\nПараметры модели: 90-66-98, рост 174 см\nРазмер на модели: 80В`,
   characteristics: [
-    { label: "Бренд", value: "Nike" },
-    { label: "Модель", value: "Air Max 270 React" },
-    { label: "Пол", value: "Мужской" },
-    { label: "Сезон", value: "Демисезон" },
-    { label: "Материал верха", value: "Текстиль, синтетика" },
-    { label: "Материал подошвы", value: "Резина, пена React" },
-    { label: "Тип застёжки", value: "Шнуровка" },
-    { label: "Страна производства", value: "Вьетнам" },
-    { label: "Артикул", value: "AO4971-003" },
+    { label: "Пол", value: "Женский" },
+    { label: "Материал", value: "Текстиль" },
+    { label: "Бренд", value: "Karolina" },
   ],
   seller: {
-    name: "Nike Official Store",
+    name: "Karolina Official",
     rating: 4.9,
     ordersCount: 152000,
   },
@@ -91,7 +74,7 @@ const mockProduct = {
       rating: 5,
       text: "Отличные кроссовки! Очень удобные, сели идеально по размеру. Амортизация супер, ноги не устают даже после долгих прогулок. Рекомендую!",
       likes: 24,
-      images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop"],
+      images: [],
     },
     {
       id: "r2",
