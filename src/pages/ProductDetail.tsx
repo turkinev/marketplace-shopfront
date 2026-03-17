@@ -223,12 +223,6 @@ const ProductDetail = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Discount badge */}
-            {discount > 0 && (
-              <span className="absolute top-3 left-3 bg-destructive text-destructive-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
-                -{discount}%
-              </span>
-            )}
             {/* Like */}
             <button
               onClick={() => setIsLiked(!isLiked)}
