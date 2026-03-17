@@ -1,6 +1,7 @@
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "./ProductCharacteristicsModal";
 
@@ -17,6 +18,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({
+  id,
   name,
   imageUrl,
   price,
@@ -26,6 +28,7 @@ export const ProductCard = ({
   isLiked: initialLiked = false,
   characteristics,
 }: ProductCardProps) => {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
 
@@ -51,7 +54,10 @@ export const ProductCard = ({
 
   return (
     <>
-      <div className="bg-card rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200">
+      <div 
+        className="bg-card rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer"
+        onClick={() => navigate(`/product/${id}`)}
+      >
         {/* Image Container */}
         <div className="relative aspect-square bg-secondary/30">
           <img
@@ -62,7 +68,7 @@ export const ProductCard = ({
           
           {/* Like Button */}
           <button
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
             className="absolute top-2 right-2 p-2 rounded-full bg-card/80 backdrop-blur-sm shadow-sm hover:bg-card transition-colors"
           >
             <Heart
