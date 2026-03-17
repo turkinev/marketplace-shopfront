@@ -426,7 +426,7 @@ const ProductDetail = () => {
                 <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
+                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
