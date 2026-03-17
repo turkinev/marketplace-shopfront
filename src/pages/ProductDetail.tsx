@@ -122,6 +122,7 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const [isReviewsOpen, setIsReviewsOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
