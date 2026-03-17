@@ -389,17 +389,21 @@ const ProductDetail = () => {
           {/* Mobile only: Price + Cart + Delivery + Seller */}
           <div className="lg:hidden space-y-5">
             {/* Price */}
-            <div className="flex items-end gap-3">
-              <span className="text-3xl font-bold text-foreground">
-                {formatPrice(mockProduct.price)}
-              </span>
+            <div>
+              <div className="flex items-baseline gap-2.5">
+                <span className="text-[32px] font-extrabold text-primary tracking-tight">
+                  {formatPrice(mockProduct.price)}
+                </span>
+                {discount > 0 && (
+                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
+                    -{discount}%
+                  </span>
+                )}
+              </div>
               {mockProduct.oldPrice && (
-                <span className="text-lg text-muted-foreground line-through mb-0.5">
+                <span className="text-base text-muted-foreground line-through mt-0.5 block">
                   {formatPrice(mockProduct.oldPrice)}
                 </span>
-              )}
-              {discount > 0 && (
-                <span className="text-sm font-bold text-destructive mb-1">-{discount}%</span>
               )}
             </div>
 
@@ -471,16 +475,18 @@ const ProductDetail = () => {
           <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             {/* Price */}
             <div>
-              <div className="flex items-end gap-2">
-                <span className="text-3xl font-bold text-foreground">
+              <div className="flex items-baseline gap-2.5">
+                <span className="text-[28px] font-extrabold text-primary tracking-tight">
                   {formatPrice(mockProduct.price)}
                 </span>
                 {discount > 0 && (
-                  <span className="text-sm font-bold text-destructive mb-1">-{discount}%</span>
+                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
+                    -{discount}%
+                  </span>
                 )}
               </div>
               {mockProduct.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through">
+                <span className="text-sm text-muted-foreground line-through mt-0.5 block">
                   {formatPrice(mockProduct.oldPrice)}
                 </span>
               )}
