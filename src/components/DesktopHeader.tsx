@@ -232,7 +232,7 @@ export const DesktopHeader = () => {
   return (
     <>
       {/* Main Header */}
-      <header className="hidden lg:block sticky top-0 z-50 bg-primary text-primary-foreground shadow-md">
+      <header className="hidden lg:block sticky top-0 z-50 bg-card text-primary shadow-sm border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-6 h-16">
             {/* Logo */}
