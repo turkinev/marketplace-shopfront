@@ -218,7 +218,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Mobile Gallery - swipeable + price in same card */}
-          <div className="lg:hidden bg-card rounded-b-xl overflow-hidden">
+          <div className="lg:hidden bg-card overflow-hidden">
             <div className="relative">
               <div className="aspect-[3/4] overflow-hidden bg-secondary/20">
                 <img
