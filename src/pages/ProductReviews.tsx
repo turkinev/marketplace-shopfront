@@ -48,8 +48,9 @@ const ProductReviews = () => {
 
       {/* Sticky cart button - mobile */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe">
-        <div className="mb-1">
-          <span className="text-base font-bold text-foreground">{mockProduct.price} ₽</span>
+        <div className="mb-1 flex items-baseline gap-2">
+          <span className="text-base font-bold" style={{ color: "rgb(0, 105, 51)" }}>{mockProduct.price} ₽</span>
+          <span className="text-sm text-muted-foreground line-through">{mockProduct.oldPrice} ₽</span>
         </div>
         <Button
           className="w-full h-12 text-sm flex flex-col items-center justify-center gap-0"
