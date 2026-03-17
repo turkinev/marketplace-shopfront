@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import colorRedImg from "@/assets/color-red.jpg";
 import colorWhiteImg from "@/assets/color-white.jpg";
 import colorBlackImg from "@/assets/color-black.jpg";
@@ -6,6 +6,10 @@ import colorBlueImg from "@/assets/color-blue.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
+import { ProductCard } from "@/components/ProductCard";
+import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
