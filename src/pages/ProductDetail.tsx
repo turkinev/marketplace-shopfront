@@ -621,7 +621,18 @@ const ProductDetail = () => {
           </div>
         )}
       </div>
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe overflow-hidden">
+        <div
+          className={cn(
+            "flex items-baseline gap-2 justify-center transition-all duration-300 ease-out",
+            isPriceVisible ? "max-h-0 opacity-0 translate-y-4" : "max-h-10 opacity-100 translate-y-0 mb-1"
+          )}
+        >
+          <span className="text-base font-bold" style={{ color: 'rgb(0, 105, 51)' }}>{formatPrice(mockProduct.price)}</span>
+          {mockProduct.oldPrice && (
+            <span className="text-xs text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
+          )}
+        </div>
         <Button className="w-full h-12 text-sm flex flex-col items-center justify-center gap-0">
           <span className="font-semibold leading-tight">В корзину</span>
           <span className="text-sm font-normal leading-tight opacity-80">{mockProduct.delivery.date}</span>
