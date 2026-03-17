@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import colorRedImg from "@/assets/color-red.jpg";
+import colorRedImg2 from "@/assets/color-red-2.jpg";
 import colorWhiteImg from "@/assets/color-white.jpg";
+import colorWhiteImg2 from "@/assets/color-white-2.jpg";
 import colorBlackImg from "@/assets/color-black.jpg";
+import colorBlackImg2 from "@/assets/color-black-2.jpg";
 import colorBlueImg from "@/assets/color-blue.jpg";
+import colorBlueImg2 from "@/assets/color-blue-2.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,22 +30,22 @@ const mockProduct = {
     {
       id: "red", name: "Красный", hex: "#dc2626",
       image: colorRedImg,
-      images: [colorRedImg],
+      images: [colorRedImg, colorRedImg2],
     },
     {
       id: "white", name: "Белый", hex: "#f5f5f5",
       image: colorWhiteImg,
-      images: [colorWhiteImg],
+      images: [colorWhiteImg, colorWhiteImg2],
     },
     {
       id: "black", name: "Чёрный", hex: "#1a1a1a",
       image: colorBlackImg,
-      images: [colorBlackImg],
+      images: [colorBlackImg, colorBlackImg2],
     },
     {
       id: "blue", name: "Голубой", hex: "#7dd3fc",
       image: colorBlueImg,
-      images: [colorBlueImg],
+      images: [colorBlueImg, colorBlueImg2],
     },
   ],
   sizes: [
@@ -148,7 +152,7 @@ const ProductDetail = () => {
   }, [relatedLoading, relatedHasMore, loadMoreRelated]);
 
   return (
-    <div className="container max-w-7xl mx-auto lg:px-4 py-0 lg:py-6">
+    <div className="max-w-7xl mx-auto lg:container lg:px-4 py-0 lg:py-6">
       {/* Breadcrumbs */}
       <nav className="sr-only">
         <button onClick={() => navigate("/")} className="hover:text-primary transition-colors">Главная</button>
@@ -214,7 +218,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Mobile Gallery - swipeable + price in same card */}
-          <div className="lg:hidden bg-card rounded-b-xl overflow-hidden">
+          <div className="lg:hidden bg-card overflow-hidden">
             <div className="relative">
               <div className="aspect-[3/4] overflow-hidden bg-secondary/20">
                 <img
