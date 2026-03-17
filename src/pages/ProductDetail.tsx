@@ -8,12 +8,14 @@ import colorBlackImg2 from "@/assets/color-black-2.jpg";
 import colorBlueImg from "@/assets/color-blue.jpg";
 import colorBlueImg2 from "@/assets/color-blue-2.jpg";
 import { useNavigate, useParams } from "react-router-dom";
-import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
+import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
 
 // Mock product data
 const mockProduct = {
@@ -119,6 +121,7 @@ const ProductDetail = () => {
   const touchDeltaX = useRef<number>(0);
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
+  const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
 
   useEffect(() => {
     const el = priceRef.current;
@@ -326,9 +329,14 @@ const ProductDetail = () => {
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-medium text-primary-foreground bg-primary/80 rounded-full px-2.5 py-1">
-                  Купили {mockProduct.ordersCount.toLocaleString("ru-RU")} раз
-                </span>
+                <button
+                  onClick={() => setIsProductInfoOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary/80 text-xs font-medium transition-colors hover:bg-secondary"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-emerald-500" />
+                  <span className="text-emerald-600">Сбор</span>
+                  <span className="text-muted-foreground">до 15 февраля</span>
+                </button>
               </div>
             </div>
           </div>
@@ -640,6 +648,25 @@ const ProductDetail = () => {
       </div>
       {/* Spacer for sticky button */}
       <div className="lg:hidden h-16" />
+
+      {/* Product Info Bottom Sheet */}
+      <Sheet open={isProductInfoOpen} onOpenChange={setIsProductInfoOpen}>
+        <SheetContent side="bottom" className="rounded-t-xl">
+          <SheetHeader className="pb-4 border-b border-border">
+            <SheetTitle className="text-left">Информация о товаре</SheetTitle>
+          </SheetHeader>
+          <div className="py-4 space-y-3">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <span className="text-sm text-muted-foreground">Комиссия</span>
+              <span className="text-sm font-medium text-foreground">21% (не менее 20 р.)</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-muted-foreground">Страна производитель</span>
+              <span className="text-sm font-medium text-foreground">Россия</span>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
