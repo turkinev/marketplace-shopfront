@@ -477,7 +477,7 @@ const ProductDetail = () => {
                   </div>
                   <p className="text-xs text-foreground line-clamp-3 leading-relaxed">{review.text}</p>
                   <button
-                    onClick={() => setIsReviewsOpen(true)}
+                    onClick={() => navigate(`/product/${id}/reviews`)}
                     className="text-xs text-primary font-medium"
                   >
                     Перейти к отзывам
