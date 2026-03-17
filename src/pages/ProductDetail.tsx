@@ -12,6 +12,7 @@ import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateC
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
