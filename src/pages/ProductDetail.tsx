@@ -349,14 +349,18 @@ const ProductDetail = () => {
                   disabled={!size.available}
                   onClick={() => setSelectedSize(size.id)}
                   className={cn(
-                    "h-10 min-w-[3rem] px-3 rounded-lg border text-sm font-medium transition-all",
-                    !size.available && "opacity-30 cursor-not-allowed line-through",
+                    "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
+                    !size.available && "opacity-30 cursor-not-allowed",
                     selectedSize === size.id
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border bg-card text-foreground hover:border-primary/50"
                   )}
                 >
-                  {size.label}
+                  <span className="text-sm font-bold leading-tight">{size.label}</span>
+                  <span className={cn(
+                    "text-[11px] leading-tight",
+                    selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
+                  )}>{size.supplierSize}</span>
                 </button>
               ))}
             </div>
