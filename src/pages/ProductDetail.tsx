@@ -256,7 +256,7 @@ const ProductDetail = () => {
             </div>
             {/* Nav arrows */}
             <button
-              onClick={() => setMobileImageIndex((p) => (p === 0 ? mockProduct.images.length - 1 : p - 1))}
+              onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
               className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/70 backdrop-blur-sm shadow flex items-center justify-center"
             >
               <ChevronLeft className="h-4 w-4 text-foreground" />
