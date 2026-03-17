@@ -1,8 +1,10 @@
 import { ReactNode, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { DesktopHeader } from "./DesktopHeader";
 import { MobileBurgerMenu } from "./MobileBurgerMenu";
 import { SearchBar } from "./SearchBar";
 import { Bell, User, ShoppingCart, Mail, Package, Gift, ListChecks, UserCircle, QrCode, MapPin, LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -17,6 +19,8 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isProductPage = location.pathname.startsWith("/product/");
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,7 +30,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </div>
 
       {/* Mobile Header */}
-      <header className="lg:hidden sticky top-0 z-50 bg-primary shadow-sm">
+      <header className={cn("lg:hidden z-50 shadow-sm", isProductPage ? "absolute top-0 left-0 right-0 bg-transparent shadow-none" : "sticky top-0 bg-primary")}>
         {/* Top Row: Logo and Icons */}
         <div className="flex items-center justify-between h-12 px-4">
           {/* Logo */}
