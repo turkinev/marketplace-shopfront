@@ -10,8 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 
 // Mock product data
 const mockProduct = {
