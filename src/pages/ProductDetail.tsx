@@ -115,6 +115,8 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef<number>(0);
 
   const currentColor = mockProduct.colors.find((c) => c.id === selectedColor) || mockProduct.colors[0];
   const currentImages = currentColor.images;
