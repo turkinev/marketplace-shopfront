@@ -262,7 +262,7 @@ export const DesktopHeader = () => {
                   placeholder="Искать товары"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-10 pl-4 pr-12 bg-primary-foreground text-foreground border-0 rounded-lg placeholder:text-muted-foreground"
+                  className="w-full h-10 pl-4 pr-12 bg-muted text-foreground border-0 rounded-lg placeholder:text-muted-foreground"
                 />
                 <Button 
                   type="submit"
