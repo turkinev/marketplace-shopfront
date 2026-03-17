@@ -216,7 +216,7 @@ const ProductDetail = () => {
 
           {/* Mobile Gallery - swipeable */}
           <div className="lg:hidden relative">
-            <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
+            <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
               <img
                 src={currentImages[mobileImageIndex]}
                 alt={mockProduct.name}
