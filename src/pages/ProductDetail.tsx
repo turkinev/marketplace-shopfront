@@ -1,4 +1,5 @@
 import { useState } from "react";
+import productMainImg from "@/assets/product-main.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
