@@ -115,6 +115,8 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef<number>(0);
 
   const currentColor = mockProduct.colors.find((c) => c.id === selectedColor) || mockProduct.colors[0];
   const currentImages = currentColor.images;
@@ -127,6 +129,26 @@ const ProductDetail = () => {
     setSelectedColor(colorId);
     setSelectedImage(0);
     setMobileImageIndex(0);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    }
+  };
+  const handleTouchEnd = () => {
+    const threshold = 50;
+    if (touchDeltaX.current < -threshold) {
+      setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1));
+    } else if (touchDeltaX.current > threshold) {
+      setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1));
+    }
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
   };
 
   const handlePrevImage = () => {
@@ -225,7 +247,7 @@ const ProductDetail = () => {
 
           {/* Mobile Gallery - swipeable + price in same card */}
           <div className="lg:hidden bg-card overflow-hidden">
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
               <div key={selectedColor} className="aspect-[3/4] relative bg-secondary/20">
                 {currentImages.map((img, i) => (
                   <img
