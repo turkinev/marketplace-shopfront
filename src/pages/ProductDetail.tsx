@@ -166,7 +166,7 @@ const ProductDetail = () => {
           <div className="hidden lg:flex gap-3">
             {/* Thumbnails */}
             <div className="flex flex-col gap-2 w-16 flex-shrink-0">
-              {mockProduct.images.map((img, i) => (
+              {currentImages.map((img, i) => (
                 <button
                   key={i}
                   onMouseEnter={() => setSelectedImage(i)}
