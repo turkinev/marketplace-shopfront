@@ -57,7 +57,7 @@ const mockProduct = {
     { label: "Бренд", value: "Karolina" },
   ],
   seller: {
-    name: "Karolina Official",
+    name: "Mandhary - Новая премиальная коллекция",
     rating: 4.9,
     ordersCount: 152000,
   },
