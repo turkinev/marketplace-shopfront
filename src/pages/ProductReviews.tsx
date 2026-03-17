@@ -1,23 +1,30 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { ProductReviewsList } from "@/components/ProductReviewsList";
 
+const mockProduct = {
+  price: 847,
+  delivery: { date: "20–22 марта" },
+};
+
+const formatPrice = (value: number): string =>
+  new Intl.NumberFormat("ru-RU").format(value) + " ₽";
+
 const ProductReviews = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {/* Mobile back header */}
-      <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-card border-b border-border">
-        <button onClick={() => navigate(-1)} className="p-1">
-          <ChevronLeft className="h-5 w-5 text-foreground" />
-        </button>
-        <h1 className="text-base font-bold text-foreground">Отзывы о товаре</h1>
-      </div>
-
+    <div className="max-w-7xl mx-auto pb-20 lg:pb-0">
       <div className="px-4 py-4 lg:py-6">
         <ProductReviewsList />
+      </div>
+
+      {/* Sticky cart button - mobile */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe">
+        <Button className="w-full h-12 text-sm flex flex-col items-center justify-center gap-0">
+          <span className="font-semibold leading-tight">В корзину</span>
+          <span className="text-sm font-normal leading-tight opacity-80">{mockProduct.delivery.date}</span>
+        </Button>
       </div>
     </div>
   );
