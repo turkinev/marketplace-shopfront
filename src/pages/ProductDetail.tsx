@@ -8,12 +8,14 @@ import colorBlackImg2 from "@/assets/color-black-2.jpg";
 import colorBlueImg from "@/assets/color-blue.jpg";
 import colorBlueImg2 from "@/assets/color-blue-2.jpg";
 import { useNavigate, useParams } from "react-router-dom";
-import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft } from "lucide-react";
+import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
 
 // Mock product data
 const mockProduct = {
