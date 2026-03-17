@@ -24,10 +24,10 @@ const mockProduct = {
     "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&h=800&fit=crop",
   ],
   colors: [
-    { id: "black", name: "Чёрный", hex: "#1a1a1a" },
-    { id: "white", name: "Белый", hex: "#f5f5f5" },
-    { id: "red", name: "Красный", hex: "#dc2626" },
-    { id: "blue", name: "Синий", hex: "#2563eb" },
+    { id: "black", name: "Чёрный", hex: "#1a1a1a", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop" },
+    { id: "white", name: "Белый", hex: "#f5f5f5", image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop" },
+    { id: "red", name: "Красный", hex: "#dc2626", image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&h=200&fit=crop" },
+    { id: "blue", name: "Синий", hex: "#2563eb", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&h=200&fit=crop" },
   ],
   sizes: [
     { id: "39", label: "39", available: true },
