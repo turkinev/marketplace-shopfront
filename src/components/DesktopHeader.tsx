@@ -240,8 +240,8 @@ export const DesktopHeader = () => {
               className="flex-shrink-0 cursor-pointer"
               onClick={() => navigate("/")}
             >
-              <div className="w-32 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">LOGO</span>
+              <div className="w-32 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span className="text-primary font-bold text-lg">LOGO</span>
               </div>
             </div>
 
