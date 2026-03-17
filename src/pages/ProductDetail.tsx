@@ -318,7 +318,7 @@ const ProductDetail = () => {
               {mockProduct.colors.map((color) => (
                 <button
                   key={color.id}
-                  onClick={() => setSelectedColor(color.id)}
+                  onClick={() => handleColorChange(color.id)}
                   className={cn(
                     "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
                     selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
