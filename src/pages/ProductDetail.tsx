@@ -353,7 +353,29 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile: Characteristics card */}
+          {/* Mobile: Description + Seller card */}
+          <div className="lg:hidden bg-card rounded-xl p-4 space-y-4">
+            <div>
+              <p className="text-sm text-foreground leading-relaxed">
+                {mockProduct.description.split("\n").slice(0, 3).join(" ")}
+              </p>
+            </div>
+            <div className="border-t border-border pt-3 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-1">
+                    <Star className="h-3.5 w-3.5 fill-rating text-rating" />
+                    <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4">
             <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
             <div className="space-y-0">
