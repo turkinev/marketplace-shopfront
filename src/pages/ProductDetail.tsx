@@ -438,7 +438,7 @@ const ProductDetail = () => {
                     onClick={() => navigate("/store/1")}
                     className="text-xs text-primary font-medium"
                   >
-                    Перейти к отзывам →
+                    Перейти к отзывам
                   </button>
                 </div>
               ))}
