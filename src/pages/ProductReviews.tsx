@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductReviewsList } from "@/components/ProductReviewsList";
@@ -18,6 +18,10 @@ const mockProduct = {
 const ProductReviews = () => {
   const { id } = useParams();
   const [isCharModalOpen, setIsCharModalOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleAddToCart = (selectedOptions: Record<string, string>) => {
     toast({ title: "Товар добавлен в корзину", description: `${mockProduct.name} — ${Object.values(selectedOptions).join(", ")}` });
