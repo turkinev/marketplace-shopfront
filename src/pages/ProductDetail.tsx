@@ -183,7 +183,7 @@ const ProductDetail = () => {
 
             {/* Main Image */}
             <div className="flex-1 relative group">
-              <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
+              <div className="aspect-[545/640] rounded-xl overflow-hidden bg-secondary/20">
                 <img
                   src={currentImages[selectedImage]}
                   alt={mockProduct.name}
