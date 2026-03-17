@@ -273,6 +273,25 @@ const ProductDetail = () => {
 
         {/* Middle: Product Info */}
         <div className="lg:w-[35%] flex flex-col gap-5">
+          {/* Mobile: Price right after image */}
+          <div className="lg:hidden">
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-[32px] font-extrabold text-primary tracking-tight">
+                {formatPrice(mockProduct.price)}
+              </span>
+              {discount > 0 && (
+                <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
+                  -{discount}%
+                </span>
+              )}
+            </div>
+            {mockProduct.oldPrice && (
+              <span className="text-base text-muted-foreground line-through mt-0.5 block">
+                {formatPrice(mockProduct.oldPrice)}
+              </span>
+            )}
+          </div>
+
           {/* Title */}
           <div>
             <p className="text-sm text-primary font-medium mb-1">{mockProduct.brand}</p>
@@ -365,26 +384,8 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile only: Price + Cart + Delivery + Seller */}
+          {/* Mobile only: Cart + Delivery + Seller */}
           <div className="lg:hidden space-y-5">
-            {/* Price */}
-            <div>
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-[32px] font-extrabold text-primary tracking-tight">
-                  {formatPrice(mockProduct.price)}
-                </span>
-                {discount > 0 && (
-                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
-                    -{discount}%
-                  </span>
-                )}
-              </div>
-              {mockProduct.oldPrice && (
-                <span className="text-base text-muted-foreground line-through mt-0.5 block">
-                  {formatPrice(mockProduct.oldPrice)}
-                </span>
-              )}
-            </div>
 
             <div className="flex gap-3">
               <Button className="flex-1 h-12 text-base font-semibold gap-2">
