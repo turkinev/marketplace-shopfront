@@ -187,12 +187,18 @@ const ProductDetail = () => {
 
             {/* Main Image */}
             <div className="flex-1 relative group">
-              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
-                <img
-                  src={currentImages[selectedImage]}
-                  alt={mockProduct.name}
-                  className="w-full h-full object-cover"
-                />
+              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20 relative">
+                {currentImages.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt={mockProduct.name}
+                    className={cn(
+                      "absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out",
+                      selectedImage === i ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                ))}
               </div>
               {/* Nav arrows */}
               <button
