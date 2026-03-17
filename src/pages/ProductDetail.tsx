@@ -609,9 +609,9 @@ const ProductDetail = () => {
         )}
       </div>
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-2 pb-safe">
-        <Button className="w-full h-12 text-sm font-semibold flex flex-col items-center justify-center leading-tight">
-          <span>В корзину</span>
-          <span className="text-[11px] font-normal opacity-80">{mockProduct.delivery.date}</span>
+        <Button className="w-full h-12 text-sm flex flex-col items-center justify-center gap-0">
+          <span className="font-semibold leading-tight">В корзину</span>
+          <span className="text-sm font-normal leading-tight opacity-80">{mockProduct.delivery.date}</span>
         </Button>
       </div>
       {/* Spacer for sticky button */}
