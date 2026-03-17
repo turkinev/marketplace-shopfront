@@ -126,16 +126,25 @@ const ProductDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [mobileImageIndex, setMobileImageIndex] = useState(0);
 
+  const currentColor = mockProduct.colors.find((c) => c.id === selectedColor) || mockProduct.colors[0];
+  const currentImages = currentColor.images;
+
   const discount = mockProduct.oldPrice
     ? Math.round((1 - mockProduct.price / mockProduct.oldPrice) * 100)
     : 0;
 
+  const handleColorChange = (colorId: string) => {
+    setSelectedColor(colorId);
+    setSelectedImage(0);
+    setMobileImageIndex(0);
+  };
+
   const handlePrevImage = () => {
-    setSelectedImage((prev) => (prev === 0 ? mockProduct.images.length - 1 : prev - 1));
+    setSelectedImage((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
   };
 
   const handleNextImage = () => {
-    setSelectedImage((prev) => (prev === mockProduct.images.length - 1 ? 0 : prev + 1));
+    setSelectedImage((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
   };
 
   return (
