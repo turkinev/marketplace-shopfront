@@ -243,7 +243,7 @@ const ProductDetail = () => {
             </button>
             {/* Dots */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {mockProduct.images.map((_, i) => (
+              {currentImages.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setMobileImageIndex(i)}
