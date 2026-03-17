@@ -223,7 +223,7 @@ const ProductDetail = () => {
           <div className="lg:hidden relative">
             <div className="aspect-square rounded-xl overflow-hidden bg-secondary/20">
               <img
-                src={mockProduct.images[mobileImageIndex]}
+                src={currentImages[mobileImageIndex]}
                 alt={mockProduct.name}
                 className="w-full h-full object-contain"
               />
