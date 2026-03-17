@@ -54,7 +54,10 @@ export const ProductCard = ({
 
   return (
     <>
-      <div className="bg-card rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200">
+      <div 
+        className="bg-card rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer"
+        onClick={() => navigate(`/product/${id}`)}
+      >
         {/* Image Container */}
         <div className="relative aspect-square bg-secondary/30">
           <img
