@@ -441,7 +441,7 @@ const ProductDetail = () => {
                 </div>
               </TabsContent>
             </Tabs>
-            <div className="bg-secondary/50 rounded-lg p-3 flex items-center gap-3">
+            <button onClick={() => navigate("/")} className="w-full bg-secondary/50 rounded-lg p-3 flex items-center gap-3 text-left">
               <div>
                 <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
                 <div className="flex items-center gap-1 mt-0.5">
@@ -449,7 +449,7 @@ const ProductDetail = () => {
                   <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
                 </div>
               </div>
-            </div>
+            </button>
           </div>
 
           <div className="hidden lg:block">
