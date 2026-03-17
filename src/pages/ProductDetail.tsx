@@ -51,14 +51,14 @@ const mockProduct = {
     },
   ],
   sizes: [
-    { id: "39", label: "39", available: true },
-    { id: "40", label: "40", available: true },
-    { id: "41", label: "41", available: true },
-    { id: "42", label: "42", available: true },
-    { id: "43", label: "43", available: false },
-    { id: "44", label: "44", available: true },
-    { id: "45", label: "45", available: true },
-    { id: "46", label: "46", available: false },
+    { id: "39", label: "S", supplierSize: "39", available: true },
+    { id: "40", label: "M", supplierSize: "40", available: true },
+    { id: "41", label: "M", supplierSize: "41", available: true },
+    { id: "42", label: "L", supplierSize: "42", available: true },
+    { id: "43", label: "L", supplierSize: "43", available: false },
+    { id: "44", label: "XL", supplierSize: "44", available: true },
+    { id: "45", label: "XL", supplierSize: "45", available: true },
+    { id: "46", label: "XXL", supplierSize: "46", available: false },
   ],
   description: `Кроссовки Nike Air Max 270 React сочетают в себе два революционных решения Nike — амортизацию Air Max и пену React — для невероятного комфорта на каждый день.\n\nВерх из сетчатого материала обеспечивает лёгкость и воздухопроницаемость. Подошва с технологией Air Max 270 создаёт мягкую амортизацию при каждом шаге.\n\nОсобенности:\n• Пена React для мягкости и отзывчивости\n• Элемент Air Max 270 в области пятки\n• Сетчатый верх для вентиляции\n• Резиновая подмётка для сцепления`,
   characteristics: [
@@ -349,14 +349,18 @@ const ProductDetail = () => {
                   disabled={!size.available}
                   onClick={() => setSelectedSize(size.id)}
                   className={cn(
-                    "h-10 min-w-[3rem] px-3 rounded-lg border text-sm font-medium transition-all",
-                    !size.available && "opacity-30 cursor-not-allowed line-through",
+                    "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
+                    !size.available && "opacity-30 cursor-not-allowed",
                     selectedSize === size.id
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border bg-card text-foreground hover:border-primary/50"
                   )}
                 >
-                  {size.label}
+                  <span className="text-sm font-bold leading-tight">{size.label}</span>
+                  <span className={cn(
+                    "text-[11px] leading-tight",
+                    selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
+                  )}>{size.supplierSize}</span>
                 </button>
               ))}
             </div>
