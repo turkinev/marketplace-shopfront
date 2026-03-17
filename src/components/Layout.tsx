@@ -67,8 +67,8 @@ export const Layout = ({ children }: LayoutProps) => {
           </div>
         </div>
 
-        {/* Second Row: Burger Menu + Search */}
-        <div className="px-4 pb-3 flex items-center gap-2">
+        {/* Second Row: Burger Menu + Search - hidden */}
+        <div className="hidden px-4 pb-3 items-center gap-2">
           <MobileBurgerMenu />
           <div className="flex-1">
             <SearchBar />
