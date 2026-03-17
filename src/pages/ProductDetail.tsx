@@ -689,20 +689,6 @@ const ProductDetail = () => {
         </SheetContent>
       </Sheet>
 
-      {/* Reviews Fullscreen Panel - between header and cart footer */}
-      {isReviewsOpen && (
-        <div className="lg:hidden fixed inset-0 top-[6.5rem] bottom-[4.5rem] z-40 bg-background flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border flex-shrink-0">
-            <h2 className="text-base font-bold text-foreground">Отзывы</h2>
-            <button onClick={() => setIsReviewsOpen(false)} className="text-sm text-primary font-medium">
-              Закрыть
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <StoreReviews />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
