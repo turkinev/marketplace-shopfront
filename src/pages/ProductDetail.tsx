@@ -388,32 +388,6 @@ const ProductDetail = () => {
           <div className="lg:hidden space-y-5">
 
 
-            {/* Delivery info */}
-            <div className="bg-card border border-border rounded-xl p-4 space-y-3">
-              <div className="flex items-start gap-3">
-                <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <RotateCcw className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm font-medium text-foreground">Возврат в течение 14 дней</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm font-medium text-foreground">Гарантия подлинности</p>
-              </div>
-            </div>
-
             {/* Seller */}
             <div className="bg-card border border-border rounded-xl p-4 flex items-center justify-between">
               <div>
@@ -622,19 +596,20 @@ const ProductDetail = () => {
         </Tabs>
       </div>
       {/* Mobile: Sticky bottom cart button */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe">
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col">
-            <span className="text-base font-bold text-foreground leading-tight">{formatPrice(mockProduct.price)}</span>
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe space-y-2">
+        <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline gap-2">
+            <span className="text-base font-bold text-foreground">{formatPrice(mockProduct.price)}</span>
             {mockProduct.oldPrice && (
-              <span className="text-xs text-muted-foreground line-through leading-tight">{formatPrice(mockProduct.oldPrice)}</span>
+              <span className="text-xs text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
             )}
           </div>
-          <Button className="flex-1 h-12 text-base font-semibold gap-2">
-            <ShoppingCart className="h-5 w-5" />
-            В корзину
-          </Button>
+          <span className="text-xs text-muted-foreground">{mockProduct.delivery.date}</span>
         </div>
+        <Button className="w-full h-12 text-base font-semibold gap-2">
+          <ShoppingCart className="h-5 w-5" />
+          В корзину
+        </Button>
       </div>
       {/* Spacer for sticky button */}
       <div className="lg:hidden h-20" />
