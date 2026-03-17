@@ -256,8 +256,8 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Right: Product Info */}
-        <div className="lg:w-[45%] xl:w-[50%] flex flex-col gap-5">
+        {/* Middle: Product Info */}
+        <div className="lg:w-[35%] flex flex-col gap-5">
           {/* Title */}
           <div>
             <p className="text-sm text-primary font-medium mb-1">{mockProduct.brand}</p>
@@ -277,21 +277,6 @@ const ProductDetail = () => {
             <button className="text-primary hover:underline">{mockProduct.questionsCount} вопросов</button>
             <span className="text-muted-foreground">•</span>
             <span className="text-muted-foreground">{mockProduct.ordersCount.toLocaleString("ru-RU")} заказов</span>
-          </div>
-
-          {/* Price */}
-          <div className="flex items-end gap-3">
-            <span className="text-3xl lg:text-4xl font-bold text-foreground">
-              {formatPrice(mockProduct.price)}
-            </span>
-            {mockProduct.oldPrice && (
-              <span className="text-lg text-muted-foreground line-through mb-0.5">
-                {formatPrice(mockProduct.oldPrice)}
-              </span>
-            )}
-            {discount > 0 && (
-              <span className="text-sm font-bold text-destructive mb-1">-{discount}%</span>
-            )}
           </div>
 
           {/* Color selector */}
@@ -346,85 +331,183 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Quantity & Add to cart */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            {/* Quantity */}
-            <div className="flex items-center border border-border rounded-lg h-12">
-              <button
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="w-10 text-center font-medium text-foreground">{quantity}</span>
-              <button
-                onClick={() => setQuantity((q) => q + 1)}
-                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
-            </div>
-
-            <Button className="flex-1 h-12 text-base font-semibold gap-2">
-              <ShoppingCart className="h-5 w-5" />
-              Добавить в корзину
-            </Button>
-
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-12 w-12 flex-shrink-0"
-              onClick={() => setIsLiked(!isLiked)}
-            >
-              <Heart className={cn("h-5 w-5", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-            </Button>
-
-            <Button variant="outline" size="icon" className="h-12 w-12 flex-shrink-0">
-              <Share2 className="h-5 w-5 text-muted-foreground" />
-            </Button>
-          </div>
-
-          {/* Delivery info */}
-          <div className="bg-card border border-border rounded-xl p-4 space-y-3">
-            <div className="flex items-start gap-3">
-              <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
-                <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <RotateCcw className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <p className="text-sm font-medium text-foreground">Возврат в течение 14 дней</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <p className="text-sm font-medium text-foreground">Гарантия подлинности</p>
+          {/* Brief characteristics */}
+          <div>
+            <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
+            <div className="space-y-0">
+              {mockProduct.characteristics.slice(0, 5).map((char, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "flex items-baseline py-2 text-sm",
+                    i !== 4 && "border-b border-border"
+                  )}
+                >
+                  <span className="text-muted-foreground w-1/2 flex-shrink-0">{char.label}</span>
+                  <span className="text-foreground">{char.value}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Seller */}
-          <div className="bg-card border border-border rounded-xl p-4 flex items-center justify-between">
+          {/* Mobile only: Price + Cart + Delivery + Seller */}
+          <div className="lg:hidden space-y-5">
+            {/* Price */}
+            <div className="flex items-end gap-3">
+              <span className="text-3xl font-bold text-foreground">
+                {formatPrice(mockProduct.price)}
+              </span>
+              {mockProduct.oldPrice && (
+                <span className="text-lg text-muted-foreground line-through mb-0.5">
+                  {formatPrice(mockProduct.oldPrice)}
+                </span>
+              )}
+              {discount > 0 && (
+                <span className="text-sm font-bold text-destructive mb-1">-{discount}%</span>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <Button className="flex-1 h-12 text-base font-semibold gap-2">
+                <ShoppingCart className="h-5 w-5" />
+                Добавить в корзину
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-12 w-12 flex-shrink-0"
+                onClick={() => setIsLiked(!isLiked)}
+              >
+                <Heart className={cn("h-5 w-5", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+              </Button>
+              <Button variant="outline" size="icon" className="h-12 w-12 flex-shrink-0">
+                <Share2 className="h-5 w-5 text-muted-foreground" />
+              </Button>
+            </div>
+
+            {/* Delivery info */}
+            <div className="bg-card border border-border rounded-xl p-4 space-y-3">
+              <div className="flex items-start gap-3">
+                <Truck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
+                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
+                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <RotateCcw className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-sm font-medium text-foreground">Возврат в течение 14 дней</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-sm font-medium text-foreground">Гарантия подлинности</p>
+              </div>
+            </div>
+
+            {/* Seller */}
+            <div className="bg-card border border-border rounded-xl p-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-1">
+                    <Star className="h-3.5 w-3.5 fill-rating text-rating" />
+                    <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
+                  </span>
+                </div>
+              </div>
+              <Button variant="outline" size="sm">Все товары</Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Purchase sidebar (desktop only) */}
+        <div className="hidden lg:block lg:w-[25%] lg:sticky lg:top-20 lg:self-start">
+          <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+            {/* Price */}
             <div>
+              <div className="flex items-end gap-2">
+                <span className="text-3xl font-bold text-foreground">
+                  {formatPrice(mockProduct.price)}
+                </span>
+                {discount > 0 && (
+                  <span className="text-sm font-bold text-destructive mb-1">-{discount}%</span>
+                )}
+              </div>
+              {mockProduct.oldPrice && (
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatPrice(mockProduct.oldPrice)}
+                </span>
+              )}
+            </div>
+
+            {/* Add to cart */}
+            <Button className="w-full h-12 text-base font-semibold gap-2">
+              <ShoppingCart className="h-5 w-5" />
+              В корзину
+            </Button>
+
+            {/* Like + Share */}
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="flex-1 h-10 gap-2"
+                onClick={() => setIsLiked(!isLiked)}
+              >
+                <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+                <span className="text-sm">В избранное</span>
+              </Button>
+              <Button variant="outline" size="icon" className="h-10 w-10 flex-shrink-0">
+                <Share2 className="h-4 w-4 text-muted-foreground" />
+              </Button>
+            </div>
+
+            <div className="border-t border-border pt-4 space-y-3">
+              <div className="flex items-start gap-3">
+                <Truck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
+                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
+                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <RotateCcw className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-foreground">Возврат 14 дней</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-foreground">Гарантия подлинности</p>
+              </div>
+            </div>
+
+            {/* Seller */}
+            <div className="border-t border-border pt-4">
               <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
               <div className="flex items-center gap-2 mt-1">
-                <div className="flex items-center gap-1">
-                  <Star className="h-3.5 w-3.5 fill-rating text-rating" />
-                  <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
-                </div>
+                <Star className="h-3.5 w-3.5 fill-rating text-rating" />
+                <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
                 <span className="text-xs text-muted-foreground">
                   {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
                 </span>
               </div>
+              <Button variant="outline" size="sm" className="w-full mt-3">Все товары продавца</Button>
             </div>
-            <Button variant="outline" size="sm">Все товары</Button>
           </div>
         </div>
       </div>
