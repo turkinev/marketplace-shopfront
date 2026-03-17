@@ -329,9 +329,14 @@ const ProductDetail = () => {
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-medium text-primary-foreground bg-primary/80 rounded-full px-2.5 py-1">
-                  Купили {mockProduct.ordersCount.toLocaleString("ru-RU")} раз
-                </span>
+                <button
+                  onClick={() => setIsProductInfoOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary/80 text-xs font-medium transition-colors hover:bg-secondary"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-emerald-500" />
+                  <span className="text-emerald-600">Сбор</span>
+                  <span className="text-muted-foreground">до 15 февраля</span>
+                </button>
               </div>
             </div>
           </div>
