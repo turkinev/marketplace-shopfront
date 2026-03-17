@@ -149,7 +149,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-4 lg:py-6">
+    <div className="container max-w-7xl mx-auto lg:px-4 py-0 lg:py-6">
       {/* Breadcrumbs */}
       <nav className="sr-only">
         <button onClick={() => navigate("/")} className="hover:text-primary transition-colors">Главная</button>
@@ -160,7 +160,7 @@ const ProductDetail = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
         {/* Left: Image Gallery */}
         <div className="lg:w-[40%] lg:sticky lg:top-20 lg:self-start">
           {/* Desktop Gallery */}
@@ -214,73 +214,74 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile Gallery - swipeable */}
-          <div className="lg:hidden relative">
-            <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
-              <img
-                src={currentImages[mobileImageIndex]}
-                alt={mockProduct.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            {/* Like + Share */}
-            <div className="absolute top-3 right-3 flex gap-2">
-              <button
-                onClick={() => setIsLiked(!isLiked)}
-                className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
-              >
-                <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-              </button>
-              <button className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center">
-                <Share2 className="h-4 w-4 text-muted-foreground" />
-              </button>
-            </div>
-            {/* Dots */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {currentImages.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setMobileImageIndex(i)}
-                  className={cn(
-                    "w-2 h-2 rounded-full transition-all",
-                    mobileImageIndex === i ? "bg-primary w-5" : "bg-card/60"
-                  )}
+          {/* Mobile Gallery - swipeable + price in same card */}
+          <div className="lg:hidden bg-card rounded-b-xl overflow-hidden">
+            <div className="relative">
+              <div className="aspect-[3/4] overflow-hidden bg-secondary/20">
+                <img
+                  src={currentImages[mobileImageIndex]}
+                  alt={mockProduct.name}
+                  className="w-full h-full object-cover"
                 />
-              ))}
+              </div>
+              {/* Like + Share */}
+              <div className="absolute top-3 right-3 flex gap-2">
+                <button
+                  onClick={() => setIsLiked(!isLiked)}
+                  className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
+                >
+                  <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+                </button>
+                <button className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center">
+                  <Share2 className="h-4 w-4 text-muted-foreground" />
+                </button>
+              </div>
+              {/* Dots */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {currentImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setMobileImageIndex(i)}
+                    className={cn(
+                      "w-2 h-2 rounded-full transition-all",
+                      mobileImageIndex === i ? "bg-primary w-5" : "bg-card/60"
+                    )}
+                  />
+                ))}
+              </div>
+              {/* Nav arrows */}
+              <button
+                onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
+              >
+                <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
+              </button>
+              <button
+                onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
+              >
+                <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
+              </button>
             </div>
-            {/* Nav arrows - no background */}
-            <button
-              onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
-            >
-              <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
-            </button>
-            <button
-              onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
-            >
-              <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
-            </button>
+            {/* Price inside same card */}
+            <div className="px-4 py-3">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-foreground">
+                  {formatPrice(mockProduct.price)}
+                </span>
+                {mockProduct.oldPrice && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    {formatPrice(mockProduct.oldPrice)}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Middle: Product Info */}
-        <div className="lg:w-[35%] flex flex-col gap-3 lg:gap-5">
-          {/* Mobile: Price right after image */}
-          <div className="lg:hidden">
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-foreground">
-                {formatPrice(mockProduct.price)}
-              </span>
-              {mockProduct.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  {formatPrice(mockProduct.oldPrice)}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Title - desktop only above selectors, mobile below */}
+        <div className="lg:w-[35%] flex flex-col gap-2 lg:gap-5">
+          {/* Title - desktop only */}
           <div className="hidden lg:block">
             <span className="inline-block text-sm font-medium text-muted-foreground bg-secondary rounded-full px-3 py-1 mb-2">{mockProduct.brand}</span>
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">
@@ -288,7 +289,7 @@ const ProductDetail = () => {
             </h1>
           </div>
 
-          {/* Rating & stats - desktop only here */}
+          {/* Rating & stats - desktop only */}
           <div className="hidden lg:flex items-center gap-1.5 text-sm">
             <Star className="h-4 w-4 fill-rating text-rating" />
             <span className="font-semibold text-foreground">{mockProduct.rating}</span>
@@ -296,77 +297,81 @@ const ProductDetail = () => {
             <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
           </div>
 
-          {/* Color selector */}
-          <div>
-            <p className="text-sm font-medium text-foreground mb-2">
-              Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
-            </p>
-            <div className="flex gap-2">
-              {mockProduct.colors.map((color) => (
-                <button
-                  key={color.id}
-                  onClick={() => handleColorChange(color.id)}
-                  className={cn(
-                    "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
-                    selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
-                  )}
-                >
-                  <img
-                    src={color.image}
-                    alt={color.name}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Size selector */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-foreground">
-                Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+          {/* Mobile: Selectors card */}
+          <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4 lg:contents">
+            {/* Color selector */}
+            <div>
+              <p className="text-sm font-medium text-foreground mb-2">
+                Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
               </p>
-              <button className="text-xs text-muted-foreground">Таблица размеров</button>
+              <div className="flex gap-2">
+                {mockProduct.colors.map((color) => (
+                  <button
+                    key={color.id}
+                    onClick={() => handleColorChange(color.id)}
+                    className={cn(
+                      "w-16 h-16 rounded-lg border-2 transition-all overflow-hidden",
+                      selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
+                    )}
+                  >
+                    <img
+                      src={color.image}
+                      alt={color.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {mockProduct.sizes.map((size) => (
-                <button
-                  key={size.id}
-                  disabled={!size.available}
-                  onClick={() => setSelectedSize(size.id)}
-                  className={cn(
-                    "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
-                    !size.available && "opacity-30 cursor-not-allowed",
-                    selectedSize === size.id
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-foreground hover:border-primary/50"
-                  )}
-                >
-                  <span className="text-sm font-bold leading-tight">{size.label}</span>
-                  <span className={cn(
-                    "text-[11px] leading-tight",
-                    selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
-                  )}>{size.supplierSize}</span>
-                </button>
-              ))}
+
+            {/* Size selector */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-foreground">
+                  Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+                </p>
+                <button className="text-xs text-muted-foreground">Таблица размеров</button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {mockProduct.sizes.map((size) => (
+                  <button
+                    key={size.id}
+                    disabled={!size.available}
+                    onClick={() => setSelectedSize(size.id)}
+                    className={cn(
+                      "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
+                      !size.available && "opacity-30 cursor-not-allowed",
+                      selectedSize === size.id
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-card text-foreground hover:border-primary/50"
+                    )}
+                  >
+                    <span className="text-sm font-bold leading-tight">{size.label}</span>
+                    <span className={cn(
+                      "text-[11px] leading-tight",
+                      selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
+                    )}>{size.supplierSize}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Mobile: Title + Rating after selectors */}
-          <div className="lg:hidden">
+          {/* Mobile: Title + Rating card */}
+          <div className="lg:hidden bg-card rounded-xl p-4 space-y-2">
             <h1 className="text-base font-bold text-foreground leading-tight">
               {mockProduct.name}
             </h1>
-          </div>
-          <div className="lg:hidden flex items-center gap-1.5 text-sm">
-            <Star className="h-4 w-4 fill-rating text-rating" />
-            <span className="font-semibold text-foreground">{mockProduct.rating}</span>
-            <span className="text-muted-foreground">·</span>
-            <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+            <div className="flex items-center gap-1.5 text-sm">
+              <Star className="h-4 w-4 fill-rating text-rating" />
+              <span className="font-semibold text-foreground">{mockProduct.rating}</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-muted-foreground">{mockProduct.reviewsCount} отзывов</span>
+            </div>
           </div>
 
-          <div>
+          {/* Mobile: Characteristics card */}
+          <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4">
             <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
             <div className="space-y-0">
               {mockProduct.characteristics.slice(0, 5).map((char, i) => (
