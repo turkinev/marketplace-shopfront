@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { Star, ThumbsUp, ChevronDown, Image as ImageIcon } from "lucide-react";
+import { Star, ThumbsUp, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
