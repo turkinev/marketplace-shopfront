@@ -331,11 +331,9 @@ const ProductDetail = () => {
                 </div>
                 <button
                   onClick={() => setIsProductInfoOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary/80 text-xs font-medium transition-colors hover:bg-secondary"
+                  className="p-1 rounded-full hover:bg-secondary transition-colors"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-emerald-500" />
-                  <span className="text-emerald-600">Сбор</span>
-                  <span className="text-muted-foreground">до 15 февраля</span>
+                  <Info className="h-5 w-5 text-primary" />
                 </button>
               </div>
             </div>
