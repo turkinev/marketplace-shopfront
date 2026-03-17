@@ -214,69 +214,67 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mobile Gallery - swipeable */}
-          <div className="lg:hidden relative">
-            <div className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary/20">
-              <img
-                src={currentImages[mobileImageIndex]}
-                alt={mockProduct.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            {/* Like + Share */}
-            <div className="absolute top-3 right-3 flex gap-2">
-              <button
-                onClick={() => setIsLiked(!isLiked)}
-                className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
-              >
-                <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-              </button>
-              <button className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center">
-                <Share2 className="h-4 w-4 text-muted-foreground" />
-              </button>
-            </div>
-            {/* Dots */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {currentImages.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setMobileImageIndex(i)}
-                  className={cn(
-                    "w-2 h-2 rounded-full transition-all",
-                    mobileImageIndex === i ? "bg-primary w-5" : "bg-card/60"
-                  )}
+          {/* Mobile Gallery - swipeable + price in same card */}
+          <div className="lg:hidden bg-card rounded-b-xl overflow-hidden">
+            <div className="relative">
+              <div className="aspect-[3/4] overflow-hidden bg-secondary/20">
+                <img
+                  src={currentImages[mobileImageIndex]}
+                  alt={mockProduct.name}
+                  className="w-full h-full object-cover"
                 />
-              ))}
+              </div>
+              {/* Like + Share */}
+              <div className="absolute top-3 right-3 flex gap-2">
+                <button
+                  onClick={() => setIsLiked(!isLiked)}
+                  className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center"
+                >
+                  <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+                </button>
+                <button className="w-9 h-9 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center">
+                  <Share2 className="h-4 w-4 text-muted-foreground" />
+                </button>
+              </div>
+              {/* Dots */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {currentImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setMobileImageIndex(i)}
+                    className={cn(
+                      "w-2 h-2 rounded-full transition-all",
+                      mobileImageIndex === i ? "bg-primary w-5" : "bg-card/60"
+                    )}
+                  />
+                ))}
+              </div>
+              {/* Nav arrows */}
+              <button
+                onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
+              >
+                <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
+              </button>
+              <button
+                onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
+              >
+                <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
+              </button>
             </div>
-            {/* Nav arrows - no background */}
-            <button
-              onClick={() => setMobileImageIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1))}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
-            >
-              <ChevronLeft className="h-5 w-5 text-foreground drop-shadow-md" />
-            </button>
-            <button
-              onClick={() => setMobileImageIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1))}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center"
-            >
-              <ChevronRight className="h-5 w-5 text-foreground drop-shadow-md" />
-            </button>
-          </div>
-        </div>
-
-        {/* Middle: Product Info */}
-        <div className="lg:w-[35%] flex flex-col gap-3 lg:gap-5">
-          {/* Mobile: Price right after image */}
-          <div className="lg:hidden">
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-foreground">
-                {formatPrice(mockProduct.price)}
-              </span>
-              {mockProduct.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  {formatPrice(mockProduct.oldPrice)}
+            {/* Price inside same card */}
+            <div className="px-4 py-3">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-foreground">
+                  {formatPrice(mockProduct.price)}
                 </span>
-              )}
+                {mockProduct.oldPrice && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    {formatPrice(mockProduct.oldPrice)}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
