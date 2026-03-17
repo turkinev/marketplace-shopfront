@@ -514,26 +514,13 @@ const ProductDetail = () => {
                   <p className="text-xs text-muted-foreground">{mockProduct.delivery.free ? "Бесплатно" : "Платная доставка"}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Пункт выдачи</p>
-                  <p className="text-xs text-muted-foreground">{mockProduct.delivery.address}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <RotateCcw className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-foreground">Возврат 14 дней</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-foreground">Гарантия подлинности</p>
-              </div>
             </div>
 
             {/* Seller */}
             <div className="border-t border-border pt-4">
-              <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
+              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline">
+                {mockProduct.seller.name}
+              </button>
               <div className="flex items-center gap-2 mt-1">
                 <Star className="h-3.5 w-3.5 fill-rating text-rating" />
                 <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
@@ -541,7 +528,6 @@ const ProductDetail = () => {
                   {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
                 </span>
               </div>
-              <Button variant="outline" size="sm" className="w-full mt-3">Все товары продавца</Button>
             </div>
           </div>
         </div>
