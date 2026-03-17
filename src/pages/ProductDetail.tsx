@@ -625,7 +625,7 @@ const ProductDetail = () => {
         <div
           className={cn(
             "flex items-baseline gap-2 transition-all duration-300 ease-out",
-            isPriceVisible ? "max-h-0 opacity-0 translate-y-4" : "max-h-10 opacity-100 translate-y-0 mb-1"
+            isPriceVisible ? "max-h-0 opacity-0 translate-y-full" : "max-h-10 opacity-100 translate-y-0 mb-1"
           )}
         >
           <span className="text-base font-bold" style={{ color: 'rgb(0, 105, 51)' }}>{formatPrice(mockProduct.price)}</span>
