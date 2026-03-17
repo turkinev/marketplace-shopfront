@@ -369,7 +369,7 @@ export const DesktopHeader = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-primary-foreground hover:bg-primary-foreground/10 h-10 w-10 relative"
+                className="text-primary hover:bg-primary/10 h-10 w-10 relative"
                 onClick={() => navigate("/cart")}
               >
                 <ShoppingCart className="h-5 w-5" />
