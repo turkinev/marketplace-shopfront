@@ -9,6 +9,7 @@ import Catalog from "./pages/Catalog";
 import ProductListing from "./pages/ProductListing";
 import Feed from "./pages/Feed";
 import ProductDetail from "./pages/ProductDetail";
+import ProductReviews from "./pages/ProductReviews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
