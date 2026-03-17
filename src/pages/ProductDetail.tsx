@@ -629,6 +629,15 @@ const ProductDetail = () => {
           </TabsContent>
         </Tabs>
       </div>
+      {/* Mobile: Sticky bottom cart button */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 pb-safe">
+        <Button className="w-full h-12 text-base font-semibold gap-2">
+          <ShoppingCart className="h-5 w-5" />
+          Добавить в корзину
+        </Button>
+      </div>
+      {/* Spacer for sticky button */}
+      <div className="lg:hidden h-20" />
     </div>
   );
 };
