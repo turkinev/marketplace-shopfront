@@ -175,15 +175,6 @@ const ProductDetailOld = () => {
     if (node) observerRef.current.observe(node);
   }, [relatedLoading, relatedHasMore, loadMoreRelated]);
 
-  // Filtered colors based on search
-  const filteredColors = mockProduct.colors.filter(c =>
-    c.name.toLowerCase().includes(colorSearch.toLowerCase())
-  );
-
-  // Filtered sizes based on search
-  const filteredSizes = mockProduct.sizes.filter(s =>
-    s.label.toLowerCase().includes(sizeSearch.toLowerCase())
-  );
 
   return (
     <div className="max-w-7xl mx-auto lg:container lg:px-4 py-0 lg:py-6">
