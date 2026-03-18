@@ -577,6 +577,9 @@ const ProductDetailOld = () => {
           </div>
         </SheetContent>
       </Sheet>
+
+      <SizeChartSheet open={isSizeChartOpen} onOpenChange={setIsSizeChartOpen} />
+
     </div>
   );
 };

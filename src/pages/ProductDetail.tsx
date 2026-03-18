@@ -691,6 +691,8 @@ const ProductDetail = () => {
         </SheetContent>
       </Sheet>
 
+      <SizeChartSheet open={isSizeChartOpen} onOpenChange={setIsSizeChartOpen} />
+
     </div>
   );
 };
