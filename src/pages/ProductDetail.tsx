@@ -575,19 +575,12 @@ const ProductDetail = () => {
         <div className="hidden lg:block lg:w-[25%] lg:sticky lg:top-20 lg:self-start">
           <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             {/* Price */}
-            <div>
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-[28px] font-extrabold text-primary tracking-tight">
-                  {formatPrice(mockProduct.price)}
-                </span>
-                {discount > 0 && (
-                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">
-                    -{discount}%
-                  </span>
-                )}
-              </div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
+                {formatPrice(mockProduct.price)}
+              </span>
               {mockProduct.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through mt-0.5 block">
+                <span className="text-sm text-muted-foreground line-through">
                   {formatPrice(mockProduct.oldPrice)}
                 </span>
               )}
