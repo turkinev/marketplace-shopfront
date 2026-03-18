@@ -316,7 +316,7 @@ const ProductDetailOld = () => {
                   />
                 </div>
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredColors.map((color) => (
                   <button
                     key={color.id}
