@@ -228,7 +228,7 @@ const ProductDetail = () => {
       {/* Main Content */}
       <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
         {/* Left: Image Gallery */}
-        <div className="lg:w-[40%] lg:sticky lg:top-20 lg:self-start">
+        <div className="lg:w-[45%] lg:sticky lg:top-20 lg:self-start">
           {/* Desktop Gallery */}
           <div className="hidden lg:flex gap-3">
             {/* Thumbnails */}
