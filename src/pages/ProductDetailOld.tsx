@@ -8,9 +8,8 @@ import colorBlackImg2 from "@/assets/color-black-2.jpg";
 import colorBlueImg from "@/assets/color-blue.jpg";
 import colorBlueImg2 from "@/assets/color-blue-2.jpg";
 import { useNavigate, useParams } from "react-router-dom";
-import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft, Info, Search } from "lucide-react";
+import { Star, Heart, ShoppingCart, Share2, ChevronRight, Truck, Shield, RotateCcw, MapPin, ChevronLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -86,8 +85,6 @@ const ProductDetailOld = () => {
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
   const colorsScrollRef = useRef<HTMLDivElement>(null);
   const sizesScrollRef = useRef<HTMLDivElement>(null);
-  const [colorSearch, setColorSearch] = useState("");
-  const [sizeSearch, setSizeSearch] = useState("");
 
   useEffect(() => {
     const refs = [reviewsScrollRef, colorsScrollRef, sizesScrollRef];
@@ -178,15 +175,6 @@ const ProductDetailOld = () => {
     if (node) observerRef.current.observe(node);
   }, [relatedLoading, relatedHasMore, loadMoreRelated]);
 
-  // Filtered colors based on search
-  const filteredColors = mockProduct.colors.filter(c =>
-    c.name.toLowerCase().includes(colorSearch.toLowerCase())
-  );
-
-  // Filtered sizes based on search
-  const filteredSizes = mockProduct.sizes.filter(s =>
-    s.label.toLowerCase().includes(sizeSearch.toLowerCase())
-  );
 
   return (
     <div className="max-w-7xl mx-auto lg:container lg:px-4 py-0 lg:py-6">
@@ -301,62 +289,41 @@ const ProductDetailOld = () => {
 
           {/* Mobile: Selectors card */}
           <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4 lg:contents">
-            {/* Color selector — inline search + scrollable chips */}
+            {/* Color selector — scrollable chips with fade hint */}
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <p className="w-1/2 text-sm font-medium text-foreground truncate">
-                  Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
-                </p>
-                <div className="relative w-1/2">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                  <Input
-                    placeholder="Поиск..."
-                    value={colorSearch}
-                    onChange={(e) => setColorSearch(e.target.value)}
-                    className="pl-8 h-8 text-sm"
-                  />
+              <p className="text-sm font-medium text-foreground mb-2">
+                Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
+              </p>
+              <div className="relative">
+                <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+                  {mockProduct.colors.map((color) => (
+                    <button
+                      key={color.id}
+                      onClick={() => handleColorChange(color.id)}
+                      style={{ scrollSnapAlign: 'start' }}
+                      className={cn(
+                        "flex-shrink-0 px-4 py-2 rounded-lg border text-sm font-medium transition-all whitespace-nowrap",
+                        selectedColor === color.id
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-card text-foreground hover:border-primary/50"
+                      )}
+                    >
+                      {color.name}
+                    </button>
+                  ))}
                 </div>
-              </div>
-              <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
-                {filteredColors.map((color) => (
-                  <button
-                    key={color.id}
-                    onClick={() => handleColorChange(color.id)}
-                    style={{ scrollSnapAlign: 'start' }}
-                    className={cn(
-                      "flex-shrink-0 px-4 py-2 rounded-lg border text-sm font-medium transition-all whitespace-nowrap",
-                      selectedColor === color.id
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-card text-foreground hover:border-primary/50"
-                    )}
-                  >
-                    {color.name}
-                  </button>
-                ))}
-                {filteredColors.length === 0 && (
-                  <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
-                )}
+                <div className="pointer-events-none absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-card to-transparent max-lg:block hidden" />
               </div>
             </div>
 
-            {/* Size selector — inline search + scrollable chips + size chart below */}
+            {/* Size selector — scrollable chips with fade hint + size chart below */}
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <p className="w-1/2 text-sm font-medium text-foreground truncate">
-                  Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
-                </p>
-                <div className="relative w-1/2">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                  <Input
-                    placeholder="Поиск..."
-                    value={sizeSearch}
-                    onChange={(e) => setSizeSearch(e.target.value)}
-                    className="pl-8 h-8 text-sm"
-                  />
-                </div>
-              </div>
-              <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
-                {filteredSizes.map((size) => (
+              <p className="text-sm font-medium text-foreground mb-2">
+                Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+              </p>
+              <div className="relative">
+                <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+                  {mockProduct.sizes.map((size) => (
                   <button
                     key={size.id}
                     disabled={!size.available}
@@ -377,9 +344,8 @@ const ProductDetailOld = () => {
                     )}>{size.supplierSize}</span>
                   </button>
                 ))}
-                {filteredSizes.length === 0 && (
-                  <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
-                )}
+                </div>
+                <div className="pointer-events-none absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-card to-transparent max-lg:block hidden" />
               </div>
               <button onClick={() => setIsSizeChartOpen(true)} className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
             </div>
