@@ -85,8 +85,6 @@ const ProductDetailOld = () => {
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
   const colorsScrollRef = useRef<HTMLDivElement>(null);
   const sizesScrollRef = useRef<HTMLDivElement>(null);
-  const [colorSearch, setColorSearch] = useState("");
-  const [sizeSearch, setSizeSearch] = useState("");
 
   useEffect(() => {
     const refs = [reviewsScrollRef, colorsScrollRef, sizesScrollRef];
