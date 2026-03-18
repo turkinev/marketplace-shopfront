@@ -356,9 +356,8 @@ const ProductDetailOld = () => {
                     )}>{size.supplierSize}</span>
                   </button>
                 ))}
-                {filteredSizes.length === 0 && (
-                  <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
-                )}
+                </div>
+                <div className="pointer-events-none absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-card to-transparent max-lg:block hidden" />
               </div>
               <button onClick={() => setIsSizeChartOpen(true)} className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
             </div>
