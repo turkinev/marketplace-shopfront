@@ -382,7 +382,7 @@ const ProductDetailOld = () => {
                   <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
                 )}
               </div>
-              <button className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
+              <button onClick={() => setIsSizeChartOpen(true)} className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
             </div>
           </div>
 
