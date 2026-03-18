@@ -88,22 +88,27 @@ const ProductDetailOld = () => {
   const [sizeSearch, setSizeSearch] = useState("");
 
   useEffect(() => {
-    const el = reviewsScrollRef.current;
-    if (!el) return;
-    let timer: ReturnType<typeof setTimeout>;
-    const show = () => {
-      el.classList.remove('scrollbar-idle');
-      clearTimeout(timer);
-      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
-    };
-    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
-    el.addEventListener('scroll', show);
-    el.addEventListener('touchstart', show);
-    return () => {
-      clearTimeout(timer);
-      el.removeEventListener('scroll', show);
-      el.removeEventListener('touchstart', show);
-    };
+    const refs = [reviewsScrollRef, colorsScrollRef, sizesScrollRef];
+    const cleanups: (() => void)[] = [];
+    refs.forEach((ref) => {
+      const el = ref.current;
+      if (!el) return;
+      el.classList.add('scrollbar-idle');
+      let timer: ReturnType<typeof setTimeout>;
+      const show = () => {
+        el.classList.remove('scrollbar-idle');
+        clearTimeout(timer);
+        timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+      };
+      el.addEventListener('scroll', show);
+      el.addEventListener('touchstart', show);
+      cleanups.push(() => {
+        clearTimeout(timer);
+        el.removeEventListener('scroll', show);
+        el.removeEventListener('touchstart', show);
+      });
+    });
+    return () => cleanups.forEach((fn) => fn());
   }, []);
 
   useEffect(() => {
