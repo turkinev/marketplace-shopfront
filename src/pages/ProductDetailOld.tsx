@@ -354,7 +354,7 @@ const ProductDetailOld = () => {
                   />
                 </div>
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredSizes.map((size) => (
                   <button
                     key={size.id}
