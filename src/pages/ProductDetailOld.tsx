@@ -16,6 +16,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { SizeChartSheet } from "@/components/SizeChartSheet";
 
 const mockProduct = {
   id: "1",
@@ -81,6 +82,7 @@ const ProductDetailOld = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
   const colorsScrollRef = useRef<HTMLDivElement>(null);
   const sizesScrollRef = useRef<HTMLDivElement>(null);
@@ -380,7 +382,7 @@ const ProductDetailOld = () => {
                   <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
                 )}
               </div>
-              <button className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
+              <button onClick={() => setIsSizeChartOpen(true)} className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
             </div>
           </div>
 
@@ -575,6 +577,9 @@ const ProductDetailOld = () => {
           </div>
         </SheetContent>
       </Sheet>
+
+      <SizeChartSheet open={isSizeChartOpen} onOpenChange={setIsSizeChartOpen} />
+
     </div>
   );
 };

@@ -16,6 +16,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/ProductCard";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { SizeChartSheet } from "@/components/SizeChartSheet";
 
 
 
@@ -124,6 +125,7 @@ const ProductDetail = () => {
   const priceRef = useRef<HTMLDivElement>(null);
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -414,7 +416,7 @@ const ProductDetail = () => {
                 <p className="text-sm font-medium text-foreground">
                   Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
                 </p>
-                <button className="text-xs text-muted-foreground">Таблица размеров</button>
+                <button onClick={() => setIsSizeChartOpen(true)} className="text-xs text-muted-foreground">Таблица размеров</button>
               </div>
               <div className="flex flex-wrap gap-2">
                 {mockProduct.sizes.map((size) => (
@@ -688,6 +690,8 @@ const ProductDetail = () => {
           </div>
         </SheetContent>
       </Sheet>
+
+      <SizeChartSheet open={isSizeChartOpen} onOpenChange={setIsSizeChartOpen} />
 
     </div>
   );
