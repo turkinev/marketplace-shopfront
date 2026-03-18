@@ -293,19 +293,21 @@ const ProductDetailOld = () => {
 
           {/* Mobile: Selectors card */}
           <div className="max-lg:bg-card max-lg:rounded-xl max-lg:p-4 max-lg:space-y-4 lg:contents">
-            {/* Color selector — text chips in scrollable row + search */}
+            {/* Color selector — inline search + scrollable chips */}
             <div>
-              <p className="text-sm font-medium text-foreground mb-2">
-                Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
-              </p>
-              <div className="relative mb-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Поиск цвета..."
-                  value={colorSearch}
-                  onChange={(e) => setColorSearch(e.target.value)}
-                  className="pl-9 h-9 text-sm"
-                />
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-sm font-medium text-foreground whitespace-nowrap">
+                  Цвет: <span className="text-muted-foreground font-normal">{mockProduct.colors.find((c) => c.id === selectedColor)?.name}</span>
+                </p>
+                <div className="relative flex-1 min-w-0">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                  <Input
+                    placeholder="Поиск..."
+                    value={colorSearch}
+                    onChange={(e) => setColorSearch(e.target.value)}
+                    className="pl-8 h-8 text-sm"
+                  />
+                </div>
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredColors.map((color) => (
@@ -329,28 +331,31 @@ const ProductDetailOld = () => {
               </div>
             </div>
 
-            {/* Size selector — with search + size chart below */}
+            {/* Size selector — inline search + scrollable chips + size chart below */}
             <div>
-              <p className="text-sm font-medium text-foreground mb-2">
-                Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
-              </p>
-              <div className="relative mb-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Поиск размера..."
-                  value={sizeSearch}
-                  onChange={(e) => setSizeSearch(e.target.value)}
-                  className="pl-9 h-9 text-sm"
-                />
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-sm font-medium text-foreground whitespace-nowrap">
+                  Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
+                </p>
+                <div className="relative flex-1 min-w-0">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                  <Input
+                    placeholder="Поиск..."
+                    value={sizeSearch}
+                    onChange={(e) => setSizeSearch(e.target.value)}
+                    className="pl-8 h-8 text-sm"
+                  />
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredSizes.map((size) => (
                   <button
                     key={size.id}
                     disabled={!size.available}
                     onClick={() => setSelectedSize(size.id)}
+                    style={{ scrollSnapAlign: 'start' }}
                     className={cn(
-                      "h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
+                      "flex-shrink-0 h-auto min-w-[3.5rem] px-3 py-1.5 rounded-lg border transition-all flex flex-col items-center",
                       !size.available && "opacity-30 cursor-not-allowed",
                       selectedSize === size.id
                         ? "border-primary bg-primary text-primary-foreground"
@@ -368,7 +373,6 @@ const ProductDetailOld = () => {
                   <span className="text-sm text-muted-foreground py-2">Ничего не найдено</span>
                 )}
               </div>
-              {/* Size chart — moved below sizes */}
               <button className="text-xs text-muted-foreground mt-2">Таблица размеров</button>
             </div>
           </div>
