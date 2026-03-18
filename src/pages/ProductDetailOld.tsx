@@ -513,13 +513,15 @@ const ProductDetailOld = () => {
                 <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
               </div>
             </div>
-            <div className="border-t border-border pt-4">
-              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline text-left">{mockProduct.seller.name}</button>
-              <div className="flex items-center gap-1 mt-1">
-                <Star className="h-3.5 w-3.5 fill-rating text-rating" />
-                <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
+            <button onClick={() => navigate("/store/1")} className="w-full bg-secondary/50 rounded-lg p-3 flex items-center gap-3 text-left">
+              <div>
+                <p className="text-sm font-medium text-foreground">{mockProduct.seller.name}</p>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <Star className="h-3.5 w-3.5 fill-rating text-rating" />
+                  <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
+                </div>
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
