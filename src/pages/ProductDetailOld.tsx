@@ -285,7 +285,7 @@ const ProductDetailOld = () => {
         </div>
 
         {/* Middle: Product Info */}
-        <div className="lg:w-[35%] flex flex-col gap-2 lg:gap-5">
+        <div className="lg:w-[30%] flex flex-col gap-2 lg:gap-5">
           {/* Title - desktop only */}
           <div className="hidden lg:block">
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">{mockProduct.name}</h1>
