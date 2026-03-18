@@ -82,26 +82,33 @@ const ProductDetailOld = () => {
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
+  const colorsScrollRef = useRef<HTMLDivElement>(null);
+  const sizesScrollRef = useRef<HTMLDivElement>(null);
   const [colorSearch, setColorSearch] = useState("");
   const [sizeSearch, setSizeSearch] = useState("");
 
   useEffect(() => {
-    const el = reviewsScrollRef.current;
-    if (!el) return;
-    let timer: ReturnType<typeof setTimeout>;
-    const show = () => {
-      el.classList.remove('scrollbar-idle');
-      clearTimeout(timer);
-      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
-    };
-    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
-    el.addEventListener('scroll', show);
-    el.addEventListener('touchstart', show);
-    return () => {
-      clearTimeout(timer);
-      el.removeEventListener('scroll', show);
-      el.removeEventListener('touchstart', show);
-    };
+    const refs = [reviewsScrollRef, colorsScrollRef, sizesScrollRef];
+    const cleanups: (() => void)[] = [];
+    refs.forEach((ref) => {
+      const el = ref.current;
+      if (!el) return;
+      el.classList.add('scrollbar-idle');
+      let timer: ReturnType<typeof setTimeout>;
+      const show = () => {
+        el.classList.remove('scrollbar-idle');
+        clearTimeout(timer);
+        timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+      };
+      el.addEventListener('scroll', show);
+      el.addEventListener('touchstart', show);
+      cleanups.push(() => {
+        clearTimeout(timer);
+        el.removeEventListener('scroll', show);
+        el.removeEventListener('touchstart', show);
+      });
+    });
+    return () => cleanups.forEach((fn) => fn());
   }, []);
 
   useEffect(() => {
@@ -309,7 +316,7 @@ const ProductDetailOld = () => {
                   />
                 </div>
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredColors.map((color) => (
                   <button
                     key={color.id}
@@ -347,7 +354,7 @@ const ProductDetailOld = () => {
                   />
                 </div>
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {filteredSizes.map((size) => (
                   <button
                     key={size.id}
