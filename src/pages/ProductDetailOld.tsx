@@ -341,10 +341,10 @@ const ProductDetailOld = () => {
             {/* Size selector — inline search + scrollable chips + size chart below */}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <p className="text-sm font-medium text-foreground whitespace-nowrap">
+                <p className="w-1/2 text-sm font-medium text-foreground truncate">
                   Размер: {selectedSize && <span className="text-muted-foreground font-normal">{selectedSize}</span>}
                 </p>
-                <div className="relative flex-1 min-w-0">
+                <div className="relative w-1/2">
                   <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                   <Input
                     placeholder="Поиск..."
