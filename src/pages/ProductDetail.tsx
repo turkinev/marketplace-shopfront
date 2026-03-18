@@ -610,10 +610,7 @@ const ProductDetail = () => {
             <div className="border-t border-border pt-4 space-y-3">
               <div className="flex items-start gap-3">
                 <Truck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
-                </div>
+                <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
               </div>
             </div>
 
