@@ -616,15 +616,12 @@ const ProductDetail = () => {
 
             {/* Seller */}
             <div className="border-t border-border pt-4">
-              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline">
+              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline text-left">
                 {mockProduct.seller.name}
               </button>
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex items-center gap-1 mt-1">
                 <Star className="h-3.5 w-3.5 fill-rating text-rating" />
                 <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
-                <span className="text-xs text-muted-foreground">
-                  {mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов
-                </span>
               </div>
             </div>
           </div>
