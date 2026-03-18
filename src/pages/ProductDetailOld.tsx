@@ -82,6 +82,8 @@ const ProductDetailOld = () => {
   const [isPriceVisible, setIsPriceVisible] = useState(true);
   const [isProductInfoOpen, setIsProductInfoOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
+  const colorsScrollRef = useRef<HTMLDivElement>(null);
+  const sizesScrollRef = useRef<HTMLDivElement>(null);
   const [colorSearch, setColorSearch] = useState("");
   const [sizeSearch, setSizeSearch] = useState("");
 
