@@ -288,7 +288,6 @@ const ProductDetailOld = () => {
         <div className="lg:w-[35%] flex flex-col gap-2 lg:gap-5">
           {/* Title - desktop only */}
           <div className="hidden lg:block">
-            <span className="inline-block text-sm font-medium text-muted-foreground bg-secondary rounded-full px-3 py-1 mb-2">{mockProduct.brand}</span>
             <h1 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">{mockProduct.name}</h1>
           </div>
 
@@ -453,30 +452,46 @@ const ProductDetailOld = () => {
           </div>
 
           <div className="hidden lg:block">
-            <p className="text-sm font-medium text-foreground mb-2">Характеристики</p>
-            <div className="space-y-0">
-              {mockProduct.characteristics.slice(0, 5).map((char, i) => (
-                <div key={i} className={cn("flex items-baseline py-2 text-sm", i !== 4 && "border-b border-border")}>
-                  <span className="text-muted-foreground w-1/2 flex-shrink-0">{char.label}</span>
-                  <span className="text-foreground">{char.value}</span>
+            <Tabs defaultValue="description" className="w-full">
+              <TabsList className="w-full grid grid-cols-2 h-9">
+                <TabsTrigger value="description" className="text-sm">Описание</TabsTrigger>
+                <TabsTrigger value="characteristics" className="text-sm">Характеристики</TabsTrigger>
+              </TabsList>
+              <TabsContent value="description" className="mt-3">
+                <div className="space-y-3 text-sm text-foreground leading-relaxed">
+                  <p>Собственное производство</p>
+                  <p>Таблица размеров в карточке товара.</p>
+                  <p>Идеальный выбор для повседневного комфорта и стиля - базовый комплект нашего собственного производства. Модель на тонких бретелях формирует соблазнительную линию декольте за счет расстояния между чашками. Расширенный поясок для комфорта, сзади застежка на два крючка. Трусики-стринги будут незаметны под одеждой.</p>
+                  <p>Комплект идет размер в размер.</p>
+                  <p>Параметры модели: 90-66-98, рост 174 см</p>
+                  <p>Размер на модели: 80В</p>
                 </div>
-              ))}
-            </div>
+              </TabsContent>
+              <TabsContent value="characteristics" className="mt-3">
+                <div className="space-y-0">
+                  {mockProduct.characteristics.slice(0, 5).map((char, i) => (
+                    <div key={i} className={cn("flex items-baseline py-2 text-sm", i !== 4 && "border-b border-border")}>
+                      <span className="text-muted-foreground w-1/2 flex-shrink-0">{char.label}</span>
+                      <span className="text-foreground">{char.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
 
         {/* Right: Purchase sidebar (desktop only) */}
         <div className="hidden lg:block lg:w-[25%] lg:sticky lg:top-20 lg:self-start">
           <div className="bg-card border border-border rounded-xl p-5 space-y-4">
-            <div>
-              <div className="flex items-baseline gap-2.5">
-                <span className="text-[28px] font-extrabold text-primary tracking-tight">{formatPrice(mockProduct.price)}</span>
-                {discount > 0 && (
-                  <span className="text-xs font-bold text-white bg-primary/90 px-2 py-0.5 rounded-full">-{discount}%</span>
-                )}
-              </div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
+                {formatPrice(mockProduct.price)}
+              </span>
               {mockProduct.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through mt-0.5 block">{formatPrice(mockProduct.oldPrice)}</span>
+                <span className="text-sm text-muted-foreground line-through">
+                  {formatPrice(mockProduct.oldPrice)}
+                </span>
               )}
             </div>
             <Button className="w-full h-12 text-base font-semibold gap-2">
@@ -495,18 +510,14 @@ const ProductDetailOld = () => {
             <div className="border-t border-border pt-4 space-y-3">
               <div className="flex items-start gap-3">
                 <Truck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
-                  <p className="text-xs text-muted-foreground">Доставка {mockProduct.delivery.date}</p>
-                </div>
+                <p className="text-sm font-medium text-foreground">Доставка {mockProduct.delivery.date}</p>
               </div>
             </div>
             <div className="border-t border-border pt-4">
-              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline">{mockProduct.seller.name}</button>
-              <div className="flex items-center gap-2 mt-1">
+              <button onClick={() => navigate("/store/1")} className="text-sm font-medium text-primary hover:underline text-left">{mockProduct.seller.name}</button>
+              <div className="flex items-center gap-1 mt-1">
                 <Star className="h-3.5 w-3.5 fill-rating text-rating" />
                 <span className="text-xs font-medium text-foreground">{mockProduct.seller.rating}</span>
-                <span className="text-xs text-muted-foreground">{mockProduct.seller.ordersCount.toLocaleString("ru-RU")} заказов</span>
               </div>
             </div>
           </div>
