@@ -75,12 +75,7 @@ const PriceDrops = () => {
           <div className="p-2 rounded-lg bg-destructive/10">
             <TrendingDown className="h-6 w-6 text-destructive" />
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-foreground">Стало дешевле</h1>
-            <p className="text-sm text-muted-foreground">
-              {priceDropProducts.length} товаров снизили цену
-            </p>
-          </div>
+          <h1 className="text-xl font-bold text-foreground">Стало дешевле</h1>
         </div>
 
         {/* Product Grid */}
