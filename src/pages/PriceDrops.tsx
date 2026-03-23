@@ -85,12 +85,7 @@ const PriceDrops = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-0 lg:gap-4">
-          {priceDropProducts.map((product) => {
-            const discountPercent = product.oldPrice
-              ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
-              : 0;
-
-            return (
+          {priceDropProducts.map((product) => (
               <div key={product.id} className="ring-2 ring-success/60 rounded-lg overflow-hidden">
                 <ProductCard
                   id={product.id}
