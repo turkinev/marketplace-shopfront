@@ -10,6 +10,7 @@ const priceDropProducts = [
     oldPrice: 263,
     rating: 4.8,
     reviewsCount: 2453,
+    priceDropDate: "20 мар",
   },
   {
     id: "2",
@@ -19,6 +20,7 @@ const priceDropProducts = [
     oldPrice: 177,
     rating: 4.6,
     reviewsCount: 891,
+    priceDropDate: "18 мар",
   },
   {
     id: "5",
@@ -28,6 +30,7 @@ const priceDropProducts = [
     oldPrice: 8990,
     rating: 4.9,
     reviewsCount: 432,
+    priceDropDate: "21 мар",
     characteristics: [
       { name: "Тип переключателей", options: ["Red", "Blue", "Brown"] },
       { name: "Раскладка", options: ["RU", "EN", "RU+EN"] },
@@ -41,6 +44,7 @@ const priceDropProducts = [
     oldPrice: 6990,
     rating: 4.6,
     reviewsCount: 1234,
+    priceDropDate: "19 мар",
     characteristics: [
       { name: "Размер ремешка", options: ["S/M", "M/L"] },
       { name: "Цвет корпуса", options: ["Чёрный", "Серебро", "Розовое золото"] },
@@ -54,6 +58,7 @@ const priceDropProducts = [
     oldPrice: 1290,
     rating: 4.5,
     reviewsCount: 456,
+    priceDropDate: "22 мар",
   },
   {
     id: "11",
@@ -63,6 +68,7 @@ const priceDropProducts = [
     oldPrice: 2490,
     rating: 4.7,
     reviewsCount: 567,
+    priceDropDate: "17 мар",
   },
 ];
 
@@ -81,7 +87,12 @@ const PriceDrops = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
           {priceDropProducts.map((product) => (
-              <div key={product.id} className="ring-2 ring-success/60 rounded-lg overflow-hidden">
+              <div key={product.id} className="relative ring-2 ring-success/60 rounded-lg overflow-hidden">
+                {/* Price drop date badge */}
+                <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded">
+                  <TrendingDown className="h-3 w-3" />
+                  {product.priceDropDate}
+                </div>
                 <ProductCard
                   id={product.id}
                   name={product.name}
