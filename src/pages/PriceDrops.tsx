@@ -87,7 +87,7 @@ const PriceDrops = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
           {priceDropProducts.map((product) => (
-              <div key={product.id} className="relative rounded-lg overflow-hidden border-t-[3px] border-success/60">
+              <div key={product.id} className="relative rounded-lg overflow-hidden">
                 <ProductCard
                   id={product.id}
                   name={product.name}
