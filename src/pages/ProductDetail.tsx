@@ -345,7 +345,7 @@ const ProductDetail = () => {
             <div ref={priceRef} className="px-4 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
+                  <span className="text-2xl font-bold" >
                     {formatPrice(mockProduct.price)}
                   </span>
                   {mockProduct.oldPrice && (
@@ -576,7 +576,7 @@ const ProductDetail = () => {
           <div className="bg-card border border-border rounded-xl p-5 space-y-4">
             {/* Price */}
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold" style={{ color: 'rgb(0, 105, 51)' }}>
+              <span className="text-2xl font-bold" >
                 {formatPrice(mockProduct.price)}
               </span>
               {mockProduct.oldPrice && (
@@ -662,7 +662,7 @@ const ProductDetail = () => {
             isPriceVisible ? "max-h-0 opacity-0 translate-y-full" : "max-h-10 opacity-100 translate-y-0 mb-1"
           )}
         >
-          <span className="text-base font-bold" style={{ color: 'rgb(0, 105, 51)' }}>{formatPrice(mockProduct.price)}</span>
+          <span className="text-base font-bold" >{formatPrice(mockProduct.price)}</span>
           {mockProduct.oldPrice && (
             <span className="text-xs text-muted-foreground line-through">{formatPrice(mockProduct.oldPrice)}</span>
           )}
