@@ -88,11 +88,6 @@ const PriceDrops = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
           {priceDropProducts.map((product) => (
               <div key={product.id} className="relative ring-2 ring-success/60 rounded-lg overflow-hidden">
-                {/* Price drop date badge */}
-                <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded">
-                  <TrendingDown className="h-3 w-3" />
-                  {product.priceDropDate}
-                </div>
                 <ProductCard
                   id={product.id}
                   name={product.name}
@@ -103,6 +98,11 @@ const PriceDrops = () => {
                   reviewsCount={product.reviewsCount}
                   characteristics={product.characteristics}
                 />
+                {/* Price drop date badge - bottom right of image area */}
+                <div className="absolute right-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ top: 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}>
+                  <TrendingDown className="h-3 w-3" />
+                  {product.priceDropDate}
+                </div>
               </div>
           ))}
         </div>
