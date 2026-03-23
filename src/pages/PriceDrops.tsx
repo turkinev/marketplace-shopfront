@@ -98,8 +98,7 @@ const PriceDrops = () => {
                   characteristics={product.characteristics}
                 />
               </div>
-            );
-          })}
+          ))}
         </div>
       </div>
     </div>
