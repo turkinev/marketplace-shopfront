@@ -91,13 +91,7 @@ const PriceDrops = () => {
               : 0;
 
             return (
-              <div key={product.id} className="relative">
-                {/* Discount badge */}
-                {discountPercent > 0 && (
-                  <div className="absolute top-2 left-2 z-10 bg-destructive text-destructive-foreground text-xs font-bold px-2 py-1 rounded-md">
-                    −{discountPercent}%
-                  </div>
-                )}
+              <div key={product.id} className="ring-2 ring-success/60 rounded-lg overflow-hidden">
                 <ProductCard
                   id={product.id}
                   name={product.name}
