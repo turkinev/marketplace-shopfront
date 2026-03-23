@@ -84,7 +84,7 @@ const PriceDrops = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-0 lg:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
           {priceDropProducts.map((product) => (
               <div key={product.id} className="ring-2 ring-success/60 rounded-lg overflow-hidden">
                 <ProductCard
