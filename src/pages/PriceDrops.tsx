@@ -103,14 +103,6 @@ const PriceDrops = () => {
                   <TrendingDown className="h-3 w-3" />
                   {product.priceDropDate}
                 </div>
-                  name={product.name}
-                  imageUrl={product.imageUrl}
-                  price={product.price}
-                  oldPrice={product.oldPrice}
-                  rating={product.rating}
-                  reviewsCount={product.reviewsCount}
-                  characteristics={product.characteristics}
-                />
               </div>
           ))}
         </div>
