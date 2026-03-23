@@ -99,9 +99,8 @@ const PriceDrops = () => {
                   characteristics={product.characteristics}
                 />
                 {/* Price drop date badge - bottom right of image area */}
-                <div className="absolute right-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ top: 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}>
-                  <TrendingDown className="h-3 w-3" />
-                  {product.priceDropDate}
+                <div className="absolute right-2 z-10 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ top: 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}>
+                  Цена ниже с {product.priceDropDate}
                 </div>
               </div>
           ))}
