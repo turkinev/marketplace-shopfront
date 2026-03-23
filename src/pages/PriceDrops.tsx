@@ -89,7 +89,7 @@ const PriceDrops = () => {
           {priceDropProducts.map((product) => (
               <div key={product.id} className="relative ring-2 ring-success/60 rounded-lg overflow-hidden">
                 {/* Price drop date badge */}
-                <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded">
+                <div className="absolute bottom-[calc(100%-theme(spacing.square)+0.5rem)] right-2 z-10 flex items-center gap-1 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded">
                   <TrendingDown className="h-3 w-3" />
                   {product.priceDropDate}
                 </div>
