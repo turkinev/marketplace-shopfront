@@ -80,6 +80,62 @@ const statusLabels: Record<string, { text: string; className: string }> = {
   in_transit: { text: "В пути", className: "bg-warning/90 text-warning-foreground" },
 };
 
+const PurchaseCardWrapper = ({ product, status, onStarClick }: { 
+  product: typeof purchasedProducts[0]; 
+  status: { text: string; className: string };
+  onStarClick: (id: string, name: string, star: number) => void;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [imgHeight, setImgHeight] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setImgHeight(el.offsetWidth));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="relative rounded-lg overflow-hidden">
+      <ProductCard
+        id={product.id}
+        name={product.name}
+        imageUrl={product.imageUrl}
+        price={product.price}
+        oldPrice={product.oldPrice}
+        rating={product.rating}
+        reviewsCount={product.reviewsCount}
+      />
+      {/* Purchase status badge */}
+      <div
+        className={`absolute right-2 z-10 text-[10px] font-semibold px-1.5 py-0.5 rounded ${status.className}`}
+        style={{ top: imgHeight ? `${imgHeight - 24}px` : 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}
+      >
+        {status.text} · {product.purchaseDate}
+      </div>
+      {/* Rate stars below image */}
+      <div
+        className="absolute left-0 right-0 z-10 flex items-center justify-center gap-0.5 py-1.5 bg-card/90 backdrop-blur-sm"
+        style={{ top: imgHeight ? `${imgHeight}px` : '50%' }}
+      >
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            onClick={(e) => {
+              e.stopPropagation();
+              onStarClick(product.id, product.name, star);
+            }}
+            className="p-0.5"
+          >
+            <Star className="h-4 w-4 text-muted-foreground/40 hover:fill-rating hover:text-rating transition-colors" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const MyPurchases = () => {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
