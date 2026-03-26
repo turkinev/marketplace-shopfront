@@ -14,6 +14,7 @@ import ProductReviews from "./pages/ProductReviews";
 import PriceDrops from "./pages/PriceDrops";
 import MyPurchases from "./pages/MyPurchases";
 import WriteReview from "./pages/WriteReview";
+import MasonryGrid from "./pages/MasonryGrid";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
