@@ -28,6 +28,7 @@ export const ProductCard = ({
   reviewsCount,
   isLiked: initialLiked = false,
   characteristics,
+  renderBelowImage,
 }: ProductCardProps) => {
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
