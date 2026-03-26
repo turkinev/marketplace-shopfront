@@ -182,6 +182,7 @@ const MyPurchases = () => {
           isOpen={!!reviewProduct}
           onClose={() => setReviewProduct(null)}
           productName={reviewProduct.name}
+          initialRating={reviewProduct.initialRating}
           onSubmit={(data) => {
             console.log("Review for", reviewProduct.id, data);
             setReviewProduct(null);
