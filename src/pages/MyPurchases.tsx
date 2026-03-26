@@ -81,6 +81,19 @@ const statusLabels: Record<string, { text: string; className: string }> = {
 };
 
 const MyPurchases = () => {
+  const isMobile = useIsMobile();
+  const navigate = useNavigate();
+  const [reviewProduct, setReviewProduct] = useState<{ id: string; name: string } | null>(null);
+
+  const handleRateClick = (productId: string, productName: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isMobile) {
+      navigate(`/write-review?name=${encodeURIComponent(productName)}`);
+    } else {
+      setReviewProduct({ id: productId, name: productName });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-6">
@@ -114,11 +127,38 @@ const MyPurchases = () => {
                 >
                   {status.text} · {product.purchaseDate}
                 </div>
+                {/* Rate button below image */}
+                <div
+                  className="absolute left-0 right-0 z-10 flex items-center justify-center gap-0.5 py-1.5 bg-card/90 backdrop-blur-sm cursor-pointer hover:bg-card transition-colors"
+                  style={{ top: 'calc((100vw - 2rem) / 2)' }}
+                  onClick={(e) => handleRateClick(product.id, product.name, e)}
+                >
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className="h-4 w-4 text-muted-foreground/40"
+                    />
+                  ))}
+                  <span className="text-[10px] text-muted-foreground ml-1">Оценить</span>
+                </div>
               </div>
             );
           })}
         </div>
       </div>
+
+      {/* Desktop review dialog */}
+      {reviewProduct && (
+        <WriteReviewDialog
+          isOpen={!!reviewProduct}
+          onClose={() => setReviewProduct(null)}
+          productName={reviewProduct.name}
+          onSubmit={(data) => {
+            console.log("Review for", reviewProduct.id, data);
+            setReviewProduct(null);
+          }}
+        />
+      )}
     </div>
   );
 };
