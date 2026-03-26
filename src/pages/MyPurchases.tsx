@@ -83,14 +83,13 @@ const statusLabels: Record<string, { text: string; className: string }> = {
 const MyPurchases = () => {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
-  const [reviewProduct, setReviewProduct] = useState<{ id: string; name: string } | null>(null);
+  const [reviewProduct, setReviewProduct] = useState<{ id: string; name: string; initialRating: number } | null>(null);
 
-  const handleRateClick = (productId: string, productName: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleStarClick = (productId: string, productName: string, star: number) => {
     if (isMobile) {
-      navigate(`/write-review?name=${encodeURIComponent(productName)}`);
+      navigate(`/write-review?name=${encodeURIComponent(productName)}&rating=${star}`);
     } else {
-      setReviewProduct({ id: productId, name: productName });
+      setReviewProduct({ id: productId, name: productName, initialRating: star });
     }
   };
 
