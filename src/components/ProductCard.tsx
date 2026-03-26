@@ -15,6 +15,7 @@ interface ProductCardProps {
   reviewsCount?: number;
   isLiked?: boolean;
   characteristics?: ProductCharacteristic[];
+  renderBelowImage?: React.ReactNode;
 }
 
 export const ProductCard = ({
