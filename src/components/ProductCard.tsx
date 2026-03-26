@@ -82,7 +82,11 @@ export const ProductCard = ({
           </button>
         </div>
 
-        {renderBelowImage}
+        {renderBelowImage && (
+          <div onClick={(e) => e.stopPropagation()}>
+            {renderBelowImage}
+          </div>
+        )}
 
         {/* Content */}
         <div className="p-3">
