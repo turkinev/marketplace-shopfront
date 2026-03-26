@@ -38,14 +38,14 @@ const WriteReview = () => {
   const handleSubmit = () => {
     if (rating === 0) return;
     console.log("Review submitted:", { rating, text, photos });
-    navigate(-1);
+    navigate("/my-purchases");
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background -mt-12 lg:-mt-0 relative z-50">
       {/* Header */}
       <div className="sticky top-0 z-20 bg-background border-b border-border px-4 py-3 flex items-center gap-3">
-        <button onClick={() => navigate(-1)}>
+        <button onClick={() => navigate("/my-purchases")}>
           <ArrowLeft className="h-5 w-5 text-foreground" />
         </button>
         <h1 className="text-base font-semibold text-foreground">Оценить товар</h1>
