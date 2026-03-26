@@ -127,19 +127,20 @@ const MyPurchases = () => {
                 >
                   {status.text} · {product.purchaseDate}
                 </div>
-                {/* Rate button below image */}
-                <div
-                  className="absolute left-0 right-0 z-10 flex items-center justify-center gap-0.5 py-1.5 bg-card/90 backdrop-blur-sm cursor-pointer hover:bg-card transition-colors"
-                  style={{ top: 'calc((100vw - 2rem) / 2)' }}
-                  onClick={(e) => handleRateClick(product.id, product.name, e)}
-                >
+                {/* Rate stars below image - positioned using aspect-ratio trick */}
+                <div className="absolute left-0 right-0 z-10 flex items-center justify-center gap-0.5 py-1.5 bg-card/90 backdrop-blur-sm" style={{ top: 'var(--img-bottom)' }}>
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Star
+                    <button
                       key={star}
-                      className="h-4 w-4 text-muted-foreground/40"
-                    />
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStarClick(product.id, product.name, star);
+                      }}
+                      className="p-0.5"
+                    >
+                      <Star className="h-4 w-4 text-muted-foreground/40 hover:fill-rating hover:text-rating transition-colors" />
+                    </button>
                   ))}
-                  <span className="text-[10px] text-muted-foreground ml-1">Оценить</span>
                 </div>
               </div>
             );
