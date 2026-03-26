@@ -9,11 +9,12 @@ interface WriteReviewDialogProps {
   isOpen: boolean;
   onClose: () => void;
   productName: string;
+  initialRating?: number;
   onSubmit: (data: { rating: number; text: string; photos: string[] }) => void;
 }
 
-export const WriteReviewDialog = ({ isOpen, onClose, productName, onSubmit }: WriteReviewDialogProps) => {
-  const [rating, setRating] = useState(0);
+export const WriteReviewDialog = ({ isOpen, onClose, productName, initialRating = 0, onSubmit }: WriteReviewDialogProps) => {
+  const [rating, setRating] = useState(initialRating);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [text, setText] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
