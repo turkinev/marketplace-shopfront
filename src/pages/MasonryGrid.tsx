@@ -35,7 +35,7 @@ const masonryProducts = [
   {
     id: "m4",
     name: "Ароматическая свеча Лаванда",
-    imageUrl: "https://images.unsplash.com/photo-1608181831718-2501c43da635?w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1572726729207-a78d6feb18d7?w=400&h=400&fit=crop",
     price: 590,
     rating: 4.5,
     reviewsCount: 2034,
