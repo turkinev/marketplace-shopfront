@@ -14,6 +14,7 @@ import ProductReviews from "./pages/ProductReviews";
 import PriceDrops from "./pages/PriceDrops";
 import MyPurchases from "./pages/MyPurchases";
 import WriteReview from "./pages/WriteReview";
+import MasonryGrid from "./pages/MasonryGrid";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/price-drops" element={<PriceDrops />} />
             <Route path="/my-purchases" element={<MyPurchases />} />
             <Route path="/write-review" element={<WriteReview />} />
+            <Route path="/masonry" element={<MasonryGrid />} />
             <Route path="/feed" element={<Feed />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
