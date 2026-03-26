@@ -15,6 +15,7 @@ interface ProductCardProps {
   reviewsCount?: number;
   isLiked?: boolean;
   characteristics?: ProductCharacteristic[];
+  renderBelowImage?: React.ReactNode;
 }
 
 export const ProductCard = ({
@@ -27,6 +28,7 @@ export const ProductCard = ({
   reviewsCount,
   isLiked: initialLiked = false,
   characteristics,
+  renderBelowImage,
 }: ProductCardProps) => {
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
@@ -79,6 +81,8 @@ export const ProductCard = ({
             />
           </button>
         </div>
+
+        {renderBelowImage}
 
         {/* Content */}
         <div className="p-3">
