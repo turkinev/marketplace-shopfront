@@ -140,17 +140,13 @@ const MyPurchases = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
-          {purchasedProducts.map((product) => {
-            const status = statusLabels[product.status];
-            return (
-              <PurchaseCardWrapper
-                key={product.id}
-                product={product}
-                status={status}
-                onStarClick={handleStarClick}
-              />
-            );
-          })}
+          {purchasedProducts.map((product) => (
+            <PurchaseCardWrapper
+              key={product.id}
+              product={product}
+              onStarClick={handleStarClick}
+            />
+          ))}
         </div>
       </div>
 
