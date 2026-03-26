@@ -87,22 +87,17 @@ const PriceDrops = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 lg:gap-4">
           {priceDropProducts.map((product) => (
-              <div key={product.id} className="relative rounded-lg overflow-hidden">
-                <ProductCard
-                  id={product.id}
-                  name={product.name}
-                  imageUrl={product.imageUrl}
-                  price={product.price}
-                  oldPrice={product.oldPrice}
-                  rating={product.rating}
-                  reviewsCount={product.reviewsCount}
-                  characteristics={product.characteristics}
-                />
-                {/* Price drop date badge - bottom right of image area */}
-                <div className="absolute right-2 z-10 bg-success/90 text-success-foreground text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ top: 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}>
-                  Цена ниже с {product.priceDropDate}
-                </div>
-              </div>
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                imageUrl={product.imageUrl}
+                price={product.price}
+                oldPrice={product.oldPrice}
+                rating={product.rating}
+                reviewsCount={product.reviewsCount}
+                characteristics={product.characteristics}
+              />
           ))}
         </div>
       </div>
