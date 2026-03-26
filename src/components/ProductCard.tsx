@@ -82,6 +82,8 @@ export const ProductCard = ({
           </button>
         </div>
 
+        {renderBelowImage}
+
         {/* Content */}
         <div className="p-3">
           {/* Price */}
