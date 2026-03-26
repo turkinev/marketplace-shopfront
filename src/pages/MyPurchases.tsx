@@ -165,39 +165,12 @@ const MyPurchases = () => {
           {purchasedProducts.map((product) => {
             const status = statusLabels[product.status];
             return (
-              <div key={product.id} className="relative rounded-lg overflow-hidden">
-                <ProductCard
-                  id={product.id}
-                  name={product.name}
-                  imageUrl={product.imageUrl}
-                  price={product.price}
-                  oldPrice={product.oldPrice}
-                  rating={product.rating}
-                  reviewsCount={product.reviewsCount}
-                />
-                {/* Purchase status badge */}
-                <div
-                  className={`absolute right-2 z-10 text-[10px] font-semibold px-1.5 py-0.5 rounded ${status.className}`}
-                  style={{ top: 'calc(((100vw - 2rem) / 2) - 1.5rem)' }}
-                >
-                  {status.text} · {product.purchaseDate}
-                </div>
-                {/* Rate stars below image - positioned using aspect-ratio trick */}
-                <div className="absolute left-0 right-0 z-10 flex items-center justify-center gap-0.5 py-1.5 bg-card/90 backdrop-blur-sm" style={{ top: 'var(--img-bottom)' }}>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleStarClick(product.id, product.name, star);
-                      }}
-                      className="p-0.5"
-                    >
-                      <Star className="h-4 w-4 text-muted-foreground/40 hover:fill-rating hover:text-rating transition-colors" />
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <PurchaseCardWrapper
+                key={product.id}
+                product={product}
+                status={status}
+                onStarClick={handleStarClick}
+              />
             );
           })}
         </div>
