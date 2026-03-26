@@ -42,7 +42,7 @@ const WriteReview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background -mt-12 lg:-mt-0 relative z-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="sticky top-0 z-20 bg-background border-b border-border px-4 py-3 flex items-center gap-3">
         <button onClick={() => navigate("/my-purchases")}>
