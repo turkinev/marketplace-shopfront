@@ -9,8 +9,9 @@ const WriteReview = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const productName = searchParams.get("name") || "Товар";
+  const initialRating = Number(searchParams.get("rating") || 0);
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(initialRating);
   const [text, setText] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
 
