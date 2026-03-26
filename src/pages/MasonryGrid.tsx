@@ -8,7 +8,7 @@ const masonryProducts = [
   {
     id: "m1",
     name: "Кожаная сумка ручной работы",
-    imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=600&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=600&fit=crop",
     price: 4590,
     oldPrice: 6990,
     rating: 4.8,
@@ -17,7 +17,7 @@ const masonryProducts = [
   {
     id: "m2",
     name: "Набор кистей для макияжа 12шт",
-    imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=300&fit=crop",
     price: 1290,
     oldPrice: 1890,
     rating: 4.6,
@@ -26,7 +26,7 @@ const masonryProducts = [
   {
     id: "m3",
     name: "Винтажный фотоаппарат Polaroid",
-    imageUrl: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=500&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1452780212940-6f5c0d14d848?w=400&h=500&fit=crop",
     price: 8990,
     oldPrice: 12990,
     rating: 4.9,
@@ -35,7 +35,7 @@ const masonryProducts = [
   {
     id: "m4",
     name: "Ароматическая свеча Лаванда",
-    imageUrl: "https://images.unsplash.com/photo-1602607753498-63e0e4f4a17e?w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1543006025-918eab893c39?w=400&h=400&fit=crop",
     price: 590,
     rating: 4.5,
     reviewsCount: 2034,
@@ -43,7 +43,7 @@ const masonryProducts = [
   {
     id: "m5",
     name: "Керамическая ваза ручной работы",
-    imageUrl: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&h=650&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=400&h=650&fit=crop",
     price: 2390,
     oldPrice: 3490,
     rating: 4.7,
@@ -51,8 +51,8 @@ const masonryProducts = [
   },
   {
     id: "m6",
-    name: "Солнцезащитные очки Ray-Ban",
-    imageUrl: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=280&fit=crop",
+    name: "Солнцезащитные очки",
+    imageUrl: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=280&fit=crop",
     price: 7990,
     oldPrice: 11990,
     rating: 4.8,
@@ -61,7 +61,7 @@ const masonryProducts = [
   {
     id: "m7",
     name: "Плед из мериносовой шерсти",
-    imageUrl: "https://images.unsplash.com/photo-1580301762395-21ce6d555b43?w=400&h=550&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=550&fit=crop",
     price: 3990,
     oldPrice: 5490,
     rating: 4.9,
@@ -70,7 +70,7 @@ const masonryProducts = [
   {
     id: "m8",
     name: "Настольная лампа минимализм",
-    imageUrl: "https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=400&h=350&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=350&fit=crop",
     price: 2790,
     rating: 4.4,
     reviewsCount: 678,
@@ -78,7 +78,7 @@ const masonryProducts = [
   {
     id: "m9",
     name: "Кожаный ремень премиум",
-    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=400&h=250&fit=crop",
     price: 1990,
     oldPrice: 2990,
     rating: 4.6,
@@ -87,7 +87,7 @@ const masonryProducts = [
   {
     id: "m10",
     name: "Комнатное растение Монстера",
-    imageUrl: "https://images.unsplash.com/photo-1614594975525-e45571cf291b?w=400&h=700&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&h=700&fit=crop",
     price: 1490,
     rating: 4.7,
     reviewsCount: 923,
@@ -104,7 +104,7 @@ const masonryProducts = [
   {
     id: "m12",
     name: "Набор для рисования акварелью",
-    imageUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=300&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=300&fit=crop",
     price: 2190,
     oldPrice: 3290,
     rating: 4.5,
