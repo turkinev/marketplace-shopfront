@@ -84,7 +84,7 @@ const PurchaseCardWrapper = ({ product, onStarClick }: {
   onStarClick: (id: string, name: string, star: number) => void;
 }) => {
   const starsRow = (
-    <div className="flex items-center justify-between bg-card px-2 py-2">
+    <div className="flex items-center justify-center gap-1 bg-card py-2">
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
@@ -92,9 +92,9 @@ const PurchaseCardWrapper = ({ product, onStarClick }: {
             e.stopPropagation();
             onStarClick(product.id, product.name, star);
           }}
-          className="flex-1 flex items-center justify-center p-0.5"
+          className="p-0.5"
         >
-          <Star className="h-5 w-5 text-muted-foreground/30 hover:fill-rating hover:text-rating transition-colors" />
+          <Star className="h-6 w-6 text-muted-foreground/30 hover:fill-rating hover:text-rating transition-colors" />
         </button>
       ))}
     </div>
