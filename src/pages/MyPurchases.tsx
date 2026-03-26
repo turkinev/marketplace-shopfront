@@ -1,10 +1,9 @@
 import { ProductCard } from "@/components/ProductCard";
 import { WriteReviewDialog } from "@/components/WriteReviewDialog";
 import { ShoppingBag, Star } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { cn } from "@/lib/utils";
 
 const purchasedProducts = [
   {
