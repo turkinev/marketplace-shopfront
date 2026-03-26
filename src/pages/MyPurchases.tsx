@@ -83,33 +83,34 @@ const PurchaseCardWrapper = ({ product, onStarClick }: {
   product: typeof purchasedProducts[0]; 
   onStarClick: (id: string, name: string, star: number) => void;
 }) => {
-  return (
-    <div className="rounded-lg overflow-hidden">
-      <ProductCard
-        id={product.id}
-        name={product.name}
-        imageUrl={product.imageUrl}
-        price={product.price}
-        oldPrice={product.oldPrice}
-        rating={product.rating}
-        reviewsCount={product.reviewsCount}
-      />
-      {/* Rate stars below card on white bg */}
-      <div className="flex items-center justify-between bg-card px-2 py-2">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            onClick={(e) => {
-              e.stopPropagation();
-              onStarClick(product.id, product.name, star);
-            }}
-            className="flex-1 flex items-center justify-center p-0.5"
-          >
-            <Star className="h-5 w-5 text-muted-foreground/30 hover:fill-rating hover:text-rating transition-colors" />
-          </button>
-        ))}
-      </div>
+  const starsRow = (
+    <div className="flex items-center justify-between bg-card px-2 py-2">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <button
+          key={star}
+          onClick={(e) => {
+            e.stopPropagation();
+            onStarClick(product.id, product.name, star);
+          }}
+          className="flex-1 flex items-center justify-center p-0.5"
+        >
+          <Star className="h-5 w-5 text-muted-foreground/30 hover:fill-rating hover:text-rating transition-colors" />
+        </button>
+      ))}
     </div>
+  );
+
+  return (
+    <ProductCard
+      id={product.id}
+      name={product.name}
+      imageUrl={product.imageUrl}
+      price={product.price}
+      oldPrice={product.oldPrice}
+      rating={product.rating}
+      reviewsCount={product.reviewsCount}
+      renderBelowImage={starsRow}
+    />
   );
 };
 
