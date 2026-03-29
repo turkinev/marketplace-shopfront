@@ -8,7 +8,7 @@ import { StoreReviews } from "@/components/StoreReviews";
 import { StoreQA } from "@/components/StoreQA";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
-import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle, ChevronDown, Check } from "lucide-react";
+import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle, ChevronDown, ChevronLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
