@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { useAllProducts } from "@/hooks/useInfiniteProducts";
 import { cn } from "@/lib/utils";
 
 const blockTypeLabels: Record<BlockType, string> = {
