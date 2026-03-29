@@ -39,6 +39,7 @@ const App = () => (
             <Route path="/write-review" element={<WriteReview />} />
             <Route path="/masonry" element={<MasonryGrid />} />
             <Route path="/feed" element={<Feed />} />
+            <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

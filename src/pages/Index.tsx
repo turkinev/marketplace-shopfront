@@ -346,6 +346,9 @@ const Index = () => {
         {/* Promo Banners - Full width on desktop */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
+        {/* Dynamic Storefront Blocks */}
+        <StorefrontBlocks />
+
         {/* Products Section with Sidebar on Desktop */}
         <div className="mt-6 flex gap-6">
           {/* Sidebar - Desktop Only */}
