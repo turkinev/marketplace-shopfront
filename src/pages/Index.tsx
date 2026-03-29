@@ -12,6 +12,8 @@ import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link,
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { useStorefrontBlocks } from "@/hooks/useStorefrontBlocks";
+import { StorefrontRenderer } from "@/components/storefront/StorefrontRenderer";
 import {
   DropdownMenu,
   DropdownMenuContent,
