@@ -49,8 +49,8 @@ export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
+          <CarouselPrevious className="left-2 bg-black/30 border-none text-white hover:bg-black/50" />
+          <CarouselNext className="right-2 bg-black/30 border-none text-white hover:bg-black/50" />
         </Carousel>
       </div>
     );
