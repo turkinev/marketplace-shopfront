@@ -12,7 +12,7 @@ export const StorefrontRenderer = ({ blocks }: StorefrontRendererProps) => {
   if (blocks.length === 0) return null;
 
   return (
-    <div className="mt-6">
+    <div className="mt-2">
       {blocks.map((block) => {
         switch (block.type) {
           case "shelf":
