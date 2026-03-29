@@ -323,8 +323,7 @@ const Index = () => {
           likesCount={45200}
         />
 
-        {/* Promo Banners - Full width on desktop */}
-        <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
+        {/* Dynamic Storefront Blocks */}
 
         {/* Dynamic Storefront Blocks */}
         <StorefrontRenderer blocks={storefrontBlocks} />
