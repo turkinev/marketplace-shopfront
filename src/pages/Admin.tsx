@@ -173,6 +173,16 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
     onUpdate({ ...config, banners });
   };
 
+  const handleBannerImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      updateBanner(index, "imageUrl", reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const addBanner = () => {
     if (config.banners.length >= 5) return;
     onUpdate({ ...config, banners: [...config.banners, { id: crypto.randomUUID(), imageUrl: "", link: "" }] });
@@ -213,16 +223,32 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
             )}
           </div>
           <div>
-            <Label className="text-xs">URL изображения</Label>
-            <Input value={banner.imageUrl} onChange={(e) => updateBanner(i, "imageUrl", e.target.value)} placeholder="https://..." />
+            <Label className="text-xs">Изображение</Label>
+            {banner.imageUrl ? (
+              <div className="relative group w-full h-24 rounded-lg overflow-hidden border border-border">
+                <img src={banner.imageUrl} alt="" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => updateBanner(i, "imageUrl", "")}
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium"
+                >
+                  Удалить
+                </button>
+              </div>
+            ) : (
+              <label className="flex items-center justify-center w-full h-24 rounded-lg border-2 border-dashed border-muted-foreground/30 cursor-pointer hover:border-primary/50 transition-colors">
+                <div className="text-center">
+                  <Upload className="h-5 w-5 mx-auto text-muted-foreground" />
+                  <span className="text-xs text-muted-foreground mt-1 block">Загрузить фото</span>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleBannerImageUpload(i, e)} />
+              </label>
+            )}
           </div>
           <div>
             <Label className="text-xs">Ссылка (куда ведёт)</Label>
             <Input value={banner.link} onChange={(e) => updateBanner(i, "link", e.target.value)} placeholder="/products?category=..." />
           </div>
-          {banner.imageUrl && (
-            <img src={banner.imageUrl} alt="" className="w-full h-20 object-cover rounded bg-secondary" />
-          )}
         </div>
       ))}
 
