@@ -173,6 +173,16 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
     onUpdate({ ...config, banners });
   };
 
+  const handleBannerImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      updateBanner(index, "imageUrl", reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const addBanner = () => {
     if (config.banners.length >= 5) return;
     onUpdate({ ...config, banners: [...config.banners, { id: crypto.randomUUID(), imageUrl: "", link: "" }] });
