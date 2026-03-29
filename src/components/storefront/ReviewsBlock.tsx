@@ -14,6 +14,8 @@ const mockReviews = [
   { id: "r3", rating: 5, photo: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=500&fit=crop", name: "Худи базовое", price: 2990, oldPrice: 4490 },
   { id: "r4", rating: 4, photo: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=500&fit=crop", name: "Брюки карго", price: 3990, oldPrice: undefined },
   { id: "r5", rating: 5, photo: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=500&fit=crop", name: "Футболка хлопок", price: 1490, oldPrice: 1990 },
+  { id: "r6", rating: 4, photo: "https://images.unsplash.com/photo-1434389677669-e08b4cda3a07?w=400&h=500&fit=crop", name: "Свитшот тёплый", price: 2790, oldPrice: 3990 },
+  { id: "r7", rating: 5, photo: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&h=500&fit=crop", name: "Рубашка лён", price: 2490, oldPrice: undefined },
 ];
 
 export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
