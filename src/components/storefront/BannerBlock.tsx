@@ -1,5 +1,6 @@
 import { BannerConfig } from "@/hooks/useStorefrontBlocks";
 import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
