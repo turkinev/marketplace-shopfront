@@ -18,12 +18,12 @@ export const ShelfBlock = ({ config }: ShelfBlockProps) => {
   if (shelfProducts.length < 5) return null;
 
   return (
-    <div className="mb-6 border border-border rounded-2xl p-4 bg-card">
+    <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden">
       {config.title && (
-        <h2 className="text-lg font-bold text-foreground mb-3">{config.title}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-3 px-4 pt-4">{config.title}</h2>
       )}
       <ScrollArea className="w-full">
-        <div className="flex gap-3 pb-4">
+        <div className="flex gap-3 pb-4 px-4 md:pr-4 pr-0">
           {shelfProducts.map((product) => (
             <div key={product.id} className="w-[144px] md:w-[180px] flex-shrink-0">
               <ProductCard {...product} />
