@@ -280,6 +280,7 @@ const Index = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState("popular");
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
+  const { blocks: storefrontBlocks } = useStorefrontBlocks();
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
