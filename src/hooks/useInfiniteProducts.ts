@@ -178,3 +178,7 @@ export const useInfiniteProducts = () => {
 
   return { products, isLoading, hasMore, loadMore };
 };
+
+export const useAllProducts = () => {
+  return allProducts;
+};
