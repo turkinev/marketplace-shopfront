@@ -301,7 +301,7 @@ const Index = () => {
   return (
     <div>
       {/* Main Content */}
-      <main className="container px-4 py-4 md:py-6 max-w-7xl mx-auto">
+      <main className="px-0 md:container md:px-4 py-4 md:py-6 max-w-7xl mx-auto">
         {/* Mobile: Store Header */}
         <div className="lg:hidden mb-4">
           <StoreHeader
