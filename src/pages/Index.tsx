@@ -12,6 +12,8 @@ import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link,
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { useStorefrontBlocks } from "@/hooks/useStorefrontBlocks";
+import { StorefrontRenderer } from "@/components/storefront/StorefrontRenderer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -278,6 +280,7 @@ const Index = () => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState("popular");
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
+  const { blocks: storefrontBlocks } = useStorefrontBlocks();
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -343,6 +346,9 @@ const Index = () => {
 
         {/* Promo Banners - Full width on desktop */}
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
+
+        {/* Dynamic Storefront Blocks */}
+        <StorefrontRenderer blocks={storefrontBlocks} />
 
         {/* Products Section with Sidebar on Desktop */}
         <div className="mt-6 flex gap-6">
