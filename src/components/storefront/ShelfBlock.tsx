@@ -1,3 +1,4 @@
+// Shelf block component
 import { ShelfConfig } from "@/hooks/useStorefrontBlocks";
 import { ProductCard } from "@/components/ProductCard";
 import { useAllProducts } from "@/hooks/useInfiniteProducts";
