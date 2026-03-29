@@ -99,6 +99,16 @@ const TilesEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (c
     onUpdate({ ...config, tiles });
   };
 
+  const handleImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      updateTile(index, "imageUrl", reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="space-y-4">
       <div>
@@ -120,8 +130,27 @@ const TilesEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (c
             <Input value={tile.title} onChange={(e) => updateTile(i, "title", e.target.value)} placeholder="Название" />
           </div>
           <div>
-            <Label className="text-xs">URL изображения</Label>
-            <Input value={tile.imageUrl} onChange={(e) => updateTile(i, "imageUrl", e.target.value)} placeholder="https://..." />
+            <Label className="text-xs">Изображение</Label>
+            {tile.imageUrl ? (
+              <div className="relative group w-full h-24 rounded-lg overflow-hidden border border-border">
+                <img src={tile.imageUrl} alt={tile.title} className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => updateTile(i, "imageUrl", "")}
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium"
+                >
+                  Удалить
+                </button>
+              </div>
+            ) : (
+              <label className="flex items-center justify-center w-full h-24 rounded-lg border-2 border-dashed border-muted-foreground/30 cursor-pointer hover:border-primary/50 transition-colors">
+                <div className="text-center">
+                  <Upload className="h-5 w-5 mx-auto text-muted-foreground" />
+                  <span className="text-xs text-muted-foreground mt-1 block">Загрузить фото</span>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(i, e)} />
+              </label>
+            )}
           </div>
           <div>
             <Label className="text-xs">Ссылка (куда ведёт)</Label>
