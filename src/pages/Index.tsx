@@ -425,6 +425,17 @@ const Index = () => {
         onSelectCategory={handleCatalogSelect}
         storeName="Grass - быстрая доставка"
       />
+
+      {isPreview && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+          <Button
+            className="shadow-lg gap-2 rounded-full px-6"
+            onClick={() => navigate("/admin")}
+          >
+            <ChevronLeft className="h-4 w-4" /> Вернуться в админку
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
