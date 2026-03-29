@@ -24,6 +24,7 @@ export type BannerSize = "S" | "M" | "L";
 export interface BannerItem {
   id: string;
   imageUrl: string;
+  mobileImageUrl: string;
   link: string;
 }
 
