@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { useAllProducts } from "@/hooks/useInfiniteProducts";
 import { cn } from "@/lib/utils";
 
 const blockTypeLabels: Record<BlockType, string> = {
@@ -38,7 +38,7 @@ const blockTypeDescriptions: Record<BlockType, string> = {
 // Shelf Editor
 const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (config: ShelfConfig) => void }) => {
   const config = block.config as ShelfConfig;
-  const { products } = useInfiniteProducts();
+  const products = useAllProducts();
 
   const toggleProduct = (id: string) => {
     const ids = config.productIds.includes(id)
