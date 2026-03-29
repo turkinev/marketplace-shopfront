@@ -185,7 +185,7 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
 
   const addBanner = () => {
     if (config.banners.length >= 5) return;
-    onUpdate({ ...config, banners: [...config.banners, { id: crypto.randomUUID(), imageUrl: "", link: "" }] });
+    onUpdate({ ...config, banners: [...config.banners, { id: crypto.randomUUID(), imageUrl: "", mobileImageUrl: "", link: "" }] });
   };
 
   const removeBanner = (index: number) => {
