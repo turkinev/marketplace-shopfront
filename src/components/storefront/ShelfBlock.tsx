@@ -1,6 +1,6 @@
 import { ShelfConfig } from "@/hooks/useStorefrontBlocks";
 import { ProductCard } from "@/components/ProductCard";
-import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
+import { useAllProducts } from "@/hooks/useInfiniteProducts";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface ShelfBlockProps {
@@ -8,7 +8,7 @@ interface ShelfBlockProps {
 }
 
 export const ShelfBlock = ({ config }: ShelfBlockProps) => {
-  const { products: allProducts } = useInfiniteProducts();
+  const allProducts = useAllProducts();
 
   const shelfProducts = config.productIds.length > 0
     ? allProducts.filter((p) => config.productIds.includes(p.id))
