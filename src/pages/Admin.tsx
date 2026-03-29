@@ -38,7 +38,7 @@ const blockTypeDescriptions: Record<BlockType, string> = {
 // Shelf Editor
 const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (config: ShelfConfig) => void }) => {
   const config = block.config as ShelfConfig;
-  const { products } = useInfiniteProducts();
+  const products = useAllProducts();
 
   const toggleProduct = (id: string) => {
     const ids = config.productIds.includes(id)
