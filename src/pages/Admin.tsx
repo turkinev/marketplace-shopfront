@@ -195,22 +195,6 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
 
   return (
     <div className="space-y-4">
-      <div>
-        <Label>Размер</Label>
-        <Select value={config.size} onValueChange={(v) => onUpdate({ ...config, size: v as BannerConfig["size"] })}>
-          <SelectTrigger><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="S">S — узкий</SelectItem>
-            <SelectItem value="M">M — широкий</SelectItem>
-            <SelectItem value="L">L — вертикальный</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-xs text-muted-foreground mt-1">
-          {config.size === "S" && "Моб: 686×290, ПК: 2832×600"}
-          {config.size === "M" && "Моб: 686×560, ПК: 2832×600"}
-          {config.size === "L" && "Моб: 686×924, ПК: 2832×600"}
-        </p>
-      </div>
 
       {config.banners.map((banner, i) => (
         <div key={banner.id} className="p-3 border border-border rounded-lg space-y-2">

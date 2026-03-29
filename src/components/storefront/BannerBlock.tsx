@@ -17,8 +17,8 @@ interface BannerBlockProps {
 
 const sizeClasses: Record<string, string> = {
   S: "h-[145px] md:h-[200px] lg:h-[250px]",
-  M: "h-[280px] md:h-[350px] lg:h-[400px]",
-  L: "h-[462px] md:h-[500px] lg:h-[600px]",
+  M: "h-[145px] md:h-[200px] lg:h-[250px]",
+  L: "h-[145px] md:h-[200px] lg:h-[250px]",
 };
 
 export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
