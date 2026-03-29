@@ -337,7 +337,7 @@ const Admin = () => {
           <h1 className="text-lg font-bold text-foreground">Конструктор витрины</h1>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="gap-2" onClick={() => { navigate("/"); toast.success("Предпросмотр открыт"); }}>
+          <Button variant="outline" className="gap-2" onClick={() => { navigate("/?preview=1"); toast.success("Предпросмотр открыт"); }}>
             <Eye className="h-4 w-4" /> Предпросмотр
           </Button>
         </div>
