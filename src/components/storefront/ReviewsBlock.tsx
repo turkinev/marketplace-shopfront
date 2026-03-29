@@ -43,7 +43,7 @@ export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
         {reviews.map((review) => (
           <div
             key={review.id}
-            className="min-w-[160px] max-w-[180px] shrink-0 rounded-xl overflow-hidden relative aspect-[3/4] bg-muted"
+            className="min-w-[140px] max-w-[150px] shrink-0 rounded-xl overflow-hidden relative aspect-[3/4] bg-muted"
             style={{ scrollSnapAlign: "start" }}
           >
             <img
