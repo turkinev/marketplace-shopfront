@@ -245,6 +245,10 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
               </label>
             )}
           </div>
+          <div>
+            <Label className="text-xs">Ссылка (куда ведёт)</Label>
+            <Input value={banner.link} onChange={(e) => updateBanner(i, "link", e.target.value)} placeholder="/products?category=..." />
+          </div>
         </div>
       ))}
 
