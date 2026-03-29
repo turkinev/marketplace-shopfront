@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { PromoBanners } from "@/components/PromoBanners";
@@ -8,7 +8,7 @@ import { StoreReviews } from "@/components/StoreReviews";
 import { StoreQA } from "@/components/StoreQA";
 import { MobileCatalogMenu } from "@/components/MobileCatalogMenu";
 import { DeliveryStatusBadge } from "@/components/DeliveryStatusBadge";
-import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle, ChevronDown, Check } from "lucide-react";
+import { Share2, Loader2, Star, Package, Heart, MessageCircle, Send, Info, Link, UserCircle, ChevronDown, ChevronLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useInfiniteProducts } from "@/hooks/useInfiniteProducts";
@@ -277,6 +277,8 @@ const sortOptions = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isPreview = searchParams.get("preview") === "1";
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState("popular");
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
@@ -423,6 +425,17 @@ const Index = () => {
         onSelectCategory={handleCatalogSelect}
         storeName="Grass - быстрая доставка"
       />
+
+      {isPreview && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+          <Button
+            className="shadow-lg gap-2 rounded-full px-6"
+            onClick={() => navigate("/admin")}
+          >
+            <ChevronLeft className="h-4 w-4" /> Вернуться в админку
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
