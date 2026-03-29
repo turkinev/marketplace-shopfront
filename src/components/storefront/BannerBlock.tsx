@@ -56,5 +56,5 @@ export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
     );
   }
 
-  return <div className="mb-6">{renderBanner(config.banners[0])}</div>;
+  return <div className="mb-3">{renderBanner(config.banners[0])}</div>;
 };

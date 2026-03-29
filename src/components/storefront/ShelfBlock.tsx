@@ -18,7 +18,7 @@ export const ShelfBlock = ({ config }: ShelfBlockProps) => {
   if (shelfProducts.length < 5) return null;
 
   return (
-    <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden">
+    <div className="mb-3 border border-border rounded-2xl bg-card overflow-hidden">
       {config.title && (
         <h2 className="text-lg font-bold text-foreground mb-3 px-4 pt-4">{config.title}</h2>
       )}
