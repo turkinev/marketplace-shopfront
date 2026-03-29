@@ -20,7 +20,7 @@ const mockReviews = [
 
 export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
   const navigate = useNavigate();
-  const reviews = mockReviews.slice(0, config.showCount);
+  const reviews = mockReviews;
 
   return (
     <div className="mb-3 border border-border rounded-2xl bg-card overflow-hidden pt-4 pb-4">
