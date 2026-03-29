@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { StoreHeader } from "@/components/StoreHeader";
 import { ProductCard } from "@/components/ProductCard";
-import { PromoBanners } from "@/components/PromoBanners";
+
 import { ProductsSidebar } from "@/components/ProductsSidebar";
 import { StoreReviews } from "@/components/StoreReviews";
 import { StoreQA } from "@/components/StoreQA";
