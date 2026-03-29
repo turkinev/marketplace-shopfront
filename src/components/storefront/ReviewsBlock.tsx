@@ -21,7 +21,7 @@ export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
   const reviews = mockReviews.slice(0, config.showCount);
 
   return (
-    <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden pt-4 pb-4">
+    <div className="mb-3 border border-border rounded-2xl bg-card overflow-hidden pt-4 pb-4">
       <div className="flex items-center justify-between mb-3 px-4">
         <h2 className="text-lg font-bold text-foreground">{config.title}</h2>
         <Button variant="link" className="text-primary" onClick={() => navigate("/product/1/reviews")}>
