@@ -23,7 +23,7 @@ export const ShelfBlock = ({ config }: ShelfBlockProps) => {
         <h2 className="text-lg font-bold text-foreground mb-3 px-4 pt-4">{config.title}</h2>
       )}
       <ScrollArea className="w-full">
-        <div className="flex gap-3 pb-4 px-4 md:pr-4 pr-0">
+        <div className="flex gap-3 pb-4 px-4">
           {shelfProducts.map((product) => (
             <div key={product.id} className="w-[144px] md:w-[180px] flex-shrink-0">
               <ProductCard {...product} />
