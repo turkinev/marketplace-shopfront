@@ -2,7 +2,7 @@ import { ReviewsConfig } from "@/hooks/useStorefrontBlocks";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface ReviewsBlockProps {
   config: ReviewsConfig;
@@ -19,12 +19,6 @@ const mockReviews = [
 export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
   const navigate = useNavigate();
   const reviews = mockReviews.slice(0, config.showCount);
-  const [showScrollbar, setShowScrollbar] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowScrollbar(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden pt-4 pb-4">
@@ -34,44 +28,41 @@ export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
           Все отзывы
         </Button>
       </div>
-      <div
-        className={`flex gap-3 overflow-x-auto pb-2 px-4 ${showScrollbar ? "" : "scrollbar-hide"}`}
-        onTouchStart={() => setShowScrollbar(true)}
-        onTouchEnd={() => setTimeout(() => setShowScrollbar(false), 2000)}
-        style={{ scrollSnapType: "x mandatory" }}
-      >
-        {reviews.map((review) => (
-          <div
-            key={review.id}
-            className="min-w-[140px] max-w-[150px] shrink-0 rounded-xl overflow-hidden relative aspect-[3/4] bg-muted"
-            style={{ scrollSnapAlign: "start" }}
-          >
-            <img
-              src={review.photo}
-              alt={review.name}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 flex flex-col gap-1">
-              <div className="flex">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-3 w-3 ${i < review.rating ? "fill-rating text-rating" : "text-white/40"}`}
-                  />
-                ))}
-              </div>
-              <span className="text-xs font-medium text-white leading-tight line-clamp-1">{review.name}</span>
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-bold text-white">{review.price.toLocaleString()} ₽</span>
-                {review.oldPrice && (
-                  <span className="text-xs text-white/50 line-through">{review.oldPrice.toLocaleString()} ₽</span>
-                )}
+      <ScrollArea className="w-full">
+        <div className="flex gap-3 pb-4 px-4">
+          {reviews.map((review) => (
+            <div
+              key={review.id}
+              className="min-w-[140px] max-w-[150px] shrink-0 rounded-xl overflow-hidden relative aspect-[3/4] bg-muted"
+            >
+              <img
+                src={review.photo}
+                alt={review.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 flex flex-col gap-1">
+                <div className="flex">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-3 w-3 ${i < review.rating ? "fill-rating text-rating" : "text-white/40"}`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs font-medium text-white leading-tight line-clamp-1">{review.name}</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-white">{review.price.toLocaleString()} ₽</span>
+                  {review.oldPrice && (
+                    <span className="text-xs text-white/50 line-through">{review.oldPrice.toLocaleString()} ₽</span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </div>
   );
 };
