@@ -1,5 +1,6 @@
 import { BannerConfig } from "@/hooks/useStorefrontBlocks";
 import { useNavigate } from "react-router-dom";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -40,7 +41,7 @@ export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
   if (isSlider && config.banners.length > 1) {
     return (
       <div className="mb-6">
-        <Carousel className="w-full">
+        <Carousel className="w-full" opts={{ loop: true }} plugins={[Autoplay({ delay: 10000, stopOnInteraction: false })]}>
           <CarouselContent>
             {config.banners.map((banner) => (
               <CarouselItem key={banner.id}>
