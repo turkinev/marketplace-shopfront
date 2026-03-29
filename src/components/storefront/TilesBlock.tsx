@@ -13,7 +13,7 @@ export const TilesBlock = ({ config }: TilesBlockProps) => {
   const cols = config.count === 2 ? "grid-cols-2" : config.count === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-3 md:grid-cols-6";
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 border border-border rounded-2xl p-4 bg-card">
       <div className={`grid ${cols} gap-3`}>
         {config.tiles.map((tile) => (
           <div
