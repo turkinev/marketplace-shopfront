@@ -173,12 +173,12 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
     onUpdate({ ...config, banners });
   };
 
-  const handleBannerImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBannerImageUpload = (index: number, field: "imageUrl" | "mobileImageUrl", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      updateBanner(index, "imageUrl", reader.result as string);
+      updateBanner(index, field, reader.result as string);
     };
     reader.readAsDataURL(file);
   };
