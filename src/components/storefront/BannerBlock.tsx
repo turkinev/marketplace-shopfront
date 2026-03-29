@@ -49,7 +49,7 @@ export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
   if (isSlider && config.banners.length > 1) {
     return (
       <div className="mb-3">
-        <Carousel className="w-full" opts={{ loop: true }} plugins={[Autoplay({ delay: 10000, stopOnInteraction: false })]}>
+        <Carousel className="w-full" opts={{ loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: false })]}>
           <CarouselContent>
             {config.banners.map((banner) => (
               <CarouselItem key={banner.id}>
