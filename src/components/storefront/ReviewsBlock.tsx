@@ -27,15 +27,15 @@ export const ReviewsBlock = ({ config }: ReviewsBlockProps) => {
   }, []);
 
   return (
-    <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden p-4">
-      <div className="flex items-center justify-between mb-3">
+    <div className="mb-6 border border-border rounded-2xl bg-card overflow-hidden pt-4 pb-4">
+      <div className="flex items-center justify-between mb-3 px-4">
         <h2 className="text-lg font-bold text-foreground">{config.title}</h2>
         <Button variant="link" className="text-primary" onClick={() => navigate("/product/1/reviews")}>
           Все отзывы
         </Button>
       </div>
       <div
-        className={`flex gap-3 overflow-x-auto pb-2 ${showScrollbar ? "" : "scrollbar-hide"}`}
+        className={`flex gap-3 overflow-x-auto pb-2 px-4 ${showScrollbar ? "" : "scrollbar-hide"}`}
         onTouchStart={() => setShowScrollbar(true)}
         onTouchEnd={() => setTimeout(() => setShowScrollbar(false), 2000)}
         style={{ scrollSnapType: "x mandatory" }}
