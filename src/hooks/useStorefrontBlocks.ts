@@ -75,7 +75,7 @@ export const useStorefrontBlocks = () => {
         config = { title: "", productIds: [] } as ShelfConfig;
         break;
       case "tiles":
-        config = { count: 2, tiles: [] } as TilesConfig;
+        config = { count: 2, tiles: [{ id: crypto.randomUUID(), imageUrl: "", title: "", link: "" }, { id: crypto.randomUUID(), imageUrl: "", title: "", link: "" }] } as TilesConfig;
         break;
       case "banner":
         config = { size: "M", banners: [{ id: crypto.randomUUID(), imageUrl: "", link: "" }] } as BannerConfig;
