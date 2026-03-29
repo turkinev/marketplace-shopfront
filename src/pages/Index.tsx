@@ -277,6 +277,8 @@ const sortOptions = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isPreview = searchParams.get("preview") === "1";
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState("popular");
   const { products, isLoading, hasMore, loadMore } = useInfiniteProducts();
