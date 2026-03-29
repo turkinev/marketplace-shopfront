@@ -23,21 +23,28 @@ const sizeClasses: Record<string, string> = {
 
 export const BannerBlock = ({ config, isSlider }: BannerBlockProps) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const heightClass = sizeClasses[config.size] || sizeClasses.M;
 
   if (config.banners.length === 0) return null;
 
-  const renderBanner = (banner: BannerConfig["banners"][0]) => (
-    <div
-      key={banner.id}
-      className={`relative w-full ${heightClass} rounded-xl overflow-hidden cursor-pointer hover:opacity-95 transition-opacity bg-secondary`}
-      onClick={() => banner.link && navigate(banner.link)}
-    >
-      {banner.imageUrl && (
-        <img src={banner.imageUrl} alt="" className="w-full h-full object-cover" />
-      )}
-    </div>
-  );
+  const renderBanner = (banner: BannerConfig["banners"][0]) => {
+    const src = isMobile
+      ? (banner.mobileImageUrl || banner.imageUrl)
+      : (banner.imageUrl || banner.mobileImageUrl);
+
+    return (
+      <div
+        key={banner.id}
+        className={`relative w-full ${heightClass} rounded-xl overflow-hidden cursor-pointer hover:opacity-95 transition-opacity bg-secondary`}
+        onClick={() => banner.link && navigate(banner.link)}
+      >
+        {src && (
+          <img src={src} alt="" className="w-full h-full object-cover" />
+        )}
+      </div>
+    );
+  };
 
   if (isSlider && config.banners.length > 1) {
     return (

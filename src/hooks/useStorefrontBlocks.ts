@@ -79,10 +79,10 @@ export const useStorefrontBlocks = () => {
         config = { count: 2, tiles: [{ id: crypto.randomUUID(), imageUrl: "", title: "", link: "" }, { id: crypto.randomUUID(), imageUrl: "", title: "", link: "" }] } as TilesConfig;
         break;
       case "banner":
-        config = { size: "M", banners: [{ id: crypto.randomUUID(), imageUrl: "", link: "" }] } as BannerConfig;
+        config = { size: "M", banners: [{ id: crypto.randomUUID(), imageUrl: "", mobileImageUrl: "", link: "" }] } as BannerConfig;
         break;
       case "slider":
-        config = { size: "M", banners: [{ id: crypto.randomUUID(), imageUrl: "", link: "" }, { id: crypto.randomUUID(), imageUrl: "", link: "" }] } as BannerConfig;
+        config = { size: "M", banners: [{ id: crypto.randomUUID(), imageUrl: "", mobileImageUrl: "", link: "" }, { id: crypto.randomUUID(), imageUrl: "", mobileImageUrl: "", link: "" }] } as BannerConfig;
         break;
       case "reviews":
         config = { title: "Отзывы покупателей", showCount: 3 } as ReviewsConfig;

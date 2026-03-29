@@ -223,7 +223,7 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
             )}
           </div>
           <div>
-            <Label className="text-xs">Изображение</Label>
+            <Label className="text-xs">ПК версия</Label>
             {banner.imageUrl ? (
               <div className="relative group w-full h-24 rounded-lg overflow-hidden border border-border">
                 <img src={banner.imageUrl} alt="" className="w-full h-full object-cover" />
@@ -241,7 +241,30 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
                   <Upload className="h-5 w-5 mx-auto text-muted-foreground" />
                   <span className="text-xs text-muted-foreground mt-1 block">Загрузить фото</span>
                 </div>
-                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleBannerImageUpload(i, e)} />
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleBannerImageUpload(i, "imageUrl", e)} />
+              </label>
+            )}
+          </div>
+          <div>
+            <Label className="text-xs">Мобильная версия</Label>
+            {banner.mobileImageUrl ? (
+              <div className="relative group w-full h-24 rounded-lg overflow-hidden border border-border">
+                <img src={banner.mobileImageUrl} alt="" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => updateBanner(i, "mobileImageUrl", "")}
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium"
+                >
+                  Удалить
+                </button>
+              </div>
+            ) : (
+              <label className="flex items-center justify-center w-full h-24 rounded-lg border-2 border-dashed border-muted-foreground/30 cursor-pointer hover:border-primary/50 transition-colors">
+                <div className="text-center">
+                  <Upload className="h-5 w-5 mx-auto text-muted-foreground" />
+                  <span className="text-xs text-muted-foreground mt-1 block">Загрузить фото</span>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleBannerImageUpload(i, "mobileImageUrl", e)} />
               </label>
             )}
           </div>
