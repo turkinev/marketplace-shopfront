@@ -9,7 +9,7 @@ interface ReviewsBlockProps {
 }
 
 const mockReviews = [
-  { id: "r1", rating: 5, photo: "https://images.unsplash.com/photo-1434389677669-e08b4cda3a43?w=400&h=500&fit=crop", name: "Куртка оверсайз", price: 4990, oldPrice: 7990 },
+  { id: "r1", rating: 5, photo: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop", name: "Куртка оверсайз", price: 4990, oldPrice: 7990 },
   { id: "r2", rating: 4, photo: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=500&fit=crop", name: "Джинсы прямые", price: 3490, oldPrice: undefined },
   { id: "r3", rating: 5, photo: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=500&fit=crop", name: "Худи базовое", price: 2990, oldPrice: 4490 },
   { id: "r4", rating: 4, photo: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=500&fit=crop", name: "Брюки карго", price: 3990, oldPrice: undefined },
