@@ -442,7 +442,8 @@ const Admin = () => {
                       <p className="text-xs text-muted-foreground truncate">
                         {block.type === "shelf" && (block.config as ShelfConfig).title}
                         {block.type === "tiles" && `${(block.config as TilesConfig).count} плиток`}
-                        {(block.type === "banner" || block.type === "slider") && `Размер ${(block.config as BannerConfig).size}`}
+                        {(block.type === "banner") && `Баннер`}
+                        {(block.type === "slider") && `${(block.config as BannerConfig).banners.length} баннеров`}
                         {block.type === "reviews" && (block.config as ReviewsConfig).title}
                       </p>
                     </div>
