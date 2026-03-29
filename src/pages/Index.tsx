@@ -348,7 +348,7 @@ const Index = () => {
         <PromoBanners mainBanner={mainBanner} smallBanners={smallBanners} />
 
         {/* Dynamic Storefront Blocks */}
-        <StorefrontBlocks />
+        <StorefrontRenderer blocks={storefrontBlocks} />
 
         {/* Products Section with Sidebar on Desktop */}
         <div className="mt-6 flex gap-6">
