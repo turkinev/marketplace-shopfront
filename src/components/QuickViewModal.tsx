@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Star, Heart, ShoppingCart, ChevronRight, X } from "lucide-react";
+import { Star, Heart, ShoppingCart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
@@ -44,12 +44,38 @@ const mockSizes = [
   { id: "85c", label: "85C", sub: "85C" },
 ];
 
+function useScrollbarFade(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const show = () => {
+      el.classList.remove('scrollbar-idle');
+      clearTimeout(timer);
+      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+    };
+    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 500);
+    el.addEventListener('scroll', show);
+    el.addEventListener('touchstart', show);
+    return () => {
+      clearTimeout(timer);
+      el.removeEventListener('scroll', show);
+      el.removeEventListener('touchstart', show);
+    };
+  }, [ref]);
+}
+
 export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps) => {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState(mockColors[0].id);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const colorsScrollRef = useRef<HTMLDivElement>(null);
+  const sizesScrollRef = useRef<HTMLDivElement>(null);
+
+  useScrollbarFade(colorsScrollRef);
+  useScrollbarFade(sizesScrollRef);
 
   const currentColor = mockColors.find(c => c.id === selectedColor) || mockColors[0];
 
@@ -127,7 +153,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <p className="text-sm text-muted-foreground mb-2">
                 Цвет: <span className="text-foreground font-medium">{currentColor.name}</span>
               </p>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {mockColors.map((color) => (
                   <button
                     key={color.id}
@@ -136,6 +162,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
                       "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden flex-shrink-0",
                       selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
                     )}
+                    style={{ scrollSnapAlign: 'start' }}
                   >
                     <img src={color.image} alt={color.name} className="w-full h-full object-cover" />
                   </button>
@@ -145,10 +172,10 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
 
             {/* Size selector */}
             <div>
-              <button className="text-sm text-muted-foreground mb-2 flex items-center gap-1 hover:text-foreground transition-colors">
-                Таблица размеров <ChevronRight className="h-3.5 w-3.5" />
-              </button>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <p className="text-sm text-muted-foreground mb-2">
+                Таблица размеров
+              </p>
+              <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {mockSizes.map((size) => (
                   <button
                     key={size.id}
@@ -159,6 +186,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-border bg-card text-foreground hover:border-primary/50"
                     )}
+                    style={{ scrollSnapAlign: 'start' }}
                   >
                     <span className="text-sm font-bold leading-tight">{size.label}</span>
                     <span className={cn(
