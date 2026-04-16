@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "./ProductCharacteristicsModal";
 import { QuickViewModal } from "./QuickViewModal";
 
