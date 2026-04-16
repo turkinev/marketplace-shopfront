@@ -223,29 +223,27 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
         <DrawerContent className="max-h-[85vh]">
           <DrawerTitle className="sr-only">{product.name}</DrawerTitle>
           <DrawerDescription className="sr-only">Быстрый просмотр товара</DrawerDescription>
-          <div className="space-y-4 overflow-y-auto p-4 pb-8">
-            <div className="flex items-center gap-3">
-              <div className="relative h-20 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-secondary/20">
-                <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" loading="lazy" />
-                <button type="button" onClick={() => setIsLiked(!isLiked)} className="absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm">
-                  <Heart className={cn("h-3 w-3", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-                </button>
-              </div>
-              <div className="flex-1 space-y-1">
-                <h2 className="text-base font-bold leading-tight text-foreground line-clamp-2">{product.name}</h2>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-lg font-bold text-foreground">{formatPrice(product.price)}</span>
-                  {product.oldPrice && <span className="text-xs text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
-                </div>
-                {product.rating && (
-                  <div className="flex items-center gap-1 text-xs">
-                    <Star className="h-3 w-3 fill-rating text-rating" />
-                    <span className="font-medium">{product.rating}</span>
-                    {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
-                  </div>
-                )}
-              </div>
+          <div className="space-y-4 overflow-y-auto pb-8">
+            <div className="relative aspect-[4/5] w-full bg-secondary/20">
+              <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" loading="lazy" />
+              <button type="button" onClick={() => setIsLiked(!isLiked)} className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm">
+                <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+              </button>
             </div>
+
+            <div className="space-y-4 px-4">
+            <h2 className="text-base font-bold leading-tight text-foreground line-clamp-2">{product.name}</h2>
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-bold text-foreground">{formatPrice(product.price)}</span>
+              {product.oldPrice && <span className="text-sm text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
+            </div>
+            {product.rating && (
+              <div className="flex items-center gap-1.5 text-sm">
+                <Star className="h-4 w-4 fill-rating text-rating" />
+                <span className="font-medium">{product.rating}</span>
+                {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
+              </div>
+            )}
 
             <div>
               <p className="mb-2 text-sm text-muted-foreground">
@@ -310,6 +308,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
             <button type="button" onClick={handleGoToProduct} className="w-full text-center text-sm font-bold text-foreground">
               Больше информации о товаре
             </button>
+            </div>
           </div>
         </DrawerContent>
       </Drawer>
