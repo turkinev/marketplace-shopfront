@@ -229,6 +229,9 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <button type="button" onClick={() => setIsLiked(!isLiked)} className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm">
                 <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
               </button>
+              <button type="button" onClick={onClose} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm">
+                <X className="h-4 w-4 text-muted-foreground" />
+              </button>
             </div>
 
             <div className="space-y-4 px-4">
