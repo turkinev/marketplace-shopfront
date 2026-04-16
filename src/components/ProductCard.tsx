@@ -153,6 +153,13 @@ export const ProductCard = ({
           onAddToCart={handleAddToCartWithCharacteristics}
         />
       )}
+
+      {/* Quick View Modal */}
+      <QuickViewModal
+        isOpen={isQuickViewOpen}
+        onClose={() => setIsQuickViewOpen(false)}
+        product={{ id, name, imageUrl, price, oldPrice, rating, reviewsCount }}
+      />
     </>
   );
 };
