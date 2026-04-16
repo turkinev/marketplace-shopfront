@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "./ProductCharacteristicsModal";
 import { QuickViewModal } from "./QuickViewModal";
 
@@ -32,9 +33,17 @@ export const ProductCard = ({
   renderBelowImage,
 }: ProductCardProps) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    if (isMobile) {
+      e.stopPropagation();
+      setIsQuickViewOpen(true);
+    }
+  };
 
   const formatPrice = (value: number): string => {
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
@@ -63,7 +72,7 @@ export const ProductCard = ({
         onClick={() => navigate(`/product/${id}`)}
       >
         {/* Image Container */}
-        <div className="relative aspect-square bg-secondary/30">
+        <div className="relative aspect-square bg-secondary/30" onClick={handleImageClick}>
           <img
             src={imageUrl}
             alt={name}
