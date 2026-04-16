@@ -220,7 +220,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <DrawerContent className="max-h-[85vh]">
+        <DrawerContent className="max-h-[95vh] h-[95vh]">
           <DrawerTitle className="sr-only">{product.name}</DrawerTitle>
           <DrawerDescription className="sr-only">Быстрый просмотр товара</DrawerDescription>
           <div className="space-y-4 overflow-y-auto pb-8">
