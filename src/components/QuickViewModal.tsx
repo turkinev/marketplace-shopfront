@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Star, Heart, ShoppingCart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -83,6 +83,25 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
 
   const currentColor = mockColors.find((color) => color.id === selectedColor) || mockColors[0];
 
+  useEffect(() => {
+    if (!isOpen || isMobile) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobile, isOpen, onClose]);
+
   const handleGoToProduct = () => {
     onClose();
     navigate(`/product/${product.id}`);
@@ -96,119 +115,139 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
     return null;
   }
 
-  return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="relative z-[60] max-w-3xl gap-0 overflow-hidden p-0 [&>button:last-child]:hidden">
-        <DialogTitle className="sr-only">Быстрый просмотр товара</DialogTitle>
-        <DialogDescription className="sr-only">
-          Окно быстрого просмотра товара {product.name} с выбором характеристик и кнопкой добавления в корзину.
-        </DialogDescription>
+  if (!isOpen || typeof document === "undefined") {
+    return null;
+  }
 
+  return createPortal(
+    <div className="fixed inset-0 z-50">
+      <div aria-hidden="true" className="absolute inset-0 bg-black/80" onClick={onClose} />
+
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`quick-view-title-${product.id}`}
+        aria-describedby={`quick-view-description-${product.id}`}
+        className="fixed left-1/2 top-1/2 z-[60] flex max-h-[80vh] w-[min(960px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
+      >
         <button
+          type="button"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm transition-colors hover:bg-card"
+          aria-label="Закрыть быстрый просмотр"
+          className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-card/90 shadow backdrop-blur-sm transition-colors hover:bg-card"
         >
           <X className="h-4 w-4 text-foreground" />
         </button>
 
-        <div className="flex">
-          <div className="relative flex w-[45%] flex-shrink-0 items-center bg-secondary/20">
-            <div className="w-full aspect-[3/4]">
-              <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" />
-            </div>
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm transition-colors hover:bg-card"
-            >
-              <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
-            </button>
+        <div className="relative flex w-[45%] flex-shrink-0 items-center justify-center bg-secondary/20">
+          <div className="aspect-[3/4] w-full">
+            <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" loading="lazy" />
           </div>
-
-          <div className="max-h-[80vh] flex-1 space-y-4 overflow-y-auto p-6 pt-12">
-            <h2 className="text-lg font-bold leading-tight text-foreground">{product.name}</h2>
-
-            {product.rating && (
-              <div className="flex items-center gap-2 text-sm">
-                <Star className="h-4 w-4 fill-rating text-rating" />
-                <span className="font-medium">{product.rating}</span>
-                {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
-              </div>
-            )}
-
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-foreground">{formatPrice(product.price)}</span>
-              {product.oldPrice && <span className="text-sm text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
-            </div>
-
-            <div>
-              <p className="mb-2 text-sm text-muted-foreground">
-                Цвет: <span className="font-medium text-foreground">{currentColor.name}</span>
-              </p>
-              <div
-                ref={colorsScrollRef}
-                className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
-                style={{ scrollSnapType: "x mandatory" }}
-              >
-                {mockColors.map((color) => (
-                  <button
-                    key={color.id}
-                    onClick={() => setSelectedColor(color.id)}
-                    className={cn(
-                      "h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
-                      selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50",
-                    )}
-                    style={{ scrollSnapAlign: "start" }}
-                  >
-                    <img src={color.image} alt={color.name} className="h-full w-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="mb-2 text-sm text-muted-foreground">Таблица размеров</p>
-              <div
-                ref={sizesScrollRef}
-                className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
-                style={{ scrollSnapType: "x mandatory" }}
-              >
-                {mockSizes.map((size) => (
-                  <button
-                    key={size.id}
-                    onClick={() => setSelectedSize(size.id)}
-                    className={cn(
-                      "flex min-w-[3.5rem] flex-shrink-0 flex-col items-center rounded-lg border px-3 py-2 transition-all",
-                      selectedSize === size.id
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-card text-foreground hover:border-primary/50",
-                    )}
-                    style={{ scrollSnapAlign: "start" }}
-                  >
-                    <span className="text-sm font-bold leading-tight">{size.label}</span>
-                    <span
-                      className={cn(
-                        "text-[11px] leading-tight",
-                        selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground",
-                      )}
-                    >
-                      {size.sub}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <Button className="h-12 w-full gap-2 rounded-xl text-base font-semibold">
-              <ShoppingCart className="h-5 w-5" />
-              Добавить в корзину
-            </Button>
-
-            <p onClick={handleGoToProduct} className="cursor-pointer text-center text-sm font-bold text-foreground">
-              Больше информации о товаре
-            </p>
-          </div>
+          <button
+            type="button"
+            onClick={() => setIsLiked(!isLiked)}
+            className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm transition-colors hover:bg-card"
+          >
+            <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+          </button>
         </div>
-      </DialogContent>
-    </Dialog>
+
+        <div className="max-h-[80vh] flex-1 space-y-4 overflow-y-auto p-6 pt-12">
+          <h2 id={`quick-view-title-${product.id}`} className="text-lg font-bold leading-tight text-foreground">
+            {product.name}
+          </h2>
+          <p id={`quick-view-description-${product.id}`} className="sr-only">
+            Окно быстрого просмотра товара {product.name} с выбором характеристик и кнопкой добавления в корзину.
+          </p>
+
+          {product.rating && (
+            <div className="flex items-center gap-2 text-sm">
+              <Star className="h-4 w-4 fill-rating text-rating" />
+              <span className="font-medium">{product.rating}</span>
+              {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
+            </div>
+          )}
+
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-foreground">{formatPrice(product.price)}</span>
+            {product.oldPrice && <span className="text-sm text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
+          </div>
+
+          <div>
+            <p className="mb-2 text-sm text-muted-foreground">
+              Цвет: <span className="font-medium text-foreground">{currentColor.name}</span>
+            </p>
+            <div
+              ref={colorsScrollRef}
+              className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+              style={{ scrollSnapType: "x mandatory" }}
+            >
+              {mockColors.map((color) => (
+                <button
+                  key={color.id}
+                  type="button"
+                  onClick={() => setSelectedColor(color.id)}
+                  className={cn(
+                    "h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                    selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50",
+                  )}
+                  style={{ scrollSnapAlign: "start" }}
+                >
+                  <img src={color.image} alt={color.name} className="h-full w-full object-cover" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-2 text-sm text-muted-foreground">Таблица размеров</p>
+            <div
+              ref={sizesScrollRef}
+              className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+              style={{ scrollSnapType: "x mandatory" }}
+            >
+              {mockSizes.map((size) => (
+                <button
+                  key={size.id}
+                  type="button"
+                  onClick={() => setSelectedSize(size.id)}
+                  className={cn(
+                    "flex min-w-[3.5rem] flex-shrink-0 flex-col items-center rounded-lg border px-3 py-2 transition-all",
+                    selectedSize === size.id
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card text-foreground hover:border-primary/50",
+                  )}
+                  style={{ scrollSnapAlign: "start" }}
+                >
+                  <span className="text-sm font-bold leading-tight">{size.label}</span>
+                  <span
+                    className={cn(
+                      "text-[11px] leading-tight",
+                      selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground",
+                    )}
+                  >
+                    {size.sub}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <Button className="h-12 w-full gap-2 rounded-xl text-base font-semibold">
+            <ShoppingCart className="h-5 w-5" />
+            Добавить в корзину
+          </Button>
+
+          <button
+            type="button"
+            onClick={handleGoToProduct}
+            className="w-full text-center text-sm font-bold text-foreground"
+          >
+            Больше информации о товаре
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 };
