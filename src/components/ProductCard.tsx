@@ -1,9 +1,10 @@
-import { Heart, Star, ShoppingCart } from "lucide-react";
+import { Heart, Star, ShoppingCart, Eye } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "./ProductCharacteristicsModal";
+import { QuickViewModal } from "./QuickViewModal";
 
 interface ProductCardProps {
   id: string;
