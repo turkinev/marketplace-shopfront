@@ -179,13 +179,13 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               Добавить в корзину
             </Button>
 
-            {/* More info link */}
-            <button
+            {/* More info */}
+            <p
               onClick={handleGoToProduct}
-              className="text-sm text-primary font-medium hover:underline"
+              className="text-sm font-bold text-foreground text-center cursor-pointer"
             >
-              Больше информации о товаре →
-            </button>
+              Больше информации о товаре
+            </p>
           </div>
         </div>
       </DialogContent>
