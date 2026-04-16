@@ -5,6 +5,7 @@ import { Star, Heart, ShoppingCart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
+import { Drawer, DrawerContent, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 import colorRedImg from "@/assets/color-red.jpg";
 import colorWhiteImg from "@/assets/color-white.jpg";
 import colorBlackImg from "@/assets/color-black.jpg";
