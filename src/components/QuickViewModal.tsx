@@ -94,23 +94,25 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl p-0 gap-0 overflow-hidden [&>button]:hidden">
+      <DialogContent className="max-w-3xl p-0 gap-0 overflow-hidden [&>button]:hidden relative">
+        {/* Close button - top right of popup */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
+        >
+          <X className="h-4 w-4 text-foreground" />
+        </button>
+
         <div className="flex">
-          {/* Left: Image */}
-          <div className="relative w-[45%] flex-shrink-0 bg-secondary/20">
-            <div className="aspect-[3/4]">
+          {/* Left: Image - vertically centered */}
+          <div className="relative w-[45%] flex-shrink-0 bg-secondary/20 flex items-center">
+            <div className="w-full aspect-[3/4]">
               <img
                 src={currentColor.image}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            <button
-              onClick={onClose}
-              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
-            >
-              <X className="h-4 w-4 text-foreground" />
-            </button>
             <button
               onClick={() => setIsLiked(!isLiked)}
               className="absolute top-3 left-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
@@ -120,9 +122,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
           </div>
 
           {/* Right: Info */}
-          <div className="flex-1 p-6 overflow-y-auto max-h-[80vh] space-y-4">
-            <p className="text-sm text-muted-foreground">Karolina</p>
-
+          <div className="flex-1 p-6 pt-12 overflow-y-auto max-h-[80vh] space-y-4">
             <h2 className="text-lg font-bold text-foreground leading-tight">
               {product.name}
             </h2>
