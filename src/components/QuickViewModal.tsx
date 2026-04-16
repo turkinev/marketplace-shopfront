@@ -108,12 +108,122 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
     navigate(`/product/${product.id}`);
   };
 
+  const sharedContent = (
+    <>
+      <div className="flex items-center gap-3">
+        <div className="relative h-20 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-secondary/20">
+          <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" loading="lazy" />
+          <button
+            type="button"
+            onClick={() => setIsLiked(!isLiked)}
+            className="absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm"
+          >
+            <Heart className={cn("h-3 w-3", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
+          </button>
+        </div>
+        <div className="flex-1 space-y-1">
+          <h2 className="text-base font-bold leading-tight text-foreground line-clamp-2">{product.name}</h2>
+          <div className="flex items-baseline gap-2">
+            <span className="text-lg font-bold text-foreground">{formatPrice(product.price)}</span>
+            {product.oldPrice && <span className="text-xs text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
+          </div>
+          {product.rating && (
+            <div className="flex items-center gap-1 text-xs">
+              <Star className="h-3 w-3 fill-rating text-rating" />
+              <span className="font-medium">{product.rating}</span>
+              {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm text-muted-foreground">
+          Цвет: <span className="font-medium text-foreground">{currentColor.name}</span>
+        </p>
+        <div
+          ref={colorsScrollRef}
+          className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {mockColors.map((color) => (
+            <button
+              key={color.id}
+              type="button"
+              onClick={() => setSelectedColor(color.id)}
+              className={cn(
+                "h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50",
+              )}
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <img src={color.image} alt={color.name} className="h-full w-full object-cover" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm text-muted-foreground">Таблица размеров</p>
+        <div
+          ref={sizesScrollRef}
+          className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {mockSizes.map((size) => (
+            <button
+              key={size.id}
+              type="button"
+              onClick={() => setSelectedSize(size.id)}
+              className={cn(
+                "flex min-w-[3.5rem] flex-shrink-0 flex-col items-center rounded-lg border px-3 py-2 transition-all",
+                selectedSize === size.id
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-foreground hover:border-primary/50",
+              )}
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <span className="text-sm font-bold leading-tight">{size.label}</span>
+              <span
+                className={cn(
+                  "text-[11px] leading-tight",
+                  selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground",
+                )}
+              >
+                {size.sub}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Button className="h-12 w-full gap-2 rounded-xl text-base font-semibold">
+        <ShoppingCart className="h-5 w-5" />
+        Добавить в корзину
+      </Button>
+
+      <button
+        type="button"
+        onClick={handleGoToProduct}
+        className="w-full text-center text-sm font-bold text-foreground"
+      >
+        Больше информации о товаре
+      </button>
+    </>
+  );
+
   if (isMobile) {
-    if (isOpen) {
-      onClose();
-      navigate(`/product/${product.id}`);
-    }
-    return null;
+    return (
+      <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
+        <DrawerContent className="max-h-[85vh]">
+          <DrawerTitle className="sr-only">{product.name}</DrawerTitle>
+          <DrawerDescription className="sr-only">Быстрый просмотр товара</DrawerDescription>
+          <div className="space-y-4 overflow-y-auto p-4 pb-8">
+            {sharedContent}
+          </div>
+        </DrawerContent>
+      </Drawer>
+    );
   }
 
   if (!isOpen || typeof document === "undefined") {
