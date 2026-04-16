@@ -308,6 +308,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
             <button type="button" onClick={handleGoToProduct} className="w-full text-center text-sm font-bold text-foreground">
               Больше информации о товаре
             </button>
+            </div>
           </div>
         </DrawerContent>
       </Drawer>
