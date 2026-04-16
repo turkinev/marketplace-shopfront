@@ -1,9 +1,10 @@
-import { Heart, Star, ShoppingCart } from "lucide-react";
+import { Heart, Star, ShoppingCart, Eye } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ProductCharacteristicsModal, ProductCharacteristic } from "./ProductCharacteristicsModal";
+import { QuickViewModal } from "./QuickViewModal";
 
 interface ProductCardProps {
   id: string;
@@ -33,6 +34,7 @@ export const ProductCard = ({
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const formatPrice = (value: number): string => {
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
@@ -57,7 +59,7 @@ export const ProductCard = ({
   return (
     <>
       <div 
-        className="bg-card lg:rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer"
+        className="bg-card lg:rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer group/card"
         onClick={() => navigate(`/product/${id}`)}
       >
         {/* Image Container */}
@@ -68,6 +70,15 @@ export const ProductCard = ({
             className="w-full h-full object-contain"
           />
           
+          {/* Quick View Button - appears on hover (desktop only) */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setIsQuickViewOpen(true); }}
+            className="hidden lg:flex absolute bottom-2 left-1/2 -translate-x-1/2 items-center gap-1.5 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm text-sm font-medium text-foreground shadow-md opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 hover:bg-card"
+          >
+            <Eye className="h-4 w-4" />
+            Быстрый просмотр
+          </button>
+
           {/* Like Button */}
           <button
             onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
@@ -142,6 +153,13 @@ export const ProductCard = ({
           onAddToCart={handleAddToCartWithCharacteristics}
         />
       )}
+
+      {/* Quick View Modal */}
+      <QuickViewModal
+        isOpen={isQuickViewOpen}
+        onClose={() => setIsQuickViewOpen(false)}
+        product={{ id, name, imageUrl, price, oldPrice, rating, reviewsCount }}
+      />
     </>
   );
 };
