@@ -148,13 +148,13 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <button className="text-sm text-muted-foreground mb-2 flex items-center gap-1 hover:text-foreground transition-colors">
                 Таблица размеров <ChevronRight className="h-3.5 w-3.5" />
               </button>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                 {mockSizes.map((size) => (
                   <button
                     key={size.id}
                     onClick={() => setSelectedSize(size.id)}
                     className={cn(
-                      "min-w-[3.5rem] px-3 py-2 rounded-lg border transition-all flex flex-col items-center",
+                      "min-w-[3.5rem] px-3 py-2 rounded-lg border transition-all flex flex-col items-center flex-shrink-0",
                       selectedSize === size.id
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-border bg-card text-foreground hover:border-primary/50"
