@@ -127,7 +127,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <p className="text-sm text-muted-foreground mb-2">
                 Цвет: <span className="text-foreground font-medium">{currentColor.name}</span>
               </p>
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {mockColors.map((color) => (
                   <button
                     key={color.id}
@@ -148,7 +148,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <button className="text-sm text-muted-foreground mb-2 flex items-center gap-1 hover:text-foreground transition-colors">
                 Таблица размеров <ChevronRight className="h-3.5 w-3.5" />
               </button>
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
                 {mockSizes.map((size) => (
                   <button
                     key={size.id}
