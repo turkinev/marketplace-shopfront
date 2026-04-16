@@ -72,7 +72,7 @@ export const ProductCard = ({
         onClick={() => navigate(`/product/${id}`)}
       >
         {/* Image Container */}
-        <div className="relative aspect-square bg-secondary/30">
+        <div className="relative aspect-square bg-secondary/30" onClick={handleImageClick}>
           <img
             src={imageUrl}
             alt={name}
