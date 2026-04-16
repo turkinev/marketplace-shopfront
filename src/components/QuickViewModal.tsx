@@ -79,8 +79,13 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
   const colorsScrollRef = useRef<HTMLDivElement>(null);
   const sizesScrollRef = useRef<HTMLDivElement>(null);
 
+  const colorsScrollRefMobile = useRef<HTMLDivElement>(null);
+  const sizesScrollRefMobile = useRef<HTMLDivElement>(null);
+
   useScrollbarFade(colorsScrollRef);
   useScrollbarFade(sizesScrollRef);
+  useScrollbarFade(colorsScrollRefMobile);
+  useScrollbarFade(sizesScrollRefMobile);
 
   const currentColor = mockColors.find((color) => color.id === selectedColor) || mockColors[0];
 
