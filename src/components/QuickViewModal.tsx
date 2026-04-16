@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Star, Heart, ShoppingCart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -48,19 +48,23 @@ function useScrollbarFade(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     let timer: ReturnType<typeof setTimeout>;
+
     const show = () => {
-      el.classList.remove('scrollbar-idle');
+      el.classList.remove("scrollbar-idle");
       clearTimeout(timer);
-      timer = setTimeout(() => el.classList.add('scrollbar-idle'), 2000);
+      timer = setTimeout(() => el.classList.add("scrollbar-idle"), 2000);
     };
-    timer = setTimeout(() => el.classList.add('scrollbar-idle'), 500);
-    el.addEventListener('scroll', show);
-    el.addEventListener('touchstart', show);
+
+    timer = setTimeout(() => el.classList.add("scrollbar-idle"), 500);
+    el.addEventListener("scroll", show);
+    el.addEventListener("touchstart", show);
+
     return () => {
       clearTimeout(timer);
-      el.removeEventListener('scroll', show);
-      el.removeEventListener('touchstart', show);
+      el.removeEventListener("scroll", show);
+      el.removeEventListener("touchstart", show);
     };
   }, [ref]);
 }
@@ -77,7 +81,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
   useScrollbarFade(colorsScrollRef);
   useScrollbarFade(sizesScrollRef);
 
-  const currentColor = mockColors.find(c => c.id === selectedColor) || mockColors[0];
+  const currentColor = mockColors.find((color) => color.id === selectedColor) || mockColors[0];
 
   const handleGoToProduct = () => {
     onClose();
@@ -93,122 +97,113 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl p-0 gap-0 overflow-hidden [&>button]:hidden relative">
-        {/* Close button - top right of popup */}
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="relative z-[60] max-w-3xl gap-0 overflow-hidden p-0 [&>button:last-child]:hidden">
+        <DialogTitle className="sr-only">Быстрый просмотр товара</DialogTitle>
+        <DialogDescription className="sr-only">
+          Окно быстрого просмотра товара {product.name} с выбором характеристик и кнопкой добавления в корзину.
+        </DialogDescription>
+
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
+          className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm transition-colors hover:bg-card"
         >
           <X className="h-4 w-4 text-foreground" />
         </button>
 
         <div className="flex">
-          {/* Left: Image - vertically centered */}
-          <div className="relative w-[45%] flex-shrink-0 bg-secondary/20 flex items-center">
+          <div className="relative flex w-[45%] flex-shrink-0 items-center bg-secondary/20">
             <div className="w-full aspect-[3/4]">
-              <img
-                src={currentColor.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+              <img src={currentColor.image} alt={product.name} className="h-full w-full object-cover" />
             </div>
             <button
               onClick={() => setIsLiked(!isLiked)}
-              className="absolute top-3 left-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
+              className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-card/80 shadow backdrop-blur-sm transition-colors hover:bg-card"
             >
               <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
             </button>
           </div>
 
-          {/* Right: Info */}
-          <div className="flex-1 p-6 pt-12 overflow-y-auto max-h-[80vh] space-y-4">
-            <h2 className="text-lg font-bold text-foreground leading-tight">
-              {product.name}
-            </h2>
+          <div className="max-h-[80vh] flex-1 space-y-4 overflow-y-auto p-6 pt-12">
+            <h2 className="text-lg font-bold leading-tight text-foreground">{product.name}</h2>
 
             {product.rating && (
               <div className="flex items-center gap-2 text-sm">
                 <Star className="h-4 w-4 fill-rating text-rating" />
                 <span className="font-medium">{product.rating}</span>
-                {product.reviewsCount && (
-                  <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>
-                )}
+                {product.reviewsCount && <span className="text-muted-foreground">· {product.reviewsCount} оценок</span>}
               </div>
             )}
 
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-foreground">
-                {formatPrice(product.price)}
-              </span>
-              {product.oldPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  {formatPrice(product.oldPrice)}
-                </span>
-              )}
+              <span className="text-2xl font-bold text-foreground">{formatPrice(product.price)}</span>
+              {product.oldPrice && <span className="text-sm text-muted-foreground line-through">{formatPrice(product.oldPrice)}</span>}
             </div>
 
-            {/* Color selector */}
             <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                Цвет: <span className="text-foreground font-medium">{currentColor.name}</span>
+              <p className="mb-2 text-sm text-muted-foreground">
+                Цвет: <span className="font-medium text-foreground">{currentColor.name}</span>
               </p>
-              <div ref={colorsScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <div
+                ref={colorsScrollRef}
+                className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+                style={{ scrollSnapType: "x mandatory" }}
+              >
                 {mockColors.map((color) => (
                   <button
                     key={color.id}
                     onClick={() => setSelectedColor(color.id)}
                     className={cn(
-                      "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden flex-shrink-0",
-                      selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
+                      "h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                      selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50",
                     )}
-                    style={{ scrollSnapAlign: 'start' }}
+                    style={{ scrollSnapAlign: "start" }}
                   >
-                    <img src={color.image} alt={color.name} className="w-full h-full object-cover" />
+                    <img src={color.image} alt={color.name} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Size selector */}
             <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                Таблица размеров
-              </p>
-              <div ref={sizesScrollRef} className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-fade" style={{ scrollSnapType: 'x mandatory' }}>
+              <p className="mb-2 text-sm text-muted-foreground">Таблица размеров</p>
+              <div
+                ref={sizesScrollRef}
+                className="scrollbar-fade -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+                style={{ scrollSnapType: "x mandatory" }}
+              >
                 {mockSizes.map((size) => (
                   <button
                     key={size.id}
                     onClick={() => setSelectedSize(size.id)}
                     className={cn(
-                      "min-w-[3.5rem] px-3 py-2 rounded-lg border transition-all flex flex-col items-center flex-shrink-0",
+                      "flex min-w-[3.5rem] flex-shrink-0 flex-col items-center rounded-lg border px-3 py-2 transition-all",
                       selectedSize === size.id
                         ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-card text-foreground hover:border-primary/50"
+                        : "border-border bg-card text-foreground hover:border-primary/50",
                     )}
-                    style={{ scrollSnapAlign: 'start' }}
+                    style={{ scrollSnapAlign: "start" }}
                   >
                     <span className="text-sm font-bold leading-tight">{size.label}</span>
-                    <span className={cn(
-                      "text-[11px] leading-tight",
-                      selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground"
-                    )}>{size.sub}</span>
+                    <span
+                      className={cn(
+                        "text-[11px] leading-tight",
+                        selectedSize === size.id ? "text-primary-foreground/70" : "text-muted-foreground",
+                      )}
+                    >
+                      {size.sub}
+                    </span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Add to cart */}
-            <Button className="w-full h-12 text-base font-semibold gap-2 rounded-xl">
+            <Button className="h-12 w-full gap-2 rounded-xl text-base font-semibold">
               <ShoppingCart className="h-5 w-5" />
               Добавить в корзину
             </Button>
 
-            {/* More info */}
-            <p
-              onClick={handleGoToProduct}
-              className="text-sm font-bold text-foreground text-center cursor-pointer"
-            >
+            <p onClick={handleGoToProduct} className="cursor-pointer text-center text-sm font-bold text-foreground">
               Больше информации о товаре
             </p>
           </div>
