@@ -59,7 +59,7 @@ export const ProductCard = ({
   return (
     <>
       <div 
-        className="bg-card lg:rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer"
+        className="bg-card lg:rounded-lg overflow-hidden shadow-sm animate-scale-in hover:shadow-md transition-shadow duration-200 cursor-pointer group/card"
         onClick={() => navigate(`/product/${id}`)}
       >
         {/* Image Container */}
@@ -70,6 +70,15 @@ export const ProductCard = ({
             className="w-full h-full object-contain"
           />
           
+          {/* Quick View Button - appears on hover (desktop only) */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setIsQuickViewOpen(true); }}
+            className="hidden lg:flex absolute bottom-2 left-1/2 -translate-x-1/2 items-center gap-1.5 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm text-sm font-medium text-foreground shadow-md opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 hover:bg-card"
+          >
+            <Eye className="h-4 w-4" />
+            Быстрый просмотр
+          </button>
+
           {/* Like Button */}
           <button
             onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
