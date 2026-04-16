@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Star, Heart, ShoppingCart, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Star, Heart, ShoppingCart, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
+import colorRedImg from "@/assets/color-red.jpg";
+import colorWhiteImg from "@/assets/color-white.jpg";
+import colorBlackImg from "@/assets/color-black.jpg";
+import colorBlueImg from "@/assets/color-blue.jpg";
 
 interface QuickViewModalProps {
   isOpen: boolean;
@@ -25,18 +28,20 @@ const formatPrice = (value: number): string => {
   return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
 };
 
-// Mock data for quick view
 const mockColors = [
-  { id: "black", name: "Чёрный", hex: "#1a1a1a" },
-  { id: "white", name: "Белый", hex: "#f5f5f5" },
-  { id: "red", name: "Красный", hex: "#dc2626" },
+  { id: "red", name: "Красный", image: colorRedImg },
+  { id: "white", name: "Белый", image: colorWhiteImg },
+  { id: "black", name: "Чёрный", image: colorBlackImg },
+  { id: "blue", name: "Голубой", image: colorBlueImg },
 ];
 
 const mockSizes = [
-  { id: "xs", label: "XS", sub: "40-42" },
-  { id: "s", label: "S", sub: "42-44" },
-  { id: "m", label: "M", sub: "44-46" },
-  { id: "l", label: "L", sub: "48-50" },
+  { id: "75b", label: "75B", sub: "75B" },
+  { id: "75c", label: "75C", sub: "75C" },
+  { id: "80b", label: "80B", sub: "80B" },
+  { id: "80c", label: "80C", sub: "80C" },
+  { id: "85b", label: "85B", sub: "85B" },
+  { id: "85c", label: "85C", sub: "85C" },
 ];
 
 export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps) => {
@@ -46,12 +51,13 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
 
+  const currentColor = mockColors.find(c => c.id === selectedColor) || mockColors[0];
+
   const handleGoToProduct = () => {
     onClose();
     navigate(`/product/${product.id}`);
   };
 
-  // Mobile: just navigate to the product page
   if (isMobile) {
     if (isOpen) {
       onClose();
@@ -60,7 +66,6 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
     return null;
   }
 
-  // Desktop: WB-style dialog
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl p-0 gap-0 overflow-hidden [&>button]:hidden">
@@ -69,50 +74,33 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
           <div className="relative w-[45%] flex-shrink-0 bg-secondary/20">
             <div className="aspect-[3/4]">
               <img
-                src={product.imageUrl}
+                src={currentColor.image}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Close button */}
             <button
               onClick={onClose}
               className="absolute top-3 right-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
             >
               <X className="h-4 w-4 text-foreground" />
             </button>
-            {/* Like */}
             <button
               onClick={() => setIsLiked(!isLiked)}
               className="absolute top-3 left-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm shadow flex items-center justify-center hover:bg-card transition-colors"
             >
               <Heart className={cn("h-4 w-4", isLiked ? "fill-like text-like" : "text-muted-foreground")} />
             </button>
-            {/* "Похожие" button */}
-            <button
-              className="absolute bottom-4 left-4 px-4 py-2 bg-card/90 backdrop-blur-sm rounded-full text-sm font-medium text-foreground shadow flex items-center gap-2 hover:bg-card transition-colors"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="7" height="7" />
-                <rect x="14" y="3" width="7" height="7" />
-                <rect x="3" y="14" width="7" height="7" />
-                <rect x="14" y="14" width="7" height="7" />
-              </svg>
-              Похожие
-            </button>
           </div>
 
           {/* Right: Info */}
           <div className="flex-1 p-6 overflow-y-auto max-h-[80vh] space-y-4">
-            {/* Brand */}
-            <p className="text-sm text-muted-foreground">VICITA</p>
+            <p className="text-sm text-muted-foreground">Karolina</p>
 
-            {/* Title */}
             <h2 className="text-lg font-bold text-foreground leading-tight">
               {product.name}
             </h2>
 
-            {/* Rating */}
             {product.rating && (
               <div className="flex items-center gap-2 text-sm">
                 <Star className="h-4 w-4 fill-rating text-rating" />
@@ -123,7 +111,6 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               </div>
             )}
 
-            {/* Price */}
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-bold text-foreground">
                 {formatPrice(product.price)}
@@ -138,7 +125,7 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
             {/* Color selector */}
             <div>
               <p className="text-sm text-muted-foreground mb-2">
-                Цвет: <span className="text-foreground font-medium">{mockColors.find(c => c.id === selectedColor)?.name}</span>
+                Цвет: <span className="text-foreground font-medium">{currentColor.name}</span>
               </p>
               <div className="flex gap-2">
                 {mockColors.map((color) => (
@@ -146,15 +133,13 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
                     key={color.id}
                     onClick={() => setSelectedColor(color.id)}
                     className={cn(
-                      "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden flex items-center justify-center",
+                      "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden",
                       selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
                     )}
-                    style={{ backgroundColor: color.hex }}
                   >
-                    <img src={product.imageUrl} alt="" className="w-full h-full object-cover opacity-80" />
+                    <img src={color.image} alt={color.name} className="w-full h-full object-cover" />
                   </button>
                 ))}
-                {/* Arrow for more */}
                 <button className="w-14 h-14 rounded-lg border border-border flex items-center justify-center hover:border-primary/50 transition-colors">
                   <ChevronRight className="h-5 w-5 text-muted-foreground" />
                 </button>
@@ -163,10 +148,9 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
 
             {/* Size selector */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-muted-foreground">Таблица размеров</p>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
+              <button className="text-sm text-muted-foreground mb-2 flex items-center gap-1 hover:text-foreground transition-colors">
+                Таблица размеров <ChevronRight className="h-3.5 w-3.5" />
+              </button>
               <div className="flex flex-wrap gap-2">
                 {mockSizes.map((size) => (
                   <button
@@ -194,23 +178,6 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <ShoppingCart className="h-5 w-5" />
               Добавить в корзину
             </Button>
-
-            {/* Buy now */}
-            <Button variant="outline" className="w-full h-12 text-base font-semibold rounded-xl">
-              Купить сейчас
-            </Button>
-
-            {/* Extra info */}
-            <div className="space-y-2 text-sm text-muted-foreground pt-2 border-t border-border">
-              <div className="flex items-center gap-2">
-                <span>↩</span>
-                <span>14 дней на возврат</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>👗</span>
-                <span>Есть примерка</span>
-              </div>
-            </div>
 
             {/* More info link */}
             <button
