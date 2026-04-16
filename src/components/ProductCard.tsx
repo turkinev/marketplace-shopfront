@@ -33,9 +33,17 @@ export const ProductCard = ({
   renderBelowImage,
 }: ProductCardProps) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    if (isMobile) {
+      e.stopPropagation();
+      setIsQuickViewOpen(true);
+    }
+  };
 
   const formatPrice = (value: number): string => {
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
