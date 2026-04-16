@@ -127,22 +127,19 @@ export const QuickViewModal = ({ isOpen, onClose, product }: QuickViewModalProps
               <p className="text-sm text-muted-foreground mb-2">
                 Цвет: <span className="text-foreground font-medium">{currentColor.name}</span>
               </p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                 {mockColors.map((color) => (
                   <button
                     key={color.id}
                     onClick={() => setSelectedColor(color.id)}
                     className={cn(
-                      "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden",
+                      "w-14 h-14 rounded-lg border-2 transition-all overflow-hidden flex-shrink-0",
                       selectedColor === color.id ? "border-primary" : "border-border hover:border-primary/50"
                     )}
                   >
                     <img src={color.image} alt={color.name} className="w-full h-full object-cover" />
                   </button>
                 ))}
-                <button className="w-14 h-14 rounded-lg border border-border flex items-center justify-center hover:border-primary/50 transition-colors">
-                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </button>
               </div>
             </div>
 
