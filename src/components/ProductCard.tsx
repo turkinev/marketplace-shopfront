@@ -34,6 +34,7 @@ export const ProductCard = ({
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(initialLiked);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const formatPrice = (value: number): string => {
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
