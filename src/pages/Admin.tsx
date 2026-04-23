@@ -668,7 +668,7 @@ const Admin = () => {
               <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm" className="flex-1 gap-1">
-                    <Save className="h-3.5 w-3.5" /> Сохранить витрину
+                    <Save className="h-3.5 w-3.5" /> Сохранить
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
