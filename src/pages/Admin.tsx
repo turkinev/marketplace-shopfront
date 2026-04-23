@@ -636,9 +636,9 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto p-4 flex gap-6 flex-col lg:flex-row">
-        {/* Block List */}
-        <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
+      <div className="max-w-7xl mx-auto p-4 space-y-4">
+        {/* Top row: Store selector + Blocks list side by side */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4">
           {/* Store selector */}
           <div className="bg-card rounded-lg shadow-sm border border-border p-4 space-y-3">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
@@ -743,7 +743,7 @@ const Admin = () => {
                 Нет добавленных блоков.<br />Нажмите «Добавить» чтобы начать.
               </div>
             ) : (
-              <div className="divide-y divide-border">
+              <div className="flex flex-wrap gap-2 p-3">
                 {blocks.map((block, index) => (
                   <div
                     key={block.id}
@@ -754,15 +754,15 @@ const Admin = () => {
                     onDragOver={(e) => e.preventDefault()}
                     onClick={() => setSelectedBlockId(block.id)}
                     className={cn(
-                      "flex items-center gap-3 p-3 cursor-pointer hover:bg-secondary/50 transition-colors",
-                      selectedBlockId === block.id && "bg-primary/5 border-l-2 border-l-primary"
+                      "flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer hover:bg-secondary/50 transition-colors",
+                      selectedBlockId === block.id ? "border-primary bg-primary/5" : "border-border"
                     )}
                   >
-                    <GripVertical className="h-4 w-4 text-muted-foreground cursor-grab flex-shrink-0" />
-                    <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <GripVertical className="h-3.5 w-3.5 text-muted-foreground cursor-grab flex-shrink-0" />
+                    <div className="w-7 h-7 rounded bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                       {blockTypeIcons[block.type]}
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0">
                       <p className="text-sm font-medium text-foreground truncate">
                         {blockTypeLabels[block.type]}
                       </p>
@@ -777,10 +777,10 @@ const Admin = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 flex-shrink-0"
+                      className="h-6 w-6 flex-shrink-0"
                       onClick={(e) => { e.stopPropagation(); handleDelete(block.id); }}
                     >
-                      <Trash2 className="h-4 w-4 text-destructive" />
+                      <Trash2 className="h-3.5 w-3.5 text-destructive" />
                     </Button>
                   </div>
                 ))}
@@ -789,17 +789,15 @@ const Admin = () => {
           </div>
         </div>
 
-        {/* Editor Panel */}
-        <div className="flex-1">
-          <div className="bg-card rounded-lg shadow-sm border border-border p-4 min-h-[400px]">
-            {selectedBlock && (
-              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                {blockTypeIcons[selectedBlock.type]}
-                Настройки: {blockTypeLabels[selectedBlock.type]}
-              </h3>
-            )}
-            {renderEditor()}
-          </div>
+        {/* Editor Panel — full width below */}
+        <div className="bg-card rounded-lg shadow-sm border border-border p-4 min-h-[400px]">
+          {selectedBlock && (
+            <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+              {blockTypeIcons[selectedBlock.type]}
+              Настройки: {blockTypeLabels[selectedBlock.type]}
+            </h3>
+          )}
+          {renderEditor()}
         </div>
       </div>
     </div>
