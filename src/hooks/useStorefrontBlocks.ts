@@ -149,7 +149,37 @@ export const useStorefrontBlocks = () => {
     });
   }, []);
 
+  const saveAsTemplate = useCallback((name: string) => {
+    const id = crypto.randomUUID();
+    const template: StorefrontTemplate = { id, name, blocks: [...blocks] };
+    setTemplates((prev) => [...prev, template]);
+    setActiveTemplateId(id);
+    return id;
+  }, [blocks]);
+
+  const loadTemplate = useCallback((templateId: string) => {
+    const template = templates.find((t) => t.id === templateId);
+    if (template) {
+      setBlocks([...template.blocks]);
+      setActiveTemplateId(templateId);
+    }
+  }, [templates]);
+
+  const deleteTemplate = useCallback((templateId: string) => {
+    setTemplates((prev) => prev.filter((t) => t.id !== templateId));
+    if (activeTemplateId === templateId) setActiveTemplateId(null);
+  }, [activeTemplateId]);
+
+  const updateTemplateName = useCallback((templateId: string, name: string) => {
+    setTemplates((prev) => prev.map((t) => t.id === templateId ? { ...t, name } : t));
+  }, []);
+
   const sortedBlocks = [...blocks].sort((a, b) => a.order - b.order);
 
-  return { blocks: sortedBlocks, addBlock, updateBlock, removeBlock, reorderBlocks };
+  return {
+    blocks: sortedBlocks,
+    addBlock, updateBlock, removeBlock, reorderBlocks,
+    templates, activeTemplateId,
+    saveAsTemplate, loadTemplate, deleteTemplate, updateTemplateName,
+  };
 };
