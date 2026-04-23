@@ -571,12 +571,12 @@ const Admin = () => {
     saveAsTemplate(newTemplateName.trim());
     setNewTemplateName("");
     setSaveDialogOpen(false);
-    toast.success("Шаблон сохранён");
+    toast.success("Витрина сохранена");
   };
 
   const handleLoadTemplate = (templateId: string) => {
     loadTemplate(templateId);
-    toast.success("Шаблон загружен");
+    toast.success("Витрина магазина загружена");
   };
 
   const renderEditor = () => {
