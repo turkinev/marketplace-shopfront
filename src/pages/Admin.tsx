@@ -217,7 +217,11 @@ const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (c
           <div className="border border-border rounded-lg p-3">
             <h4 className="text-sm font-semibold text-foreground mb-2">Каталоги товаров</h4>
             <ScrollArea className="max-h-[250px]">
-              <CategoryTree selected={selectedCategory} onSelect={setSelectedCategory} />
+              <CategoryTree
+                selected={selectedCategories}
+                onToggle={(cat) => setSelectedCategories((prev) => prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat])}
+                onClearAll={() => setSelectedCategories([])}
+              />
             </ScrollArea>
           </div>
 
