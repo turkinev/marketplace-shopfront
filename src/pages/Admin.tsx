@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft, Upload, ChevronRight, Search, Save, FolderOpen } from "lucide-react";
+import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft, Upload, ChevronRight, Search, Save } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAllProducts } from "@/hooks/useInfiniteProducts";
@@ -571,12 +571,12 @@ const Admin = () => {
     saveAsTemplate(newTemplateName.trim());
     setNewTemplateName("");
     setSaveDialogOpen(false);
-    toast.success("Шаблон сохранён");
+    toast.success("Витрина сохранена");
   };
 
   const handleLoadTemplate = (templateId: string) => {
     loadTemplate(templateId);
-    toast.success("Шаблон загружен");
+    toast.success("Витрина магазина загружена");
   };
 
   const renderEditor = () => {
@@ -625,51 +625,47 @@ const Admin = () => {
       <div className="max-w-6xl mx-auto p-4 flex gap-6 flex-col lg:flex-row">
         {/* Block List */}
         <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
-          {/* Template selector */}
+          {/* Store selector */}
           <div className="bg-card rounded-lg shadow-sm border border-border p-4 space-y-3">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <FolderOpen className="h-4 w-4" /> Шаблоны витрин
+              <ShoppingBag className="h-4 w-4" /> Мои магазины
             </h3>
 
-            {templates.length > 0 ? (
-              <Select
-                value={activeTemplateId || ""}
-                onValueChange={(v) => handleLoadTemplate(v)}
-              >
-                <SelectTrigger className="h-9">
-                  <SelectValue placeholder="Выберите шаблон..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {templates.map((t) => (
-                    <SelectItem key={t.id} value={t.id}>
-                      <div className="flex items-center justify-between w-full gap-2">
-                        <span>{t.name}</span>
-                        <span className="text-xs text-muted-foreground">{t.blocks.length} блоков</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <p className="text-xs text-muted-foreground">Нет сохранённых шаблонов</p>
-            )}
+            <Select
+              value={activeTemplateId || ""}
+              onValueChange={(v) => handleLoadTemplate(v)}
+            >
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="Выберите магазин..." />
+              </SelectTrigger>
+              <SelectContent>
+                {templates.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    <div className="flex items-center justify-between w-full gap-2">
+                      <span>{t.name}</span>
+                      <span className="text-xs text-muted-foreground">{t.blocks.length} блоков</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
             <div className="flex gap-2">
               <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm" className="flex-1 gap-1">
-                    <Save className="h-3.5 w-3.5" /> Сохранить как шаблон
+                    <Save className="h-3.5 w-3.5" /> Сохранить витрину
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Сохранить шаблон</DialogTitle>
+                    <DialogTitle>Сохранить витрину магазина</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-3 mt-2">
                     <Input
                       value={newTemplateName}
                       onChange={(e) => setNewTemplateName(e.target.value)}
-                      placeholder="Название шаблона..."
+                      placeholder="Название магазина..."
                       onKeyDown={(e) => e.key === "Enter" && handleSaveTemplate()}
                     />
                     <Button onClick={handleSaveTemplate} className="w-full" disabled={!newTemplateName.trim()}>
@@ -686,7 +682,7 @@ const Admin = () => {
                   className="text-destructive hover:text-destructive"
                   onClick={() => {
                     deleteTemplate(activeTemplateId);
-                    toast.success("Шаблон удалён");
+                    toast.success("Магазин удалён");
                   }}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
