@@ -99,55 +99,65 @@ const categoryTree: Category[] = [
 
 const availableSizes = ["XS", "S", "M", "L", "XL", "XXL", "26/92", "26/98", "28/104", "44-54"];
 
-// CategoryTree component
+// CategoryTree component (multi-select)
 const CategoryTree = ({
   selected,
-  onSelect,
+  onToggle,
+  onClearAll,
 }: {
-  selected: string | null;
-  onSelect: (cat: string | null) => void;
+  selected: string[];
+  onToggle: (cat: string) => void;
+  onClearAll: () => void;
 }) => {
   return (
     <div className="space-y-1">
       <button
-        onClick={() => onSelect(null)}
+        onClick={onClearAll}
         className={cn(
           "flex items-center gap-2 w-full text-left text-sm px-2 py-1.5 rounded-md transition-colors",
-          selected === null ? "text-primary font-semibold" : "text-foreground hover:bg-secondary/50"
+          selected.length === 0 ? "text-primary font-semibold" : "text-foreground hover:bg-secondary/50"
         )}
       >
-        Выбрать все
+        Все категории
       </button>
       <Accordion type="multiple" className="w-full">
         {categoryTree.map((cat, i) => (
           <AccordionItem key={i} value={`cat-${i}`} className="border-none">
             <AccordionTrigger className="py-1.5 px-2 text-sm font-normal hover:no-underline hover:bg-secondary/50 rounded-md">
-              <span
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSelect(cat.label);
-                }}
-                className={cn(
-                  "text-left flex-1",
-                  selected === cat.label && "text-primary font-semibold"
-                )}
+              <label
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-2 text-left flex-1 cursor-pointer"
               >
-                {cat.label}
-              </span>
+                <input
+                  type="checkbox"
+                  checked={selected.includes(cat.label)}
+                  onChange={() => onToggle(cat.label)}
+                  className="accent-primary rounded"
+                />
+                <span className={cn(selected.includes(cat.label) && "text-primary font-semibold")}>
+                  {cat.label}
+                </span>
+              </label>
             </AccordionTrigger>
             {cat.children && (
               <AccordionContent className="pb-0 pl-4">
                 {cat.children.map((child, j) => (
-                  <button
+                  <label
                     key={j}
-                    onClick={() => onSelect(child.label)}
-                    className={cn(
-                      "flex items-center gap-2 w-full text-left text-sm px-2 py-1.5 rounded-md transition-colors",
-                      selected === child.label ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                    )}
+                    className="flex items-center gap-2 w-full text-left text-sm px-2 py-1.5 rounded-md cursor-pointer hover:bg-secondary/50 transition-colors"
                   >
-                    {child.label}
-                  </button>
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(child.label)}
+                      onChange={() => onToggle(child.label)}
+                      className="accent-primary rounded"
+                    />
+                    <span className={cn(
+                      selected.includes(child.label) ? "text-primary font-semibold" : "text-muted-foreground"
+                    )}>
+                      {child.label}
+                    </span>
+                  </label>
                 ))}
               </AccordionContent>
             )}
