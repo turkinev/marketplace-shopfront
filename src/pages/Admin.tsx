@@ -5,11 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft, Upload } from "lucide-react";
+import { Plus, Trash2, GripVertical, Eye, LayoutGrid, Image, MessageSquare, ShoppingBag, ChevronLeft, Upload, ChevronRight, Search, Save, FolderOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAllProducts } from "@/hooks/useInfiniteProducts";
 import { cn } from "@/lib/utils";
+import { Slider } from "@/components/ui/slider";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const blockTypeLabels: Record<BlockType, string> = {
   shelf: "Полка",
@@ -35,10 +38,137 @@ const blockTypeDescriptions: Record<BlockType, string> = {
   reviews: "Блок с отзывами покупателей.",
 };
 
-// Shelf Editor
+// Category tree data
+interface Category {
+  label: string;
+  children?: Category[];
+}
+
+const categoryTree: Category[] = [
+  {
+    label: "Одежда и обувь для детей",
+    children: [
+      { label: "Одежда для детей" },
+      { label: "Детский трикотаж" },
+    ],
+  },
+  {
+    label: "Одежда и обувь для женщин",
+    children: [
+      { label: "Бельё, купальники, колготки, носки для женщин" },
+      { label: "Трусы женские" },
+      { label: "Домашняя одежда для женщин" },
+      { label: "Сорочки пижамы" },
+      { label: "Халаты, туники" },
+    ],
+  },
+  {
+    label: "Одежда для женщин",
+    children: [
+      { label: "Лонгсливы" },
+      { label: "Брюки" },
+      { label: "Футболки" },
+      { label: "Платья" },
+      { label: "Блузки" },
+    ],
+  },
+  {
+    label: "Одежда и обувь для мужчин",
+    children: [
+      { label: "Футболки мужские" },
+      { label: "Брюки мужские" },
+      { label: "Куртки мужские" },
+    ],
+  },
+  {
+    label: "Электроника и аксессуары",
+    children: [
+      { label: "Наушники" },
+      { label: "Зарядные устройства" },
+      { label: "Клавиатуры и мыши" },
+    ],
+  },
+  {
+    label: "Товары для дома",
+    children: [
+      { label: "Бытовая химия" },
+      { label: "Посуда" },
+    ],
+  },
+];
+
+const availableSizes = ["XS", "S", "M", "L", "XL", "XXL", "26/92", "26/98", "28/104", "44-54"];
+
+// CategoryTree component
+const CategoryTree = ({
+  selected,
+  onSelect,
+}: {
+  selected: string | null;
+  onSelect: (cat: string | null) => void;
+}) => {
+  return (
+    <div className="space-y-1">
+      <button
+        onClick={() => onSelect(null)}
+        className={cn(
+          "flex items-center gap-2 w-full text-left text-sm px-2 py-1.5 rounded-md transition-colors",
+          selected === null ? "text-primary font-semibold" : "text-foreground hover:bg-secondary/50"
+        )}
+      >
+        Выбрать все
+      </button>
+      <Accordion type="multiple" className="w-full">
+        {categoryTree.map((cat, i) => (
+          <AccordionItem key={i} value={`cat-${i}`} className="border-none">
+            <AccordionTrigger className="py-1.5 px-2 text-sm font-normal hover:no-underline hover:bg-secondary/50 rounded-md">
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelect(cat.label);
+                }}
+                className={cn(
+                  "text-left flex-1",
+                  selected === cat.label && "text-primary font-semibold"
+                )}
+              >
+                {cat.label}
+              </span>
+            </AccordionTrigger>
+            {cat.children && (
+              <AccordionContent className="pb-0 pl-4">
+                {cat.children.map((child, j) => (
+                  <button
+                    key={j}
+                    onClick={() => onSelect(child.label)}
+                    className={cn(
+                      "flex items-center gap-2 w-full text-left text-sm px-2 py-1.5 rounded-md transition-colors",
+                      selected === child.label ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    )}
+                  >
+                    {child.label}
+                  </button>
+                ))}
+              </AccordionContent>
+            )}
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  );
+};
+
+// Shelf Editor with categories and filters
 const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (config: ShelfConfig) => void }) => {
   const config = block.config as ShelfConfig;
   const products = useAllProducts();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const minPrice = Math.min(...products.map((p) => p.price));
+  const maxPrice = Math.max(...products.map((p) => p.price));
 
   const toggleProduct = (id: string) => {
     const ids = config.productIds.includes(id)
@@ -46,6 +176,18 @@ const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (c
       : [...config.productIds, id];
     onUpdate({ ...config, productIds: ids });
   };
+
+  const toggleSize = (size: string) => {
+    setSelectedSizes((prev) =>
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+    );
+  };
+
+  const filteredProducts = products.filter((p) => {
+    if (p.price < priceRange[0] || p.price > priceRange[1]) return false;
+    if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    return true;
+  });
 
   return (
     <div className="space-y-4">
@@ -57,25 +199,111 @@ const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (c
           placeholder="Например, «Мужская обувь»"
         />
       </div>
-      <div>
-        <Label>Товары в подборке ({config.productIds.length} выбрано, мин. 5)</Label>
-        <div className="grid grid-cols-1 gap-2 mt-2 max-h-[300px] overflow-y-auto">
-          {products.map((p) => (
-            <label key={p.id} className={cn(
-              "flex items-center gap-3 p-2 rounded-lg border cursor-pointer transition-colors",
-              config.productIds.includes(p.id) ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
-            )}>
-              <input
-                type="checkbox"
-                checked={config.productIds.includes(p.id)}
-                onChange={() => toggleProduct(p.id)}
-                className="accent-primary"
-              />
-              <img src={p.imageUrl} alt={p.name} className="w-10 h-10 rounded object-cover bg-secondary" />
-              <span className="text-sm text-foreground truncate flex-1">{p.name}</span>
-              <span className="text-sm font-medium text-foreground whitespace-nowrap">{p.price} ₽</span>
-            </label>
-          ))}
+
+      <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4">
+        {/* Left sidebar: category tree + filters */}
+        <div className="space-y-4">
+          {/* Category tree */}
+          <div className="border border-border rounded-lg p-3">
+            <h4 className="text-sm font-semibold text-foreground mb-2">Каталоги товаров</h4>
+            <ScrollArea className="max-h-[250px]">
+              <CategoryTree selected={selectedCategory} onSelect={setSelectedCategory} />
+            </ScrollArea>
+          </div>
+
+          {/* Price range filter */}
+          <div className="border border-border rounded-lg p-3 space-y-3">
+            <h4 className="text-sm font-semibold text-foreground">Ценовой диапазон</h4>
+            <Slider
+              value={priceRange}
+              onValueChange={(v) => setPriceRange(v as [number, number])}
+              min={minPrice}
+              max={maxPrice}
+              step={10}
+              className="mt-2"
+            />
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <Input
+                  type="number"
+                  value={priceRange[0]}
+                  onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                  className="h-8 text-xs"
+                  placeholder={`Мин: ${minPrice}`}
+                />
+              </div>
+              <span className="text-muted-foreground text-sm">—</span>
+              <div className="flex-1">
+                <Input
+                  type="number"
+                  value={priceRange[1]}
+                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                  className="h-8 text-xs"
+                  placeholder={`${maxPrice}`}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Size filter */}
+          <div className="border border-border rounded-lg p-3 space-y-2">
+            <h4 className="text-sm font-semibold text-foreground">Размер</h4>
+            <ScrollArea className="max-h-[180px]">
+              <div className="space-y-1">
+                {availableSizes.map((size) => (
+                  <label key={size} className="flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer hover:bg-secondary/50 transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={selectedSizes.includes(size)}
+                      onChange={() => toggleSize(size)}
+                      className="accent-primary rounded"
+                    />
+                    <span className="text-sm text-foreground">{size}</span>
+                  </label>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
+        </div>
+
+        {/* Right: product list */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Label>Товары ({config.productIds.length} выбрано, мин. 5)</Label>
+            <span className="text-xs text-primary">{filteredProducts.length} товаров</span>
+          </div>
+
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Поиск по названию..."
+              className="pl-9 h-9"
+            />
+          </div>
+
+          <ScrollArea className="max-h-[400px]">
+            <div className="grid grid-cols-1 gap-2">
+              {filteredProducts.map((p) => (
+                <label key={p.id} className={cn(
+                  "flex items-center gap-3 p-2 rounded-lg border cursor-pointer transition-colors",
+                  config.productIds.includes(p.id) ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                )}>
+                  <input
+                    type="checkbox"
+                    checked={config.productIds.includes(p.id)}
+                    onChange={() => toggleProduct(p.id)}
+                    className="accent-primary"
+                  />
+                  <img src={p.imageUrl} alt={p.name} className="w-10 h-10 rounded object-cover bg-secondary" />
+                  <span className="text-sm text-foreground truncate flex-1">{p.name}</span>
+                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{p.price} ₽</span>
+                </label>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>
@@ -195,7 +423,6 @@ const BannerEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (
 
   return (
     <div className="space-y-4">
-
       {config.banners.map((banner, i) => (
         <div key={banner.id} className="p-3 border border-border rounded-lg space-y-2">
           <div className="flex items-center justify-between">
@@ -294,9 +521,15 @@ const ReviewsEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: 
 };
 
 const Admin = () => {
-  const { blocks, addBlock, updateBlock, removeBlock, reorderBlocks } = useStorefrontBlocks();
+  const {
+    blocks, addBlock, updateBlock, removeBlock, reorderBlocks,
+    templates, activeTemplateId,
+    saveAsTemplate, loadTemplate, deleteTemplate,
+  } = useStorefrontBlocks();
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [newTemplateName, setNewTemplateName] = useState("");
   const navigate = useNavigate();
 
   const dragItem = useRef<number | null>(null);
@@ -331,6 +564,19 @@ const Admin = () => {
     }
     dragItem.current = null;
     dragOverItem.current = null;
+  };
+
+  const handleSaveTemplate = () => {
+    if (!newTemplateName.trim()) return;
+    saveAsTemplate(newTemplateName.trim());
+    setNewTemplateName("");
+    setSaveDialogOpen(false);
+    toast.success("Шаблон сохранён");
+  };
+
+  const handleLoadTemplate = (templateId: string) => {
+    loadTemplate(templateId);
+    toast.success("Шаблон загружен");
   };
 
   const renderEditor = () => {
@@ -378,7 +624,78 @@ const Admin = () => {
 
       <div className="max-w-6xl mx-auto p-4 flex gap-6 flex-col lg:flex-row">
         {/* Block List */}
-        <div className="w-full lg:w-80 flex-shrink-0">
+        <div className="w-full lg:w-80 flex-shrink-0 space-y-4">
+          {/* Template selector */}
+          <div className="bg-card rounded-lg shadow-sm border border-border p-4 space-y-3">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <FolderOpen className="h-4 w-4" /> Шаблоны витрин
+            </h3>
+
+            {templates.length > 0 ? (
+              <Select
+                value={activeTemplateId || ""}
+                onValueChange={(v) => handleLoadTemplate(v)}
+              >
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Выберите шаблон..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {templates.map((t) => (
+                    <SelectItem key={t.id} value={t.id}>
+                      <div className="flex items-center justify-between w-full gap-2">
+                        <span>{t.name}</span>
+                        <span className="text-xs text-muted-foreground">{t.blocks.length} блоков</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <p className="text-xs text-muted-foreground">Нет сохранённых шаблонов</p>
+            )}
+
+            <div className="flex gap-2">
+              <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex-1 gap-1">
+                    <Save className="h-3.5 w-3.5" /> Сохранить как шаблон
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Сохранить шаблон</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-3 mt-2">
+                    <Input
+                      value={newTemplateName}
+                      onChange={(e) => setNewTemplateName(e.target.value)}
+                      placeholder="Название шаблона..."
+                      onKeyDown={(e) => e.key === "Enter" && handleSaveTemplate()}
+                    />
+                    <Button onClick={handleSaveTemplate} className="w-full" disabled={!newTemplateName.trim()}>
+                      Сохранить
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              {activeTemplateId && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-destructive hover:text-destructive"
+                  onClick={() => {
+                    deleteTemplate(activeTemplateId);
+                    toast.success("Шаблон удалён");
+                  }}
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Blocks list */}
           <div className="bg-card rounded-lg shadow-sm border border-border">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <h2 className="font-semibold text-foreground">Блоки</h2>

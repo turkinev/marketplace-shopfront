@@ -46,6 +46,14 @@ export interface StorefrontBlock {
 }
 
 const STORAGE_KEY = "storefront_blocks";
+const TEMPLATES_KEY = "storefront_templates";
+const ACTIVE_TEMPLATE_KEY = "storefront_active_template";
+
+export interface StorefrontTemplate {
+  id: string;
+  name: string;
+  blocks: StorefrontBlock[];
+}
 
 function loadBlocks(): StorefrontBlock[] {
   try {
@@ -59,12 +67,43 @@ function saveBlocks(blocks: StorefrontBlock[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(blocks));
 }
 
+function loadTemplates(): StorefrontTemplate[] {
+  try {
+    const raw = localStorage.getItem(TEMPLATES_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return [];
+}
+
+function saveTemplates(templates: StorefrontTemplate[]) {
+  localStorage.setItem(TEMPLATES_KEY, JSON.stringify(templates));
+}
+
+function loadActiveTemplateId(): string | null {
+  return localStorage.getItem(ACTIVE_TEMPLATE_KEY);
+}
+
+function saveActiveTemplateId(id: string | null) {
+  if (id) localStorage.setItem(ACTIVE_TEMPLATE_KEY, id);
+  else localStorage.removeItem(ACTIVE_TEMPLATE_KEY);
+}
+
 export const useStorefrontBlocks = () => {
   const [blocks, setBlocks] = useState<StorefrontBlock[]>(loadBlocks);
+  const [templates, setTemplates] = useState<StorefrontTemplate[]>(loadTemplates);
+  const [activeTemplateId, setActiveTemplateId] = useState<string | null>(loadActiveTemplateId);
 
   useEffect(() => {
     saveBlocks(blocks);
   }, [blocks]);
+
+  useEffect(() => {
+    saveTemplates(templates);
+  }, [templates]);
+
+  useEffect(() => {
+    saveActiveTemplateId(activeTemplateId);
+  }, [activeTemplateId]);
 
   const addBlock = useCallback((type: BlockType) => {
     const id = crypto.randomUUID();
@@ -110,7 +149,37 @@ export const useStorefrontBlocks = () => {
     });
   }, []);
 
+  const saveAsTemplate = useCallback((name: string) => {
+    const id = crypto.randomUUID();
+    const template: StorefrontTemplate = { id, name, blocks: [...blocks] };
+    setTemplates((prev) => [...prev, template]);
+    setActiveTemplateId(id);
+    return id;
+  }, [blocks]);
+
+  const loadTemplate = useCallback((templateId: string) => {
+    const template = templates.find((t) => t.id === templateId);
+    if (template) {
+      setBlocks([...template.blocks]);
+      setActiveTemplateId(templateId);
+    }
+  }, [templates]);
+
+  const deleteTemplate = useCallback((templateId: string) => {
+    setTemplates((prev) => prev.filter((t) => t.id !== templateId));
+    if (activeTemplateId === templateId) setActiveTemplateId(null);
+  }, [activeTemplateId]);
+
+  const updateTemplateName = useCallback((templateId: string, name: string) => {
+    setTemplates((prev) => prev.map((t) => t.id === templateId ? { ...t, name } : t));
+  }, []);
+
   const sortedBlocks = [...blocks].sort((a, b) => a.order - b.order);
 
-  return { blocks: sortedBlocks, addBlock, updateBlock, removeBlock, reorderBlocks };
+  return {
+    blocks: sortedBlocks,
+    addBlock, updateBlock, removeBlock, reorderBlocks,
+    templates, activeTemplateId,
+    saveAsTemplate, loadTemplate, deleteTemplate, updateTemplateName,
+  };
 };
