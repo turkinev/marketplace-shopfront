@@ -172,7 +172,7 @@ const CategoryTree = ({
 const ShelfEditor = ({ block, onUpdate }: { block: StorefrontBlock; onUpdate: (config: ShelfConfig) => void }) => {
   const config = block.config as ShelfConfig;
   const products = useAllProducts();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
